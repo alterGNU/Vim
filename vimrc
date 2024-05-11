@@ -18,7 +18,7 @@ map <silent> <F2> <Esc>:write <bar> :source $MYVIMRC<CR>
 set viminfo+=n~/.vim/viminfo
 
 " -[ DÉFINITION DE <LEADER> ]------------------------------------------------------------
-let mapleader = "²"
+let mapleader = "`"
 
 " -[ ACTIVATION DES EXTENSIONS DU VIMRC DANS LE DOSSIER ~/.VIM/CONFIG/ ]------------------
 runtime! config/**/*.vim
