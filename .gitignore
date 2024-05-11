@@ -1,0 +1,8 @@
+# Swap-files ( fichiers de sauvegarde de vim)
+*.swo
+*.swp
+
+# History-files 
+viminfo
+.netrwhist
+.
