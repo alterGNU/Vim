@@ -27,15 +27,6 @@ runtime! config/**/*.vim
 set mouse=a
 
 " ========================================================================================
-" FILETYPE CONFIGURATION
-" ========================================================================================
-filetype plugin indent on
-
-" -[ SWITCH CAPS<->ESCAP ]----------------------------------------------------------------
-"au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
-"au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
-
-" ========================================================================================
 " OPTIONNALS SETTINGS
 " ========================================================================================
 
@@ -45,12 +36,12 @@ set smartindent           | " Petit plus...
 
 " =[  AFFICHAGE ]=========================================================================
 set title             	  | " Affiche le titre des fenêtres et terminaux en bas à gauche
-set number 		          | " Affiche le numéro des lignes
+set number 	          | " Affiche le numéro des lignes
 set ruler                 | " Affiche barre bas à droite la position du curseur
-set wrap		          | " Lorsque la ligne est trop longue, l'affiche en dessous
+set wrap	          | " Lorsque la ligne est trop longue, l'affiche en dessous
 
 " =[ BEEP/ALERTE ]========================================================================
-set belloff=all    	      | " Désactive toutes les alertes sonnores et visuelles
+set belloff=all           | " Désactive toutes les alertes sonnores et visuelles
 
 " =[ DIFFSPLIT EN VERTICAL (DEFAUT HORIZONTAL...PAS PRATIQUE) ]===========================
 set diffopt=vertical      | " Permet comparaison cote à cote des fichiers
@@ -60,11 +51,6 @@ set scrolloff=5           | " Garde toujours le curseur à 5lignes du bord de la
 
 " =[ COLORATION ]=========================================================================
 syntax enable             | " Activation de la coloration syntaxique
-
-" =[ TAB ET LIMITES DU TEXTE ]============================================================
-set expandtab             | " Remplace la tabulation par des espaces
-set tabstop=4    	      | " Remplace la tabulation par 4 espaces
-set shiftwidth=4          | " Elimine le bud d'indentation 8espaces...
 
 " =[ LIMITATION DE LARGEUR DU TEXTE ]=====================================================
 set textwidth=120          | " Par defaut, indépendemment du filetype, largeur max = 99!
@@ -105,6 +91,19 @@ vnoremap <leader>t :sort<CR>
 " =[ SEARCH&REPLACE ]=====================================================================
 noremap ;; :%s:::gic<left><left><left><left><left>
 vnoremap ;; :s:::gic<left><left><left><left><left>
+
+" ========================================================================================
+" FILETYPE CONFIGURATION
+" ========================================================================================
+filetype plugin indent on
+
+" =[ C FILES ]============================================================================
+autocmd FileType c setlocal commentstring=//\ %s
+
+" -[ SWITCH CAPS<->ESCAP ]----------------------------------------------------------------
+"au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+"au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
+
  
 " ========================================================================================
 " CONFIGURATION PLUGINS
