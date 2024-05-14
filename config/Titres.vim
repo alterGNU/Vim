@@ -108,9 +108,9 @@ endfunction
 " MAPPING
 " ========================================================================================
 " On ne les mets pas ds vimrc car pas dit que ce .vim soit toujours là sur les != devices
-noremap <silent> <Leader>& :call Titre1(Textwidth(),DefCom(),"=")<CR>
-noremap <silent> <Leader>é :call Titre2(Textwidth(),DefCom(),"=")<CR>
-noremap <silent> <Leader>" :call Titre2(Textwidth(),DefCom(),"-")<CR>
+noremap <silent> <Leader>1 :call Titre1(Textwidth(),DefCom(),"=")<CR>
+noremap <silent> <Leader>2 :call Titre2(Textwidth(),DefCom(),"=")<CR>
+noremap <silent> <Leader>3 :call Titre2(Textwidth(),DefCom(),"-")<CR>
 
 " Pour l'exception des fichiers.md, voir ~/.vim/ftplugin/markdown_mappings.vim instead of:
 " autocmd FileType {filetype_names} nnoremap <........>
