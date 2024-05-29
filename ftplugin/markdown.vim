@@ -16,7 +16,7 @@ set shiftwidth=4          | " elimine le bud d'indentation 8espaces...
 " =[ MD_TITLES ]==========================================================================
 " Permet de mettre en forme les titres mardown 
 " -[ MODE NORMAL ET VISUEL ]--------------------------------------------------------------
-map <buffer> <Leader><Leader> :call Markdown_Titles(0)<CR>
+map <buffer> <Leader>0 :call Markdown_Titles(0)<CR>
 map <buffer> <Leader>1 :call Markdown_Titles(1)<CR>
 map <buffer> <Leader>2 :call Markdown_Titles(2)<CR>
 map <buffer> <Leader>3 :call Markdown_Titles(3)<CR>
