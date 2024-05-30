@@ -9,3 +9,6 @@ git clone https://github.com/alterGNU42/.vim.git && cd ~/.vim && git submodule i
 ## Infos
 ### Submodules
 - Gruvbox Theme
+
+## TO-DO
+- [ ] Gestions session (soit add plugin Obsession soit set variable pour localiser Working Sessions Files + fcts)
