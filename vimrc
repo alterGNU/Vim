@@ -84,6 +84,7 @@ inoremap <c-n> <c-o>:nohl<CR>
 
 " =[ :SORT : '²'+T PERMET DE TRIER L'ENSEMBLE DES LIGNES SELECTIONNÉES ]==================
 vnoremap <leader>t :sort<CR>
+vnoremap <leader>T :sort!<CR>
 
 " =[ SEARCH&REPLACE ]=====================================================================
 noremap ;; :%s:::gc<left><left><left><left><left>
