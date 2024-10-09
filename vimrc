@@ -92,8 +92,8 @@ vnoremap <leader>t :sort<CR>
 vnoremap <leader>T :sort!<CR>
 
 " =[ SEARCH&REPLACE ]=====================================================================
-noremap ;; :%s:::gc<left><left><left><left><left>
-vnoremap ;; :s:::gc<left><left><left><left><left>
+noremap ;; :%s:::gc<left><left><left><left>
+vnoremap ;; :s:::g<left><left><left>
 
 " ========================================================================================
 " FILETYPE CONFIGURATION
