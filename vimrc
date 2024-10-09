@@ -1,7 +1,6 @@
 " ========================================================================================
 " BASIC SETUP
 " ========================================================================================
-
 " -[ DÉSACTIVER LA COMPATIBILITÉ AVEC VI ]----------------------------------------------
 set nocompatible
 
@@ -122,7 +121,6 @@ Plug 'morhetz/gruvbox'            | " Theme & color retro groove
 Plug 'mzlogin/vim-markdown-toc'   | " Creation de TOC 
 Plug 'scrooloose/syntastic'       | " Syntax checking
 Plug 'alexandregv/norminette-vim' | " Norminette checking
-Plug 'valloric/youcompleteme'     | " Code Completion
 Plug 'scrooloose/nerdtree'        | " File system explorer
 call plug#end()
 

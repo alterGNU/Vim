@@ -4,9 +4,6 @@
 [submodule "nerdtree"]
 	path = plugged/nerdtree
 	url = https://github.com/preservim/nerdtree.git
-[submodule "YouCompleteMe"]
-	path = plugged/YouCompleteMe
-	url = https://github.com/ycm-core/YouCompleteMe.git
 [submodule "norminette-vim"]
 	path = plugged/norminette-vim
 	url = https://github.com/alexandregv/norminette-vim.git
