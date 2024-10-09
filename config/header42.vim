@@ -1,15 +1,16 @@
 " **************************************************************************** "
 "                                                                              "
 "                                                         :::      ::::::::    "
-"    42Header.vim                                       :+:      :+:    :+:    "
+"    header42.vim                                       :+:      :+:    :+:    "
 "                                                     +:+ +:+         +:+      "
 "    By: lagrondi <marvin@42.fr>                    +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2024/10/09 10:33:47 by lagrondi          #+#    #+#              "
-"    Updated: 2024/10/09 10:33:54 by lagrondi         ###   ########.fr        "
+"    Updated: 2024/10/09 13:18:33 by lagrondi         ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
+" =[ VAR ]================================================================================
 let s:asciiart = [
             \"        :::      ::::::::",
             \"      :+:      :+:    :+:",
@@ -45,6 +46,7 @@ let s:types		= {
             \['!', '!', '/']
             \}
 
+" =[ FUNCTIONS ]==========================================================================
 function! s:filetype()
     let l:f = s:filename()
 
@@ -150,13 +152,13 @@ function! s:update()
     return 1
 endfunction
 
-function! s:stdheader()
+function! s:header42()
     if s:update()
         call s:insert()
     endif
 endfunction
 
-" Bind command and shortcut
-command! Stdheader call s:stdheader ()
-nmap <f1> <esc>:Stdheader<CR>
+" =[ BIND COMMAND AND SHORTCUT ]==========================================================
+command! Header42 call s:header42 ()
+nmap <f1> <esc>:Header42<CR>
 autocmd BufWritePre * call s:update ()

@@ -9,10 +9,11 @@ set nocompatible
 packloadall
 
 " -[ MODIFICATIONS DU VIMRC ACTIVES À LA SAUVEGARDE DU $MYVIMRC ]------------------------
-autocmd! bufwritepost $MYVIMRC source %
+autocmd! bufwritepost $MYVIMRC source % 
 
 " -[ RACC. SAVE MANUELLE DE LA PAGE ACTUELLE => SOURCE $MYVIMRC ]-------------------------
-map <silent> <F2> <Esc>:write <bar> :source $MYVIMRC<CR>
+command! ReloadVimrc source $MYVIMRC | PlugInstall | PlugUpdate
+map <silent> <F5> <Esc>:write <bar> :ReloadVimrc<CR>
 
 " -[ MODIFICATION DE L'EMPLACEMENT PAR DÉFAUT DU VIMINFO ]-------------------------------
 set viminfo+=n~/.vim/viminfo
@@ -53,7 +54,7 @@ set scrolloff=5           | " Garde toujours le curseur à 5lignes du bord de la
 syntax enable             | " Activation de la coloration syntaxique
 
 " =[ LIMITATION DE LARGEUR DU TEXTE ]=====================================================
-set textwidth=120          | " Par defaut, indépendemment du filetype, largeur max = 99!
+set textwidth=080          | " Par defaut, indépendemment du filetype, largeur max = 99!
 
 " =[ RECHERCHES ET SURLIGNAGES DANS LE TEXTE ]============================================
 set incsearch             | " Active la recherche et surlignage pendant la saisie du texte
@@ -61,24 +62,20 @@ set hlsearch              | " Active le surlignage des correspondance
 set ignorecase            | " Permet d'ignorer la case...
 set smartcase             | " ... mais si on met une maj dans la recherche la prend en compte
 
- 
 " ========================================================================================
 " GENERAL MAPPINGS
 " ========================================================================================
  
 " =[ TABULATION ]=========================================================================
-map tn : tabn<CR>         | " Passe à l'onglet vim suivant
-map tp : tabp<CR>         | " Passe à l'onglet vim précédent
 map th : tab help<Space>  | " Ouvre dans un nouvel onglet une page d'aide
 map tm : tabm<Space>      | " Décalle vers la droite + et vers la gauche - l'onglet actuel
-map tt : tabnew<Space>    | " Ouvre un nouvel onglet 
-map ts : tab split<Space> | " Ouvre dans un nouvel onglet un fichier existant
-noremap te : tabe<Space>  | " Ouvre dans un nouvel onglet un fichier existant
+map ts : vsplit<Space>    | " Ouvre dans onglet actuel, avec separation vertical, un fichier existant
+map te : tabe<Space>      | " Ouvre dans un nouvel onglet un fichier existant
 
 " =[ :SAVE ]==============================================================================
-noremap <c-u> :update<CR>
-vnoremap <c-u> <c-c>:update<CR>
-inoremap <c-u> <c-o>:update<CR>
+noremap <c-s> :write<CR>
+vnoremap <c-s> <c-c>:write<CR>
+inoremap <c-s> <c-o>:write<CR>
 
 " =[ :NOHL : CTRL+N PERMET D'ARRÊTER LE SURLIGNAGE ACTIF  ]===============================
 noremap <c-n> :nohl<CR>
@@ -89,8 +86,8 @@ inoremap <c-n> <c-o>:nohl<CR>
 vnoremap <leader>t :sort<CR>
 
 " =[ SEARCH&REPLACE ]=====================================================================
-noremap ;; :%s:::gic<left><left><left><left><left>
-vnoremap ;; :s:::gic<left><left><left><left><left>
+noremap ;; :%s:::gc<left><left><left><left><left>
+vnoremap ;; :s:::gc<left><left><left><left><left>
 
 " ========================================================================================
 " FILETYPE CONFIGURATION
@@ -104,17 +101,28 @@ autocmd FileType c setlocal commentstring=//\ %s
 "au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 "au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
 
- 
 " ========================================================================================
 " CONFIGURATION PLUGINS
 " ========================================================================================
+" auto-install vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+    echo "Installing VimPlug..."
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall
+endif
+
+" VimPlug
+call plug#begin()
+Plug 'morhetz/gruvbox'
+" ↳ Theme et coloration retro groove
+Plug 'mzlogin/vim-markdown-toc'
+" ↳ Creation de TOC (Table Of Content pour fichier.md) ⇨ `:GenTocGFM`
+call plug#end()
 
 " =[ GRUVBOX ]============================================================================
-" -[ DÉCLARATION DU THÈME ]-------------------------------------------------------------
 set t_Co=256
 set background=dark
 colorscheme gruvbox
-
 " -[ FONCTION AFFICHANT LA COLONE LIMITE QUAND ELLE EXISTE ]------------------------------
 " Si textwidth est déclarée, accorde colorcolumn avec sa valeur
 " Sinon met la limite à 80 (pour 79)
@@ -132,3 +140,5 @@ augroup colorcolumn
     autocmd!
     autocmd BufEnter * call SetColorColumnPerFile()
 augroup end
+" =[ VIM-MARKDOWN-TOC ]===================================================================
+map <silent> <F3> <Esc>:GenTocGFM<CR>
