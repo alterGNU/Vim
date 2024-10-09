@@ -1,7 +1,22 @@
 [submodule "gruvbox"]
-    path = pack/plugins/start/gruvbox
-    url = https://github.com/alterGNU/.vim.git
+	path = gruvbox
+	url = https://github.com/morhetz/gruvbox.git
 [submodule "pack/plugins/start/gruvbox"]
 	path = pack/plugins/start/gruvbox
 	url = https://github.com/morhetz/gruvbox.git
 	branch = master
+[submodule "nerdtree"]
+	path = nerdtree
+	url = https://github.com/preservim/nerdtree.git
+[submodule "YouCompleteMe"]
+	path = YouCompleteMe
+	url = https://github.com/ycm-core/YouCompleteMe.git
+[submodule "norminette-vim"]
+	path = norminette-vim
+	url = https://github.com/alexandregv/norminette-vim.git
+[submodule "syntastic"]
+	path = syntastic
+	url = https://github.com/vim-syntastic/syntastic.git
+[submodule "vim-markdown-toc"]
+	path = vim-markdown-toc
+	url = https://github.com/mzlogin/vim-markdown-toc.git
