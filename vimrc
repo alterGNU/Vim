@@ -12,8 +12,13 @@ packloadall
 autocmd! bufwritepost $MYVIMRC source % 
 
 " -[ RACC. SAVE MANUELLE DE LA PAGE ACTUELLE => SOURCE $MYVIMRC ]-------------------------
-command! ReloadVimrc source $MYVIMRC | PlugInstall | PlugUpdate | PlugClean
-map <silent> <F5> <Esc>:write <bar> :ReloadVimrc<CR>
+function! ReloadVimrc()
+	silent! source $MYVIMRC " coucou
+	silent! PlugInstall " petite
+	silent! PlugUpdate " perruche
+	silent! PlugClean " !
+endfunction
+map <silent> <F5> <Esc>:call ReloadVimrc()<CR>
 
 " -[ MODIFICATION DE L'EMPLACEMENT PAR DÉFAUT DU VIMINFO ]-------------------------------
 set viminfo+=n~/.vim/viminfo
@@ -113,10 +118,10 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin()
-Plug 'morhetz/gruvbox'
-" ↳ Theme et coloration retro groove
-Plug 'mzlogin/vim-markdown-toc'
-" ↳ Creation de TOC (Table Of Content pour fichier.md) ⇨ `:GenTocGFM`
+Plug 'morhetz/gruvbox' " Theme et coloration retro groove
+Plug 'mzlogin/vim-markdown-toc' "Creation de TOC (Table Of Content pour fichier.md) ⇨ `:GenTocGFM`
+Plug 'scrooloose/syntastic' "Syntax checking plugin
+Plug 'alexandregv/norminette-vim' "norminette checking plugin 
 call plug#end()
 
 " =[ GRUVBOX ]============================================================================
@@ -142,3 +147,29 @@ augroup colorcolumn
 augroup end
 " =[ VIM-MARKDOWN-TOC ]===================================================================
 map <silent> <F3> <Esc>:GenTocGFM<CR>
+" =[ NORMINETTE-VIM ]=====================================================================
+" Enable norminette-vim (and gcc)
+let g:syntastic_c_checkers = ['norminette', 'cc']
+let g:syntastic_aggregate_errors = 1
+
+" Set the path to norminette (do no set if using norminette of 42 mac)
+let g:syntastic_c_norminette_exec = 'norminette'
+
+" Support headers (.h)
+let g:c_syntax_for_h = 1
+let g:syntastic_c_include_dirs = ['include', '../include', '../../include', 'libft', '../libft/include', '../../libft/include']
+
+" Pass custom arguments to norminette (this one ignores 42header)
+let g:syntastic_c_norminette_args = '-R CheckTopCommentHeader'
+
+" Check errors when opening a file (disable to speed up startup time)
+let g:syntastic_check_on_open = 1
+
+" Enable error list
+let g:syntastic_always_populate_loc_list = 1
+
+" Automatically open error list
+let g:syntastic_auto_loc_list = 1
+
+" Skip check when closing
+let g:syntastic_check_on_wq = 0
