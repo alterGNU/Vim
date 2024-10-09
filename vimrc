@@ -83,9 +83,9 @@ vnoremap <c-s> <c-c>:write<CR>
 inoremap <c-s> <c-o>:write<CR>
 
 " =[ :NOHL : CTRL+N PERMET D'ARRÊTER LE SURLIGNAGE ACTIF  ]===============================
-noremap <c-c> :nohl<CR>
-vnoremap <c-c> <c-c>:nohl<CR>
-inoremap <c-c> <c-o>:nohl<CR>
+noremap <c-n> :nohl<CR>
+vnoremap <c-n> <c-c>:nohl<CR>
+inoremap <c-n> <c-o>:nohl<CR>
 
 " =[ :SORT : '²'+T PERMET DE TRIER L'ENSEMBLE DES LIGNES SELECTIONNÉES ]==================
 vnoremap <leader>t :sort<CR>
