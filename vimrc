@@ -12,7 +12,7 @@ packloadall
 autocmd! bufwritepost $MYVIMRC source % 
 
 " -[ RACC. SAVE MANUELLE DE LA PAGE ACTUELLE => SOURCE $MYVIMRC ]-------------------------
-command! ReloadVimrc source $MYVIMRC | PlugInstall | PlugUpdate
+command! ReloadVimrc source $MYVIMRC | PlugInstall | PlugUpdate | PlugClean
 map <silent> <F5> <Esc>:write <bar> :ReloadVimrc<CR>
 
 " -[ MODIFICATION DE L'EMPLACEMENT PAR DÉFAUT DU VIMINFO ]-------------------------------
@@ -112,7 +112,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall
 endif
 
-" VimPlug
 call plug#begin()
 Plug 'morhetz/gruvbox'
 " ↳ Theme et coloration retro groove
