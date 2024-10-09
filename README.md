@@ -29,14 +29,20 @@ git clone https://github.com/alterGNU42/.vim.git ~/.vim && echo -e "\n" | vim -c
 | [t]+[s]+'name'|   `:vsplit<Space>  `   | Open file 'name' in a new tab, splitting verticaly the actual tab           |
 | [t]+[e]+'name'|   `:tabe<Space>    `   | Open file 'name' in a new tab                                               |
 | [ctrl]+[s]    |   `:write`             | Save(write the buff to the file,even if buff empty:timestamp always update) |
-| [ctrl]+[n]    |   `:nohl`              | No highlightning                                                            |
+| [ctrl]+[N]    |   `:nohl`              | No highlightning                                                            |
 | [leader]+[t]  |   `:sort!<CR>`         | Sort selection                                                              |
 | [leader]+[T]  |   `:sort<CR>`          | REVERSE Sort selection                                                      |
 | [;]+[;]       |   ` `                  | Launch Search & Replace with options:[(`g`,global), (`c`,ask B4 change)]    |
+| [ctrl]+[t]    |   `:NERDTreeToggle`    | NERDTreeToggle                                                              |
+| [ctrl]+[f]    |   `:NERDTreeFind`      | NERDTreeFind                                                                |
 
 ## Plugins (plugin manager:plug.vim)
-- **morhetz/gruvbox**           : Theme & coloration retro groove
-- **mzlogin/vim-markdown-toc**  : TOC for Markdown
+- **morhetz/gruvbox**               : Theme & coloration retro groove
+- **mzlogin/vim-markdown-toc**      : TOC for Markdown
+- **scrooloose/syntastic**          : Syntax checking plugin
+- **alexandregv/norminette-vim**    : norminette checking plugin 
+- **valloric/youcompleteme**        : Code Completion
+- **scrooloose/nerdtree**           : File system explorer
 
 ## Details
 ```bash

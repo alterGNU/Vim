@@ -83,9 +83,9 @@ vnoremap <c-s> <c-c>:write<CR>
 inoremap <c-s> <c-o>:write<CR>
 
 " =[ :NOHL : CTRL+N PERMET D'ARRÊTER LE SURLIGNAGE ACTIF  ]===============================
-noremap <c-n> :nohl<CR>
-vnoremap <c-n> <c-c>:nohl<CR>
-inoremap <c-n> <c-o>:nohl<CR>
+noremap <c-c> :nohl<CR>
+vnoremap <c-c> <c-c>:nohl<CR>
+inoremap <c-c> <c-o>:nohl<CR>
 
 " =[ :SORT : '²'+T PERMET DE TRIER L'ENSEMBLE DES LIGNES SELECTIONNÉES ]==================
 vnoremap <leader>t :sort<CR>
@@ -118,10 +118,12 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin()
-Plug 'morhetz/gruvbox' " Theme et coloration retro groove
-Plug 'mzlogin/vim-markdown-toc' "Creation de TOC (Table Of Content pour fichier.md) ⇨ `:GenTocGFM`
-Plug 'scrooloose/syntastic' "Syntax checking plugin
-Plug 'alexandregv/norminette-vim' "norminette checking plugin 
+Plug 'morhetz/gruvbox'            | " Theme & color retro groove
+Plug 'mzlogin/vim-markdown-toc'   | " Creation de TOC 
+Plug 'scrooloose/syntastic'       | " Syntax checking
+Plug 'alexandregv/norminette-vim' | " Norminette checking
+Plug 'valloric/youcompleteme'     | " Code Completion
+Plug 'scrooloose/nerdtree'        | " File system explorer
 call plug#end()
 
 " =[ GRUVBOX ]============================================================================
@@ -173,3 +175,6 @@ let g:syntastic_auto_loc_list = 1
 
 " Skip check when closing
 let g:syntastic_check_on_wq = 0
+" =[ NERD-TREE ]==========================================================================
+nnoremap <c-t> :NERDTreeToggle<CR>
+nnoremap <c-f> :NERDTreeFind<CR>
