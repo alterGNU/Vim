@@ -13,3 +13,6 @@
 [submodule "vim-markdown-toc"]
 	path = plugged/vim-markdown-toc
 	url = https://github.com/mzlogin/vim-markdown-toc.git
+[submodule "plugged/vimwiki"]
+	path = plugged/vimwiki
+	url = https://github.com/vimwiki/vimwiki.git

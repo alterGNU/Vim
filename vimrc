@@ -12,10 +12,10 @@ autocmd! bufwritepost $MYVIMRC source %
 
 " -[ RACC. SAVE MANUELLE DE LA PAGE ACTUELLE => SOURCE $MYVIMRC ]-------------------------
 function! ReloadVimrc()
-	silent! source $MYVIMRC " coucou
-	silent! PlugInstall " petite
-	silent! PlugUpdate " perruche
-	silent! PlugClean " !
+	silent! source $MYVIMRC
+	silent! PlugInstall
+	silent! PlugUpdate
+	silent! PlugClean
 endfunction
 map <silent> <F5> <Esc>:call ReloadVimrc()<CR>
 
@@ -122,6 +122,7 @@ Plug 'mzlogin/vim-markdown-toc'   | " Creation de TOC
 Plug 'scrooloose/syntastic'       | " Syntax checking
 Plug 'alexandregv/norminette-vim' | " Norminette checking
 Plug 'scrooloose/nerdtree'        | " File system explorer
+Plug 'vimwiki/vimwiki'            | " Personnal Wiki
 call plug#end()
 
 " =[ GRUVBOX ]============================================================================
@@ -145,8 +146,10 @@ augroup colorcolumn
     autocmd!
     autocmd BufEnter * call SetColorColumnPerFile()
 augroup end
+
 " =[ VIM-MARKDOWN-TOC ]===================================================================
 map <silent> <F3> <Esc>:GenTocGFM<CR>
+
 " =[ NORMINETTE-VIM ]=====================================================================
 " Enable norminette-vim (and gcc)
 let g:syntastic_c_checkers = ['norminette', 'cc']
@@ -173,6 +176,14 @@ let g:syntastic_auto_loc_list = 1
 
 " Skip check when closing
 let g:syntastic_check_on_wq = 0
+
 " =[ NERD-TREE ]==========================================================================
 nnoremap <c-t> :NERDTreeToggle<CR>
 nnoremap <c-f> :NERDTreeFind<CR>
+
+" =[ VIMWIKI ]==================================================================
+" Use Markdwon syntax to my folder vimwiki
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': 'md'}]
+" Treat all markdown files in my system as part of vimwiki
+let g:vimwiki_global_ext = 0
+

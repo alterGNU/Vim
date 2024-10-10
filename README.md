@@ -10,7 +10,7 @@
 <!-- vim-markdown-toc -->
 
 ## Installation
-- TODO : script installation
+- TODO : script installation ajoutant les submodules
 - Pre-requis : no `${HOME}/.vim/`
 ```bash
 git clone https://github.com/alterGNU42/.vim.git ~/.vim && echo -e "\n" | vim -c "PlugInstall" -c "qa"
@@ -43,12 +43,13 @@ git clone https://github.com/alterGNU42/.vim.git ~/.vim && echo -e "\n" | vim -c
 - **scrooloose/syntastic**          : Syntax checking plugin
 - **alexandregv/norminette-vim**    : norminette checking plugin 
 - **scrooloose/nerdtree**           : File system explorer
+- **vimwiki/vimwiki**               : Personal Wiki for Vim
 
 ## Details
 ```bash
 .vim/
   ├── autoload/              # Delay loading of plugin's code until it's actually needed
-  │   └── plug.vim           # ...
+  │   └── plug.vim           # Plugin Manager
   ├── config                 # Folder for homemade plugins/vim extensions (vimrc line 25)
   │   ├── header42.vim       # Create Header for 42 school projects
   │   └── titres.vim         # Create title line
