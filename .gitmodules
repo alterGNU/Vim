@@ -1,16 +1,16 @@
-[submodule "gruvbox"]
+[submodule "plugged/gruvbox"]
 	path = plugged/gruvbox
 	url = https://github.com/morhetz/gruvbox.git
-[submodule "nerdtree"]
+[submodule "plugged/nerdtree"]
 	path = plugged/nerdtree
 	url = https://github.com/preservim/nerdtree.git
-[submodule "norminette-vim"]
+[submodule "plugged/norminette-vim"]
 	path = plugged/norminette-vim
 	url = https://github.com/alexandregv/norminette-vim.git
-[submodule "syntastic"]
+[submodule "plugged/syntastic"]
 	path = plugged/syntastic
 	url = https://github.com/vim-syntastic/syntastic.git
-[submodule "vim-markdown-toc"]
+[submodule "plugged/vim-markdown-toc"]
 	path = plugged/vim-markdown-toc
 	url = https://github.com/mzlogin/vim-markdown-toc.git
 [submodule "plugged/vimwiki"]

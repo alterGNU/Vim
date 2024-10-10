@@ -97,6 +97,7 @@ vnoremap ;; :s:::g<left><left><left>
 " ========================================================================================
 " FILETYPE CONFIGURATION
 " ========================================================================================
+" Active filetype detection + Active loading ftplugin/*.vim + Active loadinf indent files
 filetype plugin indent on
 
 " =[ C FILES ]============================================================================
@@ -123,6 +124,7 @@ Plug 'scrooloose/syntastic'       | " Syntax checking
 Plug 'alexandregv/norminette-vim' | " Norminette checking
 Plug 'scrooloose/nerdtree'        | " File system explorer
 Plug 'vimwiki/vimwiki'            | " Personnal Wiki
+Plug 'mattn/calendar.vim'         | " Calendar for vim-wiki
 call plug#end()
 
 " =[ GRUVBOX ]============================================================================
@@ -187,3 +189,6 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': 'md'}]
 " Treat all markdown files in my system as part of vimwiki
 let g:vimwiki_global_ext = 0
 
+" =[ CALENDAR-VIM ]=============================================================
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
