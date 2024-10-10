@@ -10,9 +10,10 @@
 <!-- vim-markdown-toc -->
 
 ## Installation
+- TODO : script installation
 - Pre-requis : no `${HOME}/.vim/`
 ```bash
-git clone https://github.com/alterGNU42/.vim.git ~/.vim && echo -e "\n" | vim -c "ReloadVimrc" -c "qa" > /dev/null 2>&1
+git clone https://github.com/alterGNU42/.vim.git ~/.vim && echo -e "\n" | vim -c "PlugInstall" -c "qa"
 ```
 ## Mapping : ShortCuts
 | ShortCuts     |       Commands         |                               Details-Comment                               |
@@ -41,7 +42,6 @@ git clone https://github.com/alterGNU42/.vim.git ~/.vim && echo -e "\n" | vim -c
 - **mzlogin/vim-markdown-toc**      : TOC for Markdown
 - **scrooloose/syntastic**          : Syntax checking plugin
 - **alexandregv/norminette-vim**    : norminette checking plugin 
-- **valloric/youcompleteme**        : Code Completion
 - **scrooloose/nerdtree**           : File system explorer
 
 ## Details
