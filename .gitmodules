@@ -16,3 +16,6 @@
 [submodule "plugged/vimwiki"]
 	path = plugged/vimwiki
 	url = https://github.com/vimwiki/vimwiki.git
+[submodule "plugged/vim-man"]
+	path = plugged/vim-man
+	url = https://github.com/vim-utils/vim-man.git
