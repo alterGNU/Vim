@@ -8,4 +8,4 @@ viminfo
 .
 
 # Ignore plugin's submodules 
-./plugged/*
+plugged/*
