@@ -33,9 +33,11 @@ git clone https://github.com/alterGNU42/.vim.git ~/.vim && echo -e "\n" | vim -c
 | [ctrl]+[N]    |   `:nohl`              | No highlightning                                                            |
 | [leader]+[t]  |   `:sort!<CR>`         | Sort selection                                                              |
 | [leader]+[T]  |   `:sort<CR>`          | REVERSE Sort selection                                                      |
-| [;]+[;]       |   ` `                  | Launch Search & Replace with options:[(`g`,global), (`c`,ask B4 change)]    |
+| [;]+[;]       |   `:%s:::gc`           | Launch Search & Replace with options:[(`g`,global), (`c`,ask B4 change)]    |
 | [ctrl]+[t]    |   `:NERDTreeToggle`    | NERDTreeToggle                                                              |
 | [ctrl]+[f]    |   `:NERDTreeFind`      | NERDTreeFind                                                                |
+| [leader]+[m]  |   `:Vman<ss curseur>`  | Affiche dans en Vsplit la page man du mot sous le cuseur                    |
+| [leader]+[M]  |   `:Vman<ss curseur>`  | Affiche dans en Hsplit la page man du mot sous le cuseur                    |
 
 ## Plugins (plugin manager:plug.vim)
 - **morhetz/gruvbox**               : Theme & coloration retro groove
@@ -44,6 +46,7 @@ git clone https://github.com/alterGNU42/.vim.git ~/.vim && echo -e "\n" | vim -c
 - **alexandregv/norminette-vim**    : norminette checking plugin 
 - **scrooloose/nerdtree**           : File system explorer
 - **vimwiki/vimwiki**               : Personal Wiki for Vim
+- **vim-utils/vim-man**             | View man pages in vim
 
 ## Details
 ```bash

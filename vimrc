@@ -124,7 +124,7 @@ Plug 'scrooloose/syntastic'       | " Syntax checking
 Plug 'alexandregv/norminette-vim' | " Norminette checking
 Plug 'scrooloose/nerdtree'        | " File system explorer
 Plug 'vimwiki/vimwiki'            | " Personnal Wiki
-Plug 'mattn/calendar.vim'         | " Calendar for vim-wiki
+Plug 'vim-utils/vim-man'          | " View man pages in vim
 call plug#end()
 
 " =[ GRUVBOX ]============================================================================
@@ -183,12 +183,12 @@ let g:syntastic_check_on_wq = 0
 nnoremap <c-t> :NERDTreeToggle<CR>
 nnoremap <c-f> :NERDTreeFind<CR>
 
-" =[ VIMWIKI ]==================================================================
+" =[ VIMWIKI ]============================================================================
 " Use Markdwon syntax to my folder vimwiki
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': 'md'}]
 " Treat all markdown files in my system as part of vimwiki
 let g:vimwiki_global_ext = 0
 
-" =[ CALENDAR-VIM ]=============================================================
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1
+" =[ MAN-VIM ]============================================================================
+map <leader>m <Plug>(Vman)
+map <leader>M <Plug>(Man)
