@@ -12,7 +12,7 @@
 ## Installation
 - Pre-requis : no `${HOME}/.vim/`
 ```bash
-if [ -d ~/.vim ];then mv ~/.vim ~/vim_archive_$(date +%Y%m%d);fi && git clone https://github.com/alterGNU42/.vim.git ~/.vim && vim -c "PlugInstall" -c "qa"
+if [ -d ~/.vim ];then mv ~/.vim ~/vim_archive_$(date +%Y%m%d);fi && git clone https://github.com/alterGNU42/.vim.git ~/.vim && echo -e "\n" | vim -c "PlugInstall" -c "qa"
 ```
 ## Mapping : ShortCuts
 | ShortCuts     |       Commands         |                               Details-Comment                               |
