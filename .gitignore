@@ -6,3 +6,6 @@
 viminfo
 .netrwhist
 .
+
+# Ignore plugin's submodules 
+./plugged/*
