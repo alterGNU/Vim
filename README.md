@@ -20,6 +20,7 @@ if [ -d ~/.vim ];then mv ~/.vim ~/vim_archive_$(date +%Y%m%d%H%M%S);fi && git cl
 | [F1]          |   `:Header42`          | Insert header for 42 school project (see *config/header42.vim*)             |
 | [F2]          |   `:Headerstd`         | Insert personnal header (see *config/headerstd.vim*) #TODO                  |
 | [F3]          |   `:GenTocGFM`         | Insert TOC, where the cursor is, if in a Markdown file.                     |
+| [F4]          |   `:Calendar`          | Calendar from itchyny
 | [F5]          |   `:ReloadVimrc`       | `source vimrc`&&`PlugInstall`&&`PlugUpdate`(void *vimrc*)                   |
 | [Leader]+[1]  |   `:Titre1<CR>`        | Transform the line under the cursor to a title1                             |
 | [Leader]+[2]  |   `:Titre2<CR>`        | Transform the line under the cursor to a title2                             |
@@ -45,7 +46,8 @@ if [ -d ~/.vim ];then mv ~/.vim ~/vim_archive_$(date +%Y%m%d%H%M%S);fi && git cl
 - **alexandregv/norminette-vim**    : norminette checking plugin 
 - **scrooloose/nerdtree**           : File system explorer
 - **vimwiki/vimwiki**               : Personal Wiki for Vim
-- **vim-utils/vim-man**             | View man pages in vim
+- **vim-utils/vim-man**             : View man pages in vim
+- **itchyny/calendar.vim**          : Calendar Sync with google calendar and Tasks
 
 ## Details
 ```bash

@@ -125,6 +125,7 @@ Plug 'alexandregv/norminette-vim' | " Norminette checking
 Plug 'scrooloose/nerdtree'        | " File system explorer
 Plug 'vimwiki/vimwiki'            | " Personnal Wiki
 Plug 'vim-utils/vim-man'          | " View man pages in vim
+Plug 'itchyny/calendar.vim'       | " Calendar for VimWiki
 call plug#end()
 
 " =[ GRUVBOX ]============================================================================
@@ -185,10 +186,24 @@ nnoremap <c-f> :NERDTreeFind<CR>
 
 " =[ VIMWIKI ]============================================================================
 " Use Markdwon syntax to my folder vimwiki
-let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': 'md'}]
+let g:vimwiki_list = [
+			\{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': 'md'}] 
+			"\{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': 'md'}, 
+			"\{'path': '~/migration/Notes/Notes_2018', 'syntax': 'markdown', 'ext': 'md'}, 
+			"\{'path': '~/migration/Notes/WikiNotes_09_06_2020', 'syntax': 'markdown', 'ext': 'md'}, 
+			"\{'path': '~/migration/Notes/WikiNotes_13_02_2022', 'syntax': 'markdown', 'ext': 'md'}, 
+			"\{'path': '~/migration/Notes/WikiNotes_24_09_2018', 'syntax': 'markdown', 'ext': 'md'}, 
+			"\{'path': '~/migration/Notes/WikiNotes_30_04_2018', 'syntax': 'markdown', 'ext': 'md'}
+			"\]
 " Treat all markdown files in my system as part of vimwiki
 let g:vimwiki_global_ext = 0
 
 " =[ MAN-VIM ]============================================================================
 map <leader>m <Plug>(Vman)
 map <leader>M <Plug>(Man)
+
+" =[ CALENDAR.VIM ]=============================================================
+source ~/.cache/calendar.vim/credentials.vim
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
+map <silent> <F4> <Esc>:Calendar<CR>
