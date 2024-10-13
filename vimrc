@@ -77,9 +77,12 @@ map ts : vsplit<Space>    | " Ouvre dans onglet actuel, avec separation vertical
 map te : tabe<Space>      | " Ouvre dans un nouvel onglet un fichier existant
 
 " =[ :SAVE ]==============================================================================
-noremap <c-s> :write<CR>
-vnoremap <c-s> <c-c>:write<CR>
-inoremap <c-s> <c-o>:write<CR>
+"noremap <c-s> :write<CR>        | " :w -> Save meme si pas de modification
+"vnoremap <c-s> <c-c>:write<CR>  | " :w -> Save meme si pas de modification
+"inoremap <c-s> <c-o>:write<CR>  | " :w -> Save meme si pas de modification
+noremap <c-s> :update<CR>        | " :u -> Save ssi nouvelles modifications
+vnoremap <c-s> <c-c>:update<CR>  | " :u -> Save ssi nouvelles modifications
+inoremap <c-s> <c-o>:update<CR>  | " :u -> Save ssi nouvelles modifications
 
 " =[ :NOHL : CTRL+N PERMET D'ARRÊTER LE SURLIGNAGE ACTIF  ]===============================
 noremap <c-n> :nohl<CR>
@@ -192,11 +195,13 @@ map <leader>M <Plug>(Man)
 "let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': 'md'}]
 let g:vimwiki_list = [
 			\{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': 'md'}, 
-			\{'path': '~/migration/Notes/WikiNotes_13_02_2022', 'syntax': 'markdown', 'ext': 'md'}, 
-			\{'path': '~/migration/Notes/WikiNotes_09_06_2020', 'syntax': 'markdown', 'ext': 'md'}, 
-			\{'path': '~/migration/Notes/WikiNotes_24_09_2018', 'syntax': 'markdown', 'ext': 'md'}, 
-			\{'path': '~/migration/Notes/WikiNotes_30_04_2018', 'syntax': 'markdown', 'ext': 'md'},
-			\{'path': '~/migration/Notes/Notes_2018', 'syntax': 'markdown', 'ext': 'md'}
-			\]
+			\{'path': '~/Notes/', 'syntax': 'markdown', 'ext': 'md'}, 
+			\{'path': '~/Todo/', 'syntax': 'markdown', 'ext': 'md'}]
+			"\{'path': '~/migration/Notes/WikiNotes_13_02_2022', 'syntax': 'markdown', 'ext': 'md'}, 
+			"\{'path': '~/migration/Notes/WikiNotes_09_06_2020', 'syntax': 'markdown', 'ext': 'md'}, 
+			"\{'path': '~/migration/Notes/WikiNotes_24_09_2018', 'syntax': 'markdown', 'ext': 'md'}, 
+			"\{'path': '~/migration/Notes/WikiNotes_30_04_2018', 'syntax': 'markdown', 'ext': 'md'},
+			"\{'path': '~/migration/Notes/Notes_2018', 'syntax': 'markdown', 'ext': 'md'}
+			"\]
 " Treat all markdown files in my system as part of vimwiki
 let g:vimwiki_global_ext = 0
