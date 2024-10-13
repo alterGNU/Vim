@@ -40,14 +40,14 @@ if [ -d ~/.vim ];then mv ~/.vim ~/vim_archive_$(date +%Y%m%d%H%M%S);fi && git cl
 | [leader]+[M]  |   `:Vman<ss curseur>`  | Affiche dans en Hsplit la page man du mot sous le cuseur                    |
 
 ## Plugins (plugin manager:plug.vim)
+- **alexandregv/norminette-vim**    : norminette checking plugin 
+- **itchyny/calendar.vim**          : Calendar Sync with google calendar and Tasks
 - **morhetz/gruvbox**               : Theme & coloration retro groove
 - **mzlogin/vim-markdown-toc**      : TOC for Markdown
-- **scrooloose/syntastic**          : Syntax checking plugin
-- **alexandregv/norminette-vim**    : norminette checking plugin 
 - **scrooloose/nerdtree**           : File system explorer
-- **vimwiki/vimwiki**               : Personal Wiki for Vim
+- **scrooloose/syntastic**          : Syntax checking plugin
 - **vim-utils/vim-man**             : View man pages in vim
-- **itchyny/calendar.vim**          : Calendar Sync with google calendar and Tasks
+- **vimwiki/vimwiki**               : Personal Wiki for Vim
 
 ## Details
 ```bash

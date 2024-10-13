@@ -86,9 +86,9 @@ noremap <c-n> :nohl<CR>
 vnoremap <c-n> <c-c>:nohl<CR>
 inoremap <c-n> <c-o>:nohl<CR>
 
-" =[ :SORT : '²'+T PERMET DE TRIER L'ENSEMBLE DES LIGNES SELECTIONNÉES ]==================
-vnoremap <leader>t :sort<CR>
-vnoremap <leader>T :sort!<CR>
+"" =[ :SORT : '²'+T PERMET DE TRIER L'ENSEMBLE DES LIGNES SELECTIONNÉES ]==================
+"vnoremap <leader>t :sort<CR>
+"vnoremap <leader>T :sort!<CR>
 
 " =[ SEARCH&REPLACE ]=====================================================================
 noremap ;; :%s:::gc<left><left><left><left>
@@ -118,15 +118,41 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin()
+Plug 'alexandregv/norminette-vim' | " Norminette checking
+Plug 'itchyny/calendar.vim'       | " Calendar for VimWiki
 Plug 'morhetz/gruvbox'            | " Theme & color retro groove
 Plug 'mzlogin/vim-markdown-toc'   | " Creation de TOC 
-Plug 'scrooloose/syntastic'       | " Syntax checking
-Plug 'alexandregv/norminette-vim' | " Norminette checking
 Plug 'scrooloose/nerdtree'        | " File system explorer
-Plug 'vimwiki/vimwiki'            | " Personnal Wiki
+Plug 'scrooloose/syntastic'       | " Syntax checking
 Plug 'vim-utils/vim-man'          | " View man pages in vim
-Plug 'itchyny/calendar.vim'       | " Calendar for VimWiki
+Plug 'vimwiki/vimwiki'            | " Personnal Wiki
 call plug#end()
+
+" =[ NORMINETTE-VIM ]=====================================================================
+" Enable norminette-vim (and gcc)
+let g:syntastic_c_checkers = ['norminette', 'cc']
+let g:syntastic_aggregate_errors = 1
+" Set the path to norminette (do no set if using norminette of 42 mac)
+let g:syntastic_c_norminette_exec = 'norminette'
+" Support headers (.h)
+let g:c_syntax_for_h = 1
+let g:syntastic_c_include_dirs = ['include', '../include', '../../include', 'libft', '../libft/include', '../../libft/include']
+" Pass custom arguments to norminette (this one ignores 42header)
+let g:syntastic_c_norminette_args = '-R CheckTopCommentHeader'
+" Check errors when opening a file (disable to speed up startup time)
+let g:syntastic_check_on_open = 1
+" Enable error list
+let g:syntastic_always_populate_loc_list = 1
+" Automatically open error list
+let g:syntastic_auto_loc_list = 1
+" Skip check when closing
+let g:syntastic_check_on_wq = 0
+
+" =[ CALENDAR.VIM ]=============================================================
+source ~/.cache/calendar.vim/credentials.vim
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
+map <silent> <F4> <Esc>:Calendar<CR>
 
 " =[ GRUVBOX ]============================================================================
 set t_Co=256
@@ -153,57 +179,24 @@ augroup end
 " =[ VIM-MARKDOWN-TOC ]===================================================================
 map <silent> <F3> <Esc>:GenTocGFM<CR>
 
-" =[ NORMINETTE-VIM ]=====================================================================
-" Enable norminette-vim (and gcc)
-let g:syntastic_c_checkers = ['norminette', 'cc']
-let g:syntastic_aggregate_errors = 1
-
-" Set the path to norminette (do no set if using norminette of 42 mac)
-let g:syntastic_c_norminette_exec = 'norminette'
-
-" Support headers (.h)
-let g:c_syntax_for_h = 1
-let g:syntastic_c_include_dirs = ['include', '../include', '../../include', 'libft', '../libft/include', '../../libft/include']
-
-" Pass custom arguments to norminette (this one ignores 42header)
-let g:syntastic_c_norminette_args = '-R CheckTopCommentHeader'
-
-" Check errors when opening a file (disable to speed up startup time)
-let g:syntastic_check_on_open = 1
-
-" Enable error list
-let g:syntastic_always_populate_loc_list = 1
-
-" Automatically open error list
-let g:syntastic_auto_loc_list = 1
-
-" Skip check when closing
-let g:syntastic_check_on_wq = 0
-
 " =[ NERD-TREE ]==========================================================================
 nnoremap <c-t> :NERDTreeToggle<CR>
 nnoremap <c-f> :NERDTreeFind<CR>
-
-" =[ VIMWIKI ]============================================================================
-" Use Markdwon syntax to my folder vimwiki
-let g:vimwiki_list = [
-			\{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': 'md'}] 
-			"\{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': 'md'}, 
-			"\{'path': '~/migration/Notes/Notes_2018', 'syntax': 'markdown', 'ext': 'md'}, 
-			"\{'path': '~/migration/Notes/WikiNotes_09_06_2020', 'syntax': 'markdown', 'ext': 'md'}, 
-			"\{'path': '~/migration/Notes/WikiNotes_13_02_2022', 'syntax': 'markdown', 'ext': 'md'}, 
-			"\{'path': '~/migration/Notes/WikiNotes_24_09_2018', 'syntax': 'markdown', 'ext': 'md'}, 
-			"\{'path': '~/migration/Notes/WikiNotes_30_04_2018', 'syntax': 'markdown', 'ext': 'md'}
-			"\]
-" Treat all markdown files in my system as part of vimwiki
-let g:vimwiki_global_ext = 0
 
 " =[ MAN-VIM ]============================================================================
 map <leader>m <Plug>(Vman)
 map <leader>M <Plug>(Man)
 
-" =[ CALENDAR.VIM ]=============================================================
-source ~/.cache/calendar.vim/credentials.vim
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1
-map <silent> <F4> <Esc>:Calendar<CR>
+" =[ VIMWIKI ]============================================================================
+" Use Markdwon syntax to my folder vimwiki
+"let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': 'md'}]
+let g:vimwiki_list = [
+			\{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': 'md'}, 
+			\{'path': '~/migration/Notes/WikiNotes_13_02_2022', 'syntax': 'markdown', 'ext': 'md'}, 
+			\{'path': '~/migration/Notes/WikiNotes_09_06_2020', 'syntax': 'markdown', 'ext': 'md'}, 
+			\{'path': '~/migration/Notes/WikiNotes_24_09_2018', 'syntax': 'markdown', 'ext': 'md'}, 
+			\{'path': '~/migration/Notes/WikiNotes_30_04_2018', 'syntax': 'markdown', 'ext': 'md'},
+			\{'path': '~/migration/Notes/Notes_2018', 'syntax': 'markdown', 'ext': 'md'}
+			\]
+" Treat all markdown files in my system as part of vimwiki
+let g:vimwiki_global_ext = 0
