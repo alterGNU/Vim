@@ -196,7 +196,7 @@ map <leader>M <Plug>(Man)
 let g:vimwiki_list = [
 			\{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': 'md'}, 
 			\{'path': '~/Notes/', 'syntax': 'markdown', 'ext': 'md'}, 
-			\{'path': '~/Todo/', 'syntax': 'markdown', 'ext': 'md'}]
+			\{'path': '~/42/', 'syntax': 'markdown', 'ext': 'md'}]
 			"\{'path': '~/migration/Notes/WikiNotes_13_02_2022', 'syntax': 'markdown', 'ext': 'md'}, 
 			"\{'path': '~/migration/Notes/WikiNotes_09_06_2020', 'syntax': 'markdown', 'ext': 'md'}, 
 			"\{'path': '~/migration/Notes/WikiNotes_24_09_2018', 'syntax': 'markdown', 'ext': 'md'}, 
