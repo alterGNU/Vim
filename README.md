@@ -36,8 +36,9 @@ if [ -d ~/.vim ];then mv ~/.vim ~/vim_archive_$(date +%Y%m%d%H%M%S);fi && git cl
 | [;]+[;]       |   `:%s:::gc`           | Launch Search & Replace with options:[(`g`,global), (`c`,ask B4 change)]    |
 | [ctrl]+[t]    |   `:NERDTreeToggle`    | NERDTreeToggle                                                              |
 | [ctrl]+[f]    |   `:NERDTreeFind`      | NERDTreeFind                                                                |
-| [leader]+[m]  |   `:Vman<ss curseur>`  | Affiche dans en Vsplit la page man du mot sous le cuseur                    |
-| [leader]+[M]  |   `:Vman<ss curseur>`  | Affiche dans en Hsplit la page man du mot sous le cuseur                    |
+| [leader]+[m]  |   `:Vman<ss curseur>`  | Open a man help tab in Vsplit for the word under the cursor                 |
+| [leader]+[M]  |   `:Vman<ss curseur>`  | Open a man help tab in Hsplit for the word under the cursor                 |
+| [leader]+[CR] |   `:VimWikiVSplitLink` | Open vimwikileak in a VSplit new tab                                        |
 
 ## Plugins (plugin manager:plug.vim)
 - **alexandregv/norminette-vim**    : norminette checking plugin 
