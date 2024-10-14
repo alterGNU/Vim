@@ -194,9 +194,10 @@ map <leader>M <Plug>(Man)
 " Use Markdwon syntax to my folder vimwiki
 "let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': 'md'}]
 let g:vimwiki_list = [
-			\{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': 'md'}, 
+			\{'path': '~/wiki/', 'syntax': 'markdown', 'ext': 'md'}, 
 			\{'path': '~/Notes/', 'syntax': 'markdown', 'ext': 'md'}, 
-			\{'path': '~/42/', 'syntax': 'markdown', 'ext': 'md'}]
+			\{'path': '~/42/', 'syntax': 'markdown', 'ext': 'md'},
+			\{'path': '~/Projects/', 'syntax': 'markdown', 'ext': 'md'}]
 			"\{'path': '~/migration/Notes/WikiNotes_13_02_2022', 'syntax': 'markdown', 'ext': 'md'}, 
 			"\{'path': '~/migration/Notes/WikiNotes_09_06_2020', 'syntax': 'markdown', 'ext': 'md'}, 
 			"\{'path': '~/migration/Notes/WikiNotes_24_09_2018', 'syntax': 'markdown', 'ext': 'md'}, 
@@ -205,3 +206,5 @@ let g:vimwiki_list = [
 			"\]
 " Treat all markdown files in my system as part of vimwiki
 let g:vimwiki_global_ext = 0
+noremap <Leader><CR> <plug>VimwikiVSplitLink
+inoremap <Leader><CR> <plug>VimwikiVSplitLink
