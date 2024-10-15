@@ -129,6 +129,7 @@ Plug 'scrooloose/nerdtree'        | " File system explorer
 Plug 'scrooloose/syntastic'       | " Syntax checking
 Plug 'vim-utils/vim-man'          | " View man pages in vim
 Plug 'vimwiki/vimwiki'            | " Personnal Wiki
+Plug 'patrickdavey/vimwiki_markdown'
 call plug#end()
 
 " =[ NORMINETTE-VIM ]=====================================================================
@@ -187,23 +188,31 @@ nnoremap <c-t> :NERDTreeToggle<CR>
 nnoremap <c-f> :NERDTreeFind<CR>
 
 " =[ MAN-VIM ]============================================================================
-map <leader>m <Plug>(Vman)
-map <leader>M <Plug>(Man)
+"ssh-keygen"
+noremap <leader>m <Plug>(Vman)
+vnoremap <silent> <leader>m "vy:Vman <C-r>"<CR>
+noremap <leader>M <Plug>(Tman)
+vnoremap <silent> <leader>M "vy:Tman <C-r>"<CR>
 
 " =[ VIMWIKI ]============================================================================
 " Use Markdwon syntax to my folder vimwiki
-"let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': 'md'}]
-let g:vimwiki_list = [
-			\{'path': '~/wiki/', 'syntax': 'markdown', 'ext': 'md'}, 
-			\{'path': '~/Notes/', 'syntax': 'markdown', 'ext': 'md'}, 
-			\{'path': '~/42/', 'syntax': 'markdown', 'ext': 'md'},
-			\{'path': '~/Projects/', 'syntax': 'markdown', 'ext': 'md'}]
-			"\{'path': '~/migration/Notes/WikiNotes_13_02_2022', 'syntax': 'markdown', 'ext': 'md'}, 
-			"\{'path': '~/migration/Notes/WikiNotes_09_06_2020', 'syntax': 'markdown', 'ext': 'md'}, 
-			"\{'path': '~/migration/Notes/WikiNotes_24_09_2018', 'syntax': 'markdown', 'ext': 'md'}, 
-			"\{'path': '~/migration/Notes/WikiNotes_30_04_2018', 'syntax': 'markdown', 'ext': 'md'},
-			"\{'path': '~/migration/Notes/Notes_2018', 'syntax': 'markdown', 'ext': 'md'}
-			"\]
+let g:vimwiki_list = [{'path': '~/Notes', 'template_path': '~/Templates/',
+          \ 'template_default': 'default', 'syntax': 'markdown', 'ext': '.md',
+          \ 'path_html': '~/Projects/HUGO/',
+          \ 'custom_wiki2html': '~/.vim/plugged/vimwiki_markdown/bin/vimwiki_markdown',
+          \ 'html_filename_parameterization': 1,
+          \ 'template_ext': '.tpl'}]
+"let g:vimwiki_list = [
+"			\{'path': '~/wiki/', 'syntax': 'markdown', 'ext': 'md'}, 
+"			\{'path': '~/Notes/', 'syntax': 'markdown', 'ext': 'md'}, 
+"			\{'path': '~/42/', 'syntax': 'markdown', 'ext': 'md'},
+"			\{'path': '~/Projects/', 'syntax': 'markdown', 'ext': 'md'}]
+"			"\{'path': '~/migration/Notes/WikiNotes_13_02_2022', 'syntax': 'markdown', 'ext': 'md'}, 
+"			"\{'path': '~/migration/Notes/WikiNotes_09_06_2020', 'syntax': 'markdown', 'ext': 'md'}, 
+"			"\{'path': '~/migration/Notes/WikiNotes_24_09_2018', 'syntax': 'markdown', 'ext': 'md'}, 
+"			"\{'path': '~/migration/Notes/WikiNotes_30_04_2018', 'syntax': 'markdown', 'ext': 'md'},
+"			"\{'path': '~/migration/Notes/Notes_2018', 'syntax': 'markdown', 'ext': 'md'}
+"			"\]
 " Treat all markdown files in my system as part of vimwiki
 let g:vimwiki_global_ext = 0
 noremap <Leader><CR> <plug>VimwikiVSplitLink
