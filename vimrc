@@ -35,15 +35,18 @@ set mouse=a
 " OPTIONNALS SETTINGS
 " ========================================================================================
 
+" =[ CLIPBOARD ]==========================================================================
+set clipboard=unnamedplus | " Definie le Press-Papiers comme registre par defaut.
+
 " =[ INDENTATION ]========================================================================
 set autoindent            | " Préserve l'indentation de la ligne précédente
 set smartindent           | " Petit plus...
 
 " =[  AFFICHAGE ]=========================================================================
 set title             	  | " Affiche le titre des fenêtres et terminaux en bas à gauche
-set number 	          | " Affiche le numéro des lignes
+set number 	              | " Affiche le numéro des lignes
 set ruler                 | " Affiche barre bas à droite la position du curseur
-set wrap	          | " Lorsque la ligne est trop longue, l'affiche en dessous
+set wrap	              | " Lorsque la ligne est trop longue, l'affiche en dessous
 
 " =[ BEEP/ALERTE ]========================================================================
 set belloff=all           | " Désactive toutes les alertes sonnores et visuelles
@@ -58,7 +61,7 @@ set scrolloff=5           | " Garde toujours le curseur à 5lignes du bord de la
 syntax enable             | " Activation de la coloration syntaxique
 
 " =[ LIMITATION DE LARGEUR DU TEXTE ]=====================================================
-set textwidth=080          | " Par defaut, indépendemment du filetype, largeur max = 99!
+set textwidth=080         | " Par defaut, indépendemment du filetype, largeur max = 99!
 
 " =[ RECHERCHES ET SURLIGNAGES DANS LE TEXTE ]============================================
 set incsearch             | " Active la recherche et surlignage pendant la saisie du texte
@@ -196,23 +199,25 @@ vnoremap <silent> <leader>M "vy:Tman <C-r>"<CR>
 
 " =[ VIMWIKI ]============================================================================
 " Use Markdwon syntax to my folder vimwiki
-let g:vimwiki_list = [{'path': '~/Notes', 'template_path': '~/Templates/',
-          \ 'template_default': 'default', 'syntax': 'markdown', 'ext': '.md',
-          \ 'path_html': '~/Projects/HUGO/',
-          \ 'custom_wiki2html': '~/.vim/plugged/vimwiki_markdown/bin/vimwiki_markdown',
-          \ 'html_filename_parameterization': 1,
-          \ 'template_ext': '.tpl'}]
-"let g:vimwiki_list = [
-"			\{'path': '~/wiki/', 'syntax': 'markdown', 'ext': 'md'}, 
-"			\{'path': '~/Notes/', 'syntax': 'markdown', 'ext': 'md'}, 
-"			\{'path': '~/42/', 'syntax': 'markdown', 'ext': 'md'},
-"			\{'path': '~/Projects/', 'syntax': 'markdown', 'ext': 'md'}]
-"			"\{'path': '~/migration/Notes/WikiNotes_13_02_2022', 'syntax': 'markdown', 'ext': 'md'}, 
-"			"\{'path': '~/migration/Notes/WikiNotes_09_06_2020', 'syntax': 'markdown', 'ext': 'md'}, 
-"			"\{'path': '~/migration/Notes/WikiNotes_24_09_2018', 'syntax': 'markdown', 'ext': 'md'}, 
-"			"\{'path': '~/migration/Notes/WikiNotes_30_04_2018', 'syntax': 'markdown', 'ext': 'md'},
-"			"\{'path': '~/migration/Notes/Notes_2018', 'syntax': 'markdown', 'ext': 'md'}
-"			"\]
+let g:vimwiki_list = [
+			\{'path': '~/wiki', 'template_path': '~/Templates/',
+			\ 'template_default': 'default', 'syntax': 'markdown', 'ext': '.md',
+			\ 'path_html': '~/Projects/HUGO/',
+			\ 'custom_wiki2html': '~/.vim/plugged/vimwiki_markdown/bin/vimwiki_markdown',
+			\ 'html_filename_parameterization': 1,
+			\ 'template_ext': '.tpl'},
+			\{'path': '~/Notes', 'template_path': '~/Templates/',
+			\ 'template_default': 'default', 'syntax': 'markdown', 'ext': '.md',
+			\ 'path_html': '~/Projects/HUGO/',
+			\ 'custom_wiki2html': '~/.vim/plugged/vimwiki_markdown/bin/vimwiki_markdown',
+			\ 'html_filename_parameterization': 1,
+			\ 'template_ext': '.tpl'},
+			\{'path': '~/pro_wikis', 'template_path': '~/Templates/',
+			\ 'template_default': 'default', 'syntax': 'markdown', 'ext': '.md',
+			\ 'path_html': '~/Projects/HUGO/',
+			\ 'custom_wiki2html': '~/.vim/plugged/vimwiki_markdown/bin/vimwiki_markdown',
+			\ 'html_filename_parameterization': 1,
+			\ 'template_ext': '.tpl'}]
 " Treat all markdown files in my system as part of vimwiki
 let g:vimwiki_global_ext = 0
 noremap <Leader><CR> <plug>VimwikiVSplitLink
