@@ -124,15 +124,14 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin()
-Plug 'alexandregv/norminette-vim' | " Norminette checking
-Plug 'itchyny/calendar.vim'       | " Calendar for VimWiki
-Plug 'morhetz/gruvbox'            | " Theme & color retro groove
-Plug 'mzlogin/vim-markdown-toc'   | " Creation de TOC 
-Plug 'scrooloose/nerdtree'        | " File system explorer
-Plug 'scrooloose/syntastic'       | " Syntax checking
-Plug 'vim-utils/vim-man'          | " View man pages in vim
-Plug 'vimwiki/vimwiki'            | " Personnal Wiki
-Plug 'patrickdavey/vimwiki_markdown'
+Plug 'alexandregv/norminette-vim'    | " Norminette checking
+Plug 'itchyny/calendar.vim'          | " Calendar for VimWiki
+Plug 'morhetz/gruvbox'               | " Theme & color retro groove
+Plug 'mzlogin/vim-markdown-toc'      | " Creation de TOC 
+Plug 'scrooloose/nerdtree'           | " File system explorer
+Plug 'scrooloose/syntastic'          | " Syntax checking
+Plug 'vim-utils/vim-man'             | " View man pages in vim
+Plug 'vimwiki/vimwiki'               | " Personnal Wiki
 call plug#end()
 
 " =[ NORMINETTE-VIM ]=====================================================================
@@ -200,25 +199,16 @@ vnoremap <silent> <leader>M "vy:Tman <C-r>"<CR>
 " =[ VIMWIKI ]============================================================================
 " Use Markdwon syntax to my folder vimwiki
 let g:vimwiki_list = [
-			\{'path': '~/wiki', 'template_path': '~/Templates/',
-			\ 'template_default': 'default', 'syntax': 'markdown', 'ext': '.md',
+			\{'path': '~/Wiki', 'syntax': 'markdown', 'ext': '.md'},
+			\{'path': '~/Notes', 'syntax': 'markdown', 'ext': '.md',
+			\ 'template_path': '~/Templates/', 'template_default': 'default', 'template_ext': '.tpl',
 			\ 'path_html': '~/Projects/HUGO/',
 			\ 'custom_wiki2html': '~/.vim/plugged/vimwiki_markdown/bin/vimwiki_markdown',
-			\ 'html_filename_parameterization': 1,
-			\ 'template_ext': '.tpl'},
-			\{'path': '~/Notes', 'template_path': '~/Templates/',
-			\ 'template_default': 'default', 'syntax': 'markdown', 'ext': '.md',
-			\ 'path_html': '~/Projects/HUGO/',
-			\ 'custom_wiki2html': '~/.vim/plugged/vimwiki_markdown/bin/vimwiki_markdown',
-			\ 'html_filename_parameterization': 1,
-			\ 'template_ext': '.tpl'},
-			\{'path': '~/pro_wikis', 'template_path': '~/Templates/',
-			\ 'template_default': 'default', 'syntax': 'markdown', 'ext': '.md',
-			\ 'path_html': '~/Projects/HUGO/',
-			\ 'custom_wiki2html': '~/.vim/plugged/vimwiki_markdown/bin/vimwiki_markdown',
-			\ 'html_filename_parameterization': 1,
-			\ 'template_ext': '.tpl'}]
-" Treat all markdown files in my system as part of vimwiki
-let g:vimwiki_global_ext = 0
+			\ 'html_filename_parameterization': 1},
+			\{'path': '~/GPW', 'index': 'Home', 'syntax': 'markdown', 'ext': '.md'}
+			\]
+let g:vimwiki_markdown_link_ext = 1    | " force show extension in links
+let g:vimwiki_global_ext = 0           | " Treat all markdown files in my system as part of vimwiki
+" Map leader Enter to Vsplit in vimwiki
 noremap <Leader><CR> <plug>VimwikiVSplitLink
 inoremap <Leader><CR> <plug>VimwikiVSplitLink
