@@ -35,6 +35,10 @@ set linebreak                            | " If line longer than windows, preven
 " -[ INDENTATION ]--------------------------------------------------------------------------------------------
 set autoindent                           | " Use the indent from the previous line
 set smartindent                          | " Like autoindent but also recognizes some C syntax
+" -[ TABULATION ]---------------------------------------------------------------------------------------------
+set tabstop=4                            | " Specify the width of a tab character (8 by default)
+set shiftwidth=4                         | " In normod, indenting with '>'insert 4spaces instead of one tabulation
+set expandtab                            | " On pressing tab, insert 4 spaces
 " -[ SEARCH ]-------------------------------------------------------------------------------------------------
 set hlsearch                             | " Enable hightlighting matches ... 
 set incsearch                            | " ... while typping (progressively/interactivelly)
@@ -76,7 +80,7 @@ inoremap <c-s> <c-o>:update<CR>
 " Search&replace globaly(entire file) and interactive(ask before replacing)
 noremap ;; :%s:::gc<left><left><left><left>
 " Search&replace only in selection and automatically(no Q? asks)
-vnoremap ;; :s:::g<l><l><l>
+vnoremap ;; :s:::g<left><left><left>
 
 " ============================================================================================================
 " AUTOMATIONS
