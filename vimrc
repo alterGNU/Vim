@@ -10,9 +10,22 @@
 " ============================================================================================================
 " CONFIGURATION
 " ============================================================================================================
-" =[ AUTO RE-SOURCE ]=========================================================================================
-" auto. re-source vimrc when buffer is saved(handy when testing new settings)
+" =[ SOURCE ]=================================================================================================
+" auto. re-source vimrc when buffer is saved(handy when testing new settings in vimrc file)
 autocmd! bufwritepost $MYVIMRC source %
+" if not in vimrc file then SAVE and SOURCE file(handy when writting vimscript function outside vimrc file)
+function! g:SaveAndSourceFile()
+    let l:filename = fnamemodify(expand('%'), ':t')
+    if l:filename == "vimrc"
+        echom "vimrc can't be source with <F5> (g:SourceFile) command"
+    else
+        silent! write 
+        source %
+        echom 'Sourced ' . l:filename
+    endif
+endfunction
+map <silent> <F5> <Esc>:call g:SaveAndSourceFile()<Esc>
+
 " =[ FILETYPE & INDENT ]======================================================================================
 " Active filetype detection (load my ~/.vim/ftplugin/*.vim) & indent (load my ~/.vim/indent/*.vim)
 filetype plugin indent on
@@ -105,7 +118,6 @@ augroup colorcolumn
     autocmd!
     autocmd BufEnter * call s:SetColorColumnPerFile()
 augroup end
-
 
 " ============================================================================================================
 " PLUGINS

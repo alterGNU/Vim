@@ -1,4 +1,4 @@
-# %filename
+# {{file.name}}
 
 
 [🏠 Home](Home.md)
