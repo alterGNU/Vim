@@ -55,7 +55,6 @@ function! g:TMP_InsertTemplate(template_name)
         echoerr l:abspath . " is NOT a template file"
     endif
     InsertMatches
-    "call g:TMP_InsertAllMatches()
 endfunction
 
 " =[ DONE FUNCTION ]==========================================================================================
@@ -63,13 +62,17 @@ endfunction
 " Done function for how_to.tpl template
 fun! g:Done_how_to_tpl()
     let l:enddate_line_number = search("- End Date", 'n')
-    let l:new_enddate_line = split(getline(l:enddate_line_number), ':')[0].": 2024-11-17 Sun 03:16:07"
-    call setline(l:enddate_line_number, l:new_enddate_line)
-    InsertMatches
+    if l:enddate_line_number > 0
+        let l:new_enddate_line = split(getline(l:enddate_line_number), ':')[0].": {{date}} {{day}} {{time}}"
+        call setline(l:enddate_line_number, l:new_enddate_line)
+        InsertMatches
+    endif
 
     let l:status_line_number = search("- Status", 'n')
-    let l:new_status_line = split(getline(l:status_line_number), ':')[0].": ✅"
-    call setline(l:status_line_number, l:new_status_line)
+    if l:status_line_number > 0
+        let l:new_status_line = split(getline(l:status_line_number), ':')[0].": ✅"
+        call setline(l:status_line_number, l:new_status_line)
+    endif
 endfun
 
 " -[ DONE TO DONE THEM ALL ]----------------------------------------------------------------------------------
