@@ -5,7 +5,7 @@
 - Start Date    : {{date}} {{day}} {{time}}
 - End Date      : 
 - Tags          : 
-- State         : ❌
+- Status        : ❌
 ---
 
 ## 📃 Resume

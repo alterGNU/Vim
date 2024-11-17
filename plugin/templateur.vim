@@ -4,12 +4,15 @@
 "
 " Functions, autogroup and mapping that insert value and template
 "
-" USAGE :
-"   - <F5> OR `: call TMP_InsertAllMatches` = every '{{<match>}} occurence will be replace by their value
+" Commands/Functions :
+"   - `:InsertMatches` = every '{{<match>}} occurence will be replace by their value
 "       - <match> : day,DAY,date,time,file.name,file.NAME,foldername,file.ext,filepath
-"   - call TMP_InsertTemplate(file) : if exist, insert ../vim/templates/<file>.tpl at the first line.
+"   - `:Done` search status_line and end_date_line, then set how_to tickets/sheets to Done status by:
+"       - adding end date (using InserMatches command)
+"       - adding status icon ✅
 "
 " TO-DO :
+"   - [ ] Done add other filetypetemplate than how_to.tpl
 " ============================================================================================================
 
 " ============================================================================================================
@@ -17,14 +20,14 @@
 " ============================================================================================================
 " =[ SEARCH&REPLACE FUNCTIONS ]===============================================================================
 " -[ TIME ]---------------------------------------------------------------------------------------------------
-function! s:TMP_InsertTime()
+function! g:TMP_InsertTime()
     silent! exe "%s/\{\{day\}\}/".strftime("%a")."/gI"         | " {{day}}='Sat'               CASE SENSITIVE
     silent! exe "%s/\{\{DAY\}\}/".strftime("%A")."/gI"         | " {{DAY}}='Saturday'          CASE SENSITIVE
     silent! exe "%s/\{\{date\}\}/".strftime("%Y-%m-%d")."/g"   | " {{date}}='2024-12-24'
     silent! exe "%s/\{\{time\}\}/".strftime("%H:%M:%S")."/g"   | " {{time}}='23:59:45'
 endfunction
 " -[ PATH ]---------------------------------------------------------------------------------------------------
-function! s:TMP_InsertFile()
+function! g:TMP_InsertFile()
     let l:filename = substitute(expand('%:t:r'),"_"," ","g")   | " replace toto_titi_tutu by toto titi tutu
     silent! exe "%s/\{\{file.name\}\}/".l:filename."/gI"       | " {{file.name}}='vimrc'       CASE SENSITIVE
     silent! exe "%s/\{\{file.NAME\}\}/".expand('%:t')."/gI"    | " {{file.NAME}}='vimrc.vim'   CASE SENSITIVE
@@ -34,12 +37,12 @@ function! s:TMP_InsertFile()
 endfunction
 " -[ ONE TO CALL THEM ALL ]-----------------------------------------------------------------------------------
 function! g:TMP_InsertAllMatches()
-    call s:TMP_InsertTime()
-    call s:TMP_InsertFile()
+    call g:TMP_InsertTime()
+    call g:TMP_InsertFile()
 endfunction
 
 " =[ INSERT TEMPLATE ]========================================================================================
-" if template_name is a file in templates folder, insert on line 0 then call TMP_InsertAllMatches() fct
+" if template_name is a file in templates folder, insert on line 0 then call InsertMatches cmd
 function! g:TMP_InsertTemplate(template_name)
     if len($MYVIMRC) == 0
         let l:abspath = "~/.vim/templates/" . a:template_name . ".tpl"
@@ -51,8 +54,35 @@ function! g:TMP_InsertTemplate(template_name)
     else
         echoerr l:abspath . " is NOT a template file"
     endif
-    call g:TMP_InsertAllMatches()
+    InsertMatches
+    "call g:TMP_InsertAllMatches()
 endfunction
+
+" =[ DONE FUNCTION ]==========================================================================================
+" -[ DONE HOW_TO.TPL ]----------------------------------------------------------------------------------------
+" Done function for how_to.tpl template
+fun! g:Done_how_to_tpl()
+    let l:enddate_line_number = search("- End Date", 'n')
+    let l:new_enddate_line = split(getline(l:enddate_line_number), ':')[0].": 2024-11-17 Sun 03:16:07"
+    call setline(l:enddate_line_number, l:new_enddate_line)
+    InsertMatches
+
+    let l:status_line_number = search("- Status", 'n')
+    let l:new_status_line = split(getline(l:status_line_number), ':')[0].": ✅"
+    call setline(l:status_line_number, l:new_status_line)
+endfun
+
+" -[ DONE TO DONE THEM ALL ]----------------------------------------------------------------------------------
+fun! g:Done()
+   let l:filename=expand('%:t')
+   let l:foldername=expand('%:p:h:t')
+   if l:filename =~? "^how_to" || l:foldername =~? "^how_to"
+       call g:Done_how_to_tpl()
+       echom "Done how_to.tpl file"
+   else
+       echom "non how_to"
+   endif
+endfun
 
 " ============================================================================================================
 " AUGROUP
@@ -60,9 +90,11 @@ endfunction
 augroup Plugin_Templateur
 	autocmd!
 	autocmd BufNewFile ~/GPW/**/*.md call g:TMP_InsertTemplate("wiki_page")
+	autocmd BufNewFile {{H,h}ow_to*.md,**/{H,h}ow_to/*.md} call g:TMP_InsertTemplate("how_to")
 augroup END
  
 " ============================================================================================================
-" MAPPING
+" COMMANDES
 " ============================================================================================================
-map <silent> <F2> <Esc>:call TMP_InsertAllMatches()<CR>
+command InsertMatches call g:TMP_InsertAllMatches()
+command! Done call g:Done()

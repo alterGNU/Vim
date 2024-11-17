@@ -20,8 +20,8 @@ if [ -d ~/.vim ];then mv ~/.vim ~/vim_archive_$(date +%Y%m%d%H%M%S);fi && git cl
 | [F1]          |   `:Header42`          | Insert header for 42 school project (see *config/header42.vim*)             |
 | [F2]          |   `:Headerstd`         | Insert personnal header (see *config/headerstd.vim*) #TODO                  |
 | [F3]          |   `:GenTocGFM`         | Insert TOC, where the cursor is, if in a Markdown file.                     |
-| [F4]          |   `:Calendar`          | Calendar from itchyny
-| [F5]          |   `:ReloadVimrc`       | `source vimrc`&&`PlugInstall`&&`PlugUpdate`(void *vimrc*)                   |
+| [F4]          |   `:Calendar`          | Calendar from itchyny                                                       |
+| [F5]          |   `:Save&SourceFile`   | if not in vimrc file, save then source file (handy for vimscript dev)       |
 | [Leader]+[1]  |   `:Titre1<CR>`        | Transform the line under the cursor to a title1                             |
 | [Leader]+[2]  |   `:Titre2<CR>`        | Transform the line under the cursor to a title2                             |
 | [Leader]+[3]  |   `:Titre2<CR>`        | Transform the line under the cursor to a title3                             |
@@ -57,6 +57,7 @@ if [ -d ~/.vim ];then mv ~/.vim ~/vim_archive_$(date +%Y%m%d%H%M%S);fi && git cl
   │   └── plug.vim           # Plugin Manager
   ├── config                 # Folder for homemade plugins/vim extensions (vimrc line 25)
   │   ├── header42.vim       # Create Header for 42 school projects
+  │   ├── templateur.vim     # Insert templates/skeleton
   │   └── titres.vim         # Create title line
   ├── ftplugin/              # filetype config., overwrite vimrc global config.
   │   ├── cpp.vim            # config_file for filetype=cpp
