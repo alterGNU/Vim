@@ -30,6 +30,7 @@ map <silent> <F5> <Esc>:call g:SaveAndSourceFile()<Esc>
 " =[ FILETYPE & INDENT ]======================================================================================
 " Active filetype detection (load my ~/.vim/ftplugin/*.vim) & indent (load my ~/.vim/indent/*.vim)
 filetype plugin indent on
+autocmd BufNewFile,BufRead ${DOTPATH}/fcts/* set filetype=zsh " set filetype for functions in DOTPATH/fcts
 " =[ LEADERKEY ]==============================================================================================
 " Define [`] as leaderkey
 let mapleader = "`"
