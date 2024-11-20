@@ -199,21 +199,35 @@ noremap <leader>M <Plug>(Tman)
 vnoremap <silent> <leader>M "vy:Tman <C-r>"<CR>
 
 " =[ VIMWIKI ]================================================================================================
-" -[ SETTING ]------------------------------------------------------------------------------------------------
-" My wikis specifications
-let g:vimwiki_list = [
-			\{'path': '~/Wiki', 'syntax': 'markdown', 'ext': '.md'},
-			\{'path': '~/Notes', 'syntax': 'markdown', 'ext': '.md',
-			\ 'template_path': '~/Templates/', 'template_default': 'default', 'template_ext': '.tpl',
-			\ 'path_html': '~/Projects/HUGO/',
-			\ 'custom_wiki2html': '~/.vim/plugged/vimwiki_markdown/bin/vimwiki_markdown',
-			\ 'html_filename_parameterization': 1},
-			\{'path': '~/GPW', 'index': 'Home', 'syntax': 'markdown', 'ext': '.md'}
-			\]
+" -[ SETTINGS ]-----------------------------------------------------------------------------------------------
 " Force show extension in links
 let g:vimwiki_markdown_link_ext = 1
 " Treat all markdown files in my system as part of vimwiki
 let g:vimwiki_global_ext = 0
+" -[ WIKIS SETTINGS ]-----------------------------------------------------------------------------------------
+" create a wiki entrie at <path> with common settings + <extra_settings>
+fun! MyWiki(path, extra_settings)
+    let l:dict_common_settings={}
+    let l:dict_common_settings['path']=a:path          " Wiki's path
+    let l:dict_common_settings['syntax']='markdown'    " Use markdown syntax
+    let l:dict_common_settings['ext']='.md'            " Use .md extension
+    let l:dict_common_settings['links_space_char']='_' " When create, replace space by underscore in filename
+    return extend(l:dict_common_settings, a:extra_settings)
+endfun
+" dict of settings specific to a wiki that will be use as a blog using github.io feature
+let s:github_blog_extra_settings={
+			\ 'template_path': '~/Templates/',
+            \ 'template_default': 'default',
+            \ 'template_ext': '.tpl',
+			\ 'path_html': '~/Projects/HUGO/',
+			\ 'custom_wiki2html': '~/.vim/plugged/vimwiki_markdown/bin/vimwiki_markdown',
+			\ 'html_filename_parameterization': 1}
+" Mywikis
+let g:vimwiki_list = [
+            \MyWiki('~/Wiki', {}),
+            \MyWiki('~/Notes', s:github_blog_extra_settings),
+            \MyWiki('~/GPW', {'index': 'Home'})
+			\]
 " -[ MAPPING ]------------------------------------------------------------------------------------------------
 noremap <Leader><CR> <plug>VimwikiVSplitLink
 inoremap <Leader><CR> <plug>VimwikiVSplitLink
