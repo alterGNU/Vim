@@ -1,9 +1,9 @@
-# {{how_to.title}}
+# {{fix_bug.title}}
 
 ---
 - UUID          : 
 - Project       : 
-- Tags          : how_to wiki
+- Tags          : fix wiki
 - Scope         : private
 - Start Date    : {{date}} {{day}} {{time}}
 - End Date      : 
@@ -16,6 +16,8 @@
 - **Sol**   : 
 
 ## 🚧 Problem
+
+## 💡 Approaches/Ideas
 
 ## ✅ Solution
 
