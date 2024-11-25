@@ -4,20 +4,21 @@
 "
 " Functions, autogroup and mapping that insert value and template
 "
-" Commands/Functions :
+"
+" Commands/Functions:
 "   - `:InsertMatches` = every '{{<match>}} occurence will be replace by their value
 "       - Time      : day, DAY, date, time
 "       - File      : file.name, file.NAME, file.path, file.ext, folder.name, filepath
-"       - Special   : how_to.title
-"   - `:Done` search status_line and end_date_line, then set how_to tickets/sheets to Done status by:
-"       - adding end date (using InserMatches command)
-"       - adding status icon ✅
+"       - Special   : how_to.title, fix_bug.title
+"   - Autogroup filetype-detection :
+"       - how_to    : any mardown file that file.name or folder.name start with how_to
+"       - fix_bug   : any mardown file that's not a how_to file AND file.name or folder.name start with how_to
+"   - `:InsertTemplate` = insert the args1 if known
+"       - How_to.tpl
+"       - Fix_bug.tpl
+"       - wiki_page.tpl
 "
-" TO-DO :
-"   - [ ] Move Done functions to it's own plugin
-"   - [ ] Create InsertTemplate fct that wrap InsertSpecificTemplate
-"   - [ ] Manage vimwiki creating how_to file
-"   - [ ] Done add other filetypetemplate than how_to.tpl
+" TODO :
 " ============================================================================================================
 
 " ============================================================================================================
@@ -43,8 +44,14 @@ fun! s:TMP_InsertFileInfos()
 endfun
 " -[ SPECIAL FORMAT ]-----------------------------------------------------------------------------------------
 fun! s:TMP_InsertSpecial()
-    let l:how_to_title = "How to: ".substitute(substitute(expand('%:t:r'),"_"," ","g"),"how to ","","g")
-    silent! exe "%s/\{\{how_to.title\}\}/".l:how_to_title."/gI" | " {{how_to.title}}-->always How to: {{file.name}}
+    let l:file_name=expand('%:t:r')
+    let l:folder_name=expand('%:p:h:t')
+    " How to: templateur-->always How to: templateur
+    let l:how_to_title = "How to: ".substitute(substitute(l:file_name,"_"," ","g"),"how to ","","g")
+    silent! exe "%s/\{\{how_to.title\}\}/".l:how_to_title."/gI"
+    " Fix : templateur-->always Fix : templateur
+    let l:fix_bug_title = "Fix : ".substitute(substitute(l:file_name,"_"," ","g"),"fix ","","g")
+    silent! exe "%s/\{\{fix_bug.title\}\}/".l:fix_bug_title."/gI"
 endfun
 " -[ ONE TO CALL THEM ALL ]-----------------------------------------------------------------------------------
 fun! s:TMP_InsertAllMatches()
@@ -56,6 +63,10 @@ endfun
 " -[ INSERT A SPECIFIC TEMPLATE ]-----------------------------------------------------------------------------
 " if template_name is a file in templates folder, insert on line 0 then call InsertMatches cmd
 fun! s:TMP_InsertSpecificTemplate(template_name)
+    if g:template_inserted
+        echo "return from ". a:template_name
+        return
+    endif
     if a:template_name =~? ".tpl"
         let l:tpl_name=a:template_name
     else
@@ -68,41 +79,11 @@ fun! s:TMP_InsertSpecificTemplate(template_name)
     endif
     if filereadable(l:abspath)
         exe "0r " . l:abspath
+        let g:template_inserted = 1
     else
         echoerr l:abspath . " is NOT a template file"
     endif
     InsertMatches
-endfun
-
-" =[ DONE FUNCTION ]==========================================================================================
-" -[ DONE HOW_TO.TPL ]----------------------------------------------------------------------------------------
-" Done function for how_to.tpl template
-fun! g:Done_how_to_tpl()
-    let l:enddate_line_number = search("- End Date", 'n')
-    if l:enddate_line_number > 0
-        let l:new_enddate_line = split(getline(l:enddate_line_number), ':')[0].": {{date}} {{day}} {{time}}"
-        call setline(l:enddate_line_number, l:new_enddate_line)
-        InsertMatches
-    endif
-
-    let l:status_line_number = search("- Status", 'n')
-    if l:status_line_number > 0
-        let l:new_status_line = split(getline(l:status_line_number), ':')[0].": ✅"
-        call setline(l:status_line_number, l:new_status_line)
-    endif
-endfun
-
-" -[ DONE TO DONE THEM ALL ]----------------------------------------------------------------------------------
-" Apply the done function depending on the file we're on.
-fun! g:Done()
-   let l:filename=expand('%:t')
-   let l:foldername=expand('%:p:h:t')
-   if l:filename =~? "^how_to" || l:foldername =~? "^how_to"
-       call g:Done_how_to_tpl()
-       echom "Done how_to.tpl file"
-   else
-       echom "nothing do be 'Done' here"
-   endif
 endfun
 
 " ============================================================================================================
@@ -110,16 +91,19 @@ endfun
 " ============================================================================================================
 command! InsertMatches call s:TMP_InsertAllMatches()
 command! -nargs=1 InsertTemplate call s:TMP_InsertSpecificTemplate(<f-args>)
-command! Done call g:Done()
 
 " ============================================================================================================
 " AUGROUP
 " ============================================================================================================
 augroup Plugin_Templateur
 	autocmd!
+    " g:template_inserted is set to 0 before every read of a file
+    autocmd BufReadPost * let g:template_inserted = 0
     " If parent folder name or filename start with how_to or How_to, then insert 'how_to.tpl'
-	autocmd BufNewFile ~/GPW/**/*.md InsertTemplate("wiki_page")
-    " If parent folder name or filename start with how_to or How_to, then insert 'how_to.tpl'
-	autocmd BufNewFile {{H,h}ow_to*.md,**/{H,h}ow_to/*.md} InsertTemplate how_to
+    autocmd BufEnter * if ( !filereadable(expand('%')) && ( expand('%:t') =~# '^\(H\|h\)ow_to' || expand('%:p:h:t') =~# '^\(H\|h\)ow_to')) | call s:TMP_InsertSpecificTemplate('how_to') | endif
+    " If parent folder name or filename start with Fix or fix, then insert 'fix_bug.tpl'
+    autocmd BufEnter * if ( !filereadable(expand('%')) && ( expand('%:t') =~# '^\(F\|f\)ix_' || expand('%:p:h:t') =~# '^\(F\|f\)ix')) | call s:TMP_InsertSpecificTemplate('fix_bug') | endif
+    " If it's a wiki page, insert wiki_page
+    "autocmd filetype vimwiki if ( join(getline(1, '$')) ==# '' ) | call s:TMP_InsertSpecificTemplate('wiki_page') | endif
 augroup END
  
