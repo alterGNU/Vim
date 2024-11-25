@@ -23,14 +23,14 @@
 " -[ DONE HOW_TO.TPL ]----------------------------------------------------------------------------------------
 " Done function for how_to.tpl template
 fun! g:Done_how_to_tpl()
-    let l:enddate_line_number = search("- End Date", 'n')
+    let l:enddate_line_number = search("^- End Date", 'n')
     if l:enddate_line_number > 0
         let l:new_enddate_line = split(getline(l:enddate_line_number), ':')[0].": {{date}} {{day}} {{time}}"
         call setline(l:enddate_line_number, l:new_enddate_line)
         InsertMatches
     endif
 
-    let l:status_line_number = search("- Status", 'n')
+    let l:status_line_number = search("^- Status", 'n')
     if l:status_line_number > 0
         let l:new_status_line = split(getline(l:status_line_number), ':')[0].": ✅"
         call setline(l:status_line_number, l:new_status_line)
@@ -39,14 +39,14 @@ endfun
 " -[ DONE_FIX_BUG_TPL ]---------------------------------------------------------------------------------------
 " Done function for fix_bug.tpl template
 fun! g:Done_fix_bug_tpl()
-    let l:enddate_line_number = search("- End Date", 'n')
+    let l:enddate_line_number = search("^- End Date", 'n')
     if l:enddate_line_number > 0
         let l:new_enddate_line = split(getline(l:enddate_line_number), ':')[0].": {{date}} {{day}} {{time}}"
         call setline(l:enddate_line_number, l:new_enddate_line)
         InsertMatches
     endif
 
-    let l:status_line_number = search("- Status", 'n')
+    let l:status_line_number = search("^- Status", 'n')
     if l:status_line_number > 0
         let l:new_status_line = split(getline(l:status_line_number), ':')[0].": ✅"
         call setline(l:status_line_number, l:new_status_line)
