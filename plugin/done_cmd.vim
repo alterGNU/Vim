@@ -20,9 +20,9 @@
 " FUNCTIONS
 " ============================================================================================================
 " -[ SEARCH_AND_SET_END_DATE ]--------------------------------------------------------------------------------
-" -[ DONE HOW_TO.TPL ]----------------------------------------------------------------------------------------
-" Done function for how_to.tpl template
-fun! g:Done_how_to_tpl()
+" -[ DONE HOW_TO_FT ]----------------------------------------------------------------------------------------
+" Done function for how_to.txt template
+fun! g:Done_how_to_ft()
     let l:enddate_line_number = search("^- End Date", 'n')
     if l:enddate_line_number > 0
         let l:new_enddate_line = split(getline(l:enddate_line_number), ':')[0].": {{date}} {{day}} {{time}}"
@@ -36,9 +36,9 @@ fun! g:Done_how_to_tpl()
         call setline(l:status_line_number, l:new_status_line)
     endif
 endfun
-" -[ DONE_fix_it_TPL ]---------------------------------------------------------------------------------------
-" Done function for fix_it.tpl template
-fun! g:Done_fix_it_tpl()
+" -[ DONE_fix_it_FT ]---------------------------------------------------------------------------------------
+" Done function for fix_it.txt template
+fun! g:Done_fix_it_ft()
     let l:enddate_line_number = search("^- End Date", 'n')
     if l:enddate_line_number > 0
         let l:new_enddate_line = split(getline(l:enddate_line_number), ':')[0].": {{date}} {{day}} {{time}}"
@@ -59,11 +59,11 @@ fun! g:Done()
     let l:title = split(getline(1), ':')[0][2:]
     echo "titre='".l:title."'"
     if l:title =~# 'How to'
-        call g:Done_how_to_tpl()
-        echom "Done how_to.tpl file"
+        call g:Done_how_to_ft()
+        echom "Done how_to.txt file"
     elseif l:title =~# 'Fix_it'
-        call g:Done_fix_it_tpl()
-        echom "Done fix_it.tpl file"
+        call g:Done_fix_it_ft()
+        echom "Done fix_it.txt file"
     else
         echo "Nothing to be done here"
     endif

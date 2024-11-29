@@ -14,11 +14,11 @@
 "       - how_to    : any mardown file that file.name or folder.name start with how_to
 "       - fix_it   : any mardown file that's not a how_to file AND file.name or folder.name start with how_to
 "   - `:InsertTemplate` = insert the args1 if known
-"       - diary.tpl     : diary entries
-"       - fix_it.tpl    : fix_it filetype
-"       - how_to.tpl    : how_to filetype
-"       - tool_index.tpl: wiki0:Notes/Tools/**/index.md
-"       - wiki_page.tpl : filetype vimwiki (if not any of other filetype)
+"       - diary.txt     : diary entries
+"       - fix_it.txt    : fix_it filetype
+"       - how_to.txt    : how_to filetype
+"       - tool_index.txt: wiki0:Notes/Tools/**/index.md
+"       - wiki_page.txt : filetype vimwiki (if not any of other filetype)
 "
 " TODO :
 " ============================================================================================================
@@ -69,10 +69,10 @@ fun! s:TMP_InsertSpecificTemplate(template_name)
     "    echo "return from ". a:template_name
     "    return
     "endif
-    if a:template_name =~? ".tpl"
+    if a:template_name =~? ".txt"
         let l:tpl_name=a:template_name
     else
-        let l:tpl_name=a:template_name . ".tpl"
+        let l:tpl_name=a:template_name . ".txt"
     endif
     if len($MYVIMRC) == 0
         let l:abspath = "~/.vim/templates/" . l:tpl_name
@@ -99,15 +99,15 @@ command! -nargs=1 InsertTemplate call s:TMP_InsertSpecificTemplate(<f-args>)
 " ============================================================================================================
 augroup Plugin_Templateur
 	autocmd!
-    " Insert tool_index.tpl 
+    " Insert tool_index.txt 
     autocmd BufNewfile */Tools/**/index.md call s:TMP_InsertSpecificTemplate('tool_index')
-    " Insert diary.tpl 
+    " Insert diary.txt 
     autocmd BufNewfile ????-??-??.md call s:TMP_InsertSpecificTemplate('diary')
     " g:template_inserted is set to 0 before every read of a file
     "autocmd BufReadPost * let g:template_inserted = 0
-    " If parent folder name or filename start with how_to or How_to, then insert 'how_to.tpl'
+    " If parent folder name or filename start with how_to or How_to, then insert 'how_to.txt'
     "autocmd BufEnter *.md if ( !filereadable(expand('%')) && ( expand('%:t') =~# '^\(H\|h\)ow_to' || expand('%:p:h:t') =~# '^\(H\|h\)ow_to')) | call s:TMP_InsertSpecificTemplate('how_to') | endif
-    " If parent folder name or filename start with Fix or fix, then insert 'fix_it.tpl'
+    " If parent folder name or filename start with Fix or fix, then insert 'fix_it.txt'
     "autocmd BufEnter *.md if ( !filereadable(expand('%')) && ( expand('%:t') =~# '^\(F\|f\)ix_' || expand('%:p:h:t') =~# '^\(F\|f\)ix')) | call s:TMP_InsertSpecificTemplate('fix_it') | endif
     " If it's a wiki page, insert wiki_page
     "autocmd filetype vimwiki if ( join(getline(1, '$')) ==# '' ) | call s:TMP_InsertSpecificTemplate('wiki_page') | endif
