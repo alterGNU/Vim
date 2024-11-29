@@ -36,7 +36,7 @@ set nocompatible
 "   - indent on     : Enable filetype-indent by sourcing the $VIMRUNTIME/indent.vim and $VIMRUNTIME/ftplugin/<filetype>.vim files
 "   - plugin on     : Enable filetype-plugin by sourcing the $VIMRUNTIME/plugin.vim and $VIMRUNTIME/ftplugin/<filetype>.vim files
 filetype plugin indent on
-" TODO mv to after/ftplugin/zsh.vim mapping
+" TODO mv to after/ftdetect/zsh.vim mapping
 autocmd BufNewFile,BufRead ${DOTPATH}/fcts/* set filetype=zsh " set filetype for functions in DOTPATH/fcts
 " =[ SYNTAX ]=================================================================================================
 syntax on           " Enable syntax feature by sourcing the $VIMRUNTIME/syntax/syntax.vim file.
