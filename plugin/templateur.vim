@@ -9,14 +9,16 @@
 "   - `:InsertMatches` = every '{{<match>}} occurence will be replace by their value
 "       - Time      : day, DAY, date, time
 "       - File      : file.name, file.NAME, file.path, file.ext, folder.name, filepath
-"       - Special   : how_to.title, fix_bug.title
+"       - Special   : how_to.title, fix_it.title
 "   - Autogroup filetype-detection :
 "       - how_to    : any mardown file that file.name or folder.name start with how_to
-"       - fix_bug   : any mardown file that's not a how_to file AND file.name or folder.name start with how_to
+"       - fix_it   : any mardown file that's not a how_to file AND file.name or folder.name start with how_to
 "   - `:InsertTemplate` = insert the args1 if known
-"       - How_to.tpl
-"       - Fix_bug.tpl
-"       - wiki_page.tpl
+"       - diary.tpl     : diary entries
+"       - fix_it.tpl    : fix_it filetype
+"       - how_to.tpl    : how_to filetype
+"       - tool_index.tpl: wiki0:Notes/Tools/**/index.md
+"       - wiki_page.tpl : filetype vimwiki (if not any of other filetype)
 "
 " TODO :
 " ============================================================================================================
@@ -49,9 +51,9 @@ fun! s:TMP_InsertSpecial()
     " How to: templateur-->always How to: templateur
     let l:how_to_title = "How to: ".substitute(substitute(l:file_name,"_"," ","g"),"how to ","","g")
     silent! exe "%s/\{\{how_to.title\}\}/".l:how_to_title."/gI"
-    " Fix : templateur-->always Fix : templateur
-    let l:fix_bug_title = "Fix : ".substitute(substitute(l:file_name,"_"," ","g"),"fix ","","g")
-    silent! exe "%s/\{\{fix_bug.title\}\}/".l:fix_bug_title."/gI"
+    " Fix_it : templateur-->always Fix_it : templateur
+    let l:fix_it_title = "Fix it : ".substitute(substitute(l:file_name,"_"," ","g"),"fix it ","","g")
+    silent! exe "%s/\{\{fix_it.title\}\}/".l:fix_it_title."/gI"
 endfun
 " -[ ONE TO CALL THEM ALL ]-----------------------------------------------------------------------------------
 fun! s:TMP_InsertAllMatches()
@@ -63,10 +65,10 @@ endfun
 " -[ INSERT A SPECIFIC TEMPLATE ]-----------------------------------------------------------------------------
 " if template_name is a file in templates folder, insert on line 0 then call InsertMatches cmd
 fun! s:TMP_InsertSpecificTemplate(template_name)
-    if g:template_inserted
-        echo "return from ". a:template_name
-        return
-    endif
+    "if g:template_inserted
+    "    echo "return from ". a:template_name
+    "    return
+    "endif
     if a:template_name =~? ".tpl"
         let l:tpl_name=a:template_name
     else
@@ -79,7 +81,7 @@ fun! s:TMP_InsertSpecificTemplate(template_name)
     endif
     if filereadable(l:abspath)
         exe "0r " . l:abspath
-        let g:template_inserted = 1
+    "    let g:template_inserted = 1
     else
         echoerr l:abspath . " is NOT a template file"
     endif
@@ -97,12 +99,16 @@ command! -nargs=1 InsertTemplate call s:TMP_InsertSpecificTemplate(<f-args>)
 " ============================================================================================================
 augroup Plugin_Templateur
 	autocmd!
+    " Insert tool_index.tpl 
+    autocmd BufNewfile */Tools/**/index.md call s:TMP_InsertSpecificTemplate('tool_index')
+    " Insert diary.tpl 
+    autocmd BufNewfile ????-??-??.md call s:TMP_InsertSpecificTemplate('diary')
     " g:template_inserted is set to 0 before every read of a file
-    autocmd BufReadPost * let g:template_inserted = 0
+    "autocmd BufReadPost * let g:template_inserted = 0
     " If parent folder name or filename start with how_to or How_to, then insert 'how_to.tpl'
-    autocmd BufEnter * if ( !filereadable(expand('%')) && ( expand('%:t') =~# '^\(H\|h\)ow_to' || expand('%:p:h:t') =~# '^\(H\|h\)ow_to')) | call s:TMP_InsertSpecificTemplate('how_to') | endif
-    " If parent folder name or filename start with Fix or fix, then insert 'fix_bug.tpl'
-    autocmd BufEnter * if ( !filereadable(expand('%')) && ( expand('%:t') =~# '^\(F\|f\)ix_' || expand('%:p:h:t') =~# '^\(F\|f\)ix')) | call s:TMP_InsertSpecificTemplate('fix_bug') | endif
+    "autocmd BufEnter *.md if ( !filereadable(expand('%')) && ( expand('%:t') =~# '^\(H\|h\)ow_to' || expand('%:p:h:t') =~# '^\(H\|h\)ow_to')) | call s:TMP_InsertSpecificTemplate('how_to') | endif
+    " If parent folder name or filename start with Fix or fix, then insert 'fix_it.tpl'
+    "autocmd BufEnter *.md if ( !filereadable(expand('%')) && ( expand('%:t') =~# '^\(F\|f\)ix_' || expand('%:p:h:t') =~# '^\(F\|f\)ix')) | call s:TMP_InsertSpecificTemplate('fix_it') | endif
     " If it's a wiki page, insert wiki_page
     "autocmd filetype vimwiki if ( join(getline(1, '$')) ==# '' ) | call s:TMP_InsertSpecificTemplate('wiki_page') | endif
 augroup END

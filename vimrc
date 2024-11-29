@@ -27,16 +27,24 @@ function! g:SaveAndSourceFile()
 endfunction
 map <silent> <F5> <Esc>:call g:SaveAndSourceFile()<Esc>
 
-" =[ FILETYPE & INDENT ]======================================================================================
-" Active filetype detection (load my ~/.vim/ftplugin/*.vim) & indent (load my ~/.vim/indent/*.vim)
+" =[ COMPATIBLE VI ]==========================================================================================
+" Resetting compatible:Filetypes & 'compatible' don't work together well, since being Vi compatible means options are global.
+set nocompatible
+" =[ FILETYPE ]===============================================================================================
+" Active default filetypes detection, filetype-plugin and filetype-indent
+"   - filetype on   : Enable filetype-detect by sourcing the $VIMRUNTIME/filetype.vim file.
+"   - indent on     : Enable filetype-indent by sourcing the $VIMRUNTIME/indent.vim and $VIMRUNTIME/ftplugin/<filetype>.vim files
+"   - plugin on     : Enable filetype-plugin by sourcing the $VIMRUNTIME/plugin.vim and $VIMRUNTIME/ftplugin/<filetype>.vim files
 filetype plugin indent on
+" TODO mv to after/ftplugin/zsh.vim mapping
 autocmd BufNewFile,BufRead ${DOTPATH}/fcts/* set filetype=zsh " set filetype for functions in DOTPATH/fcts
+" =[ SYNTAX ]=================================================================================================
+syntax on           " Enable syntax feature by sourcing the $VIMRUNTIME/syntax/syntax.vim file.
 " =[ LEADERKEY ]==============================================================================================
 " Define [`] as leaderkey
 let mapleader = "`"
 " =[ SETTINGS ]===============================================================================================
 " -[ BASICS ]-------------------------------------------------------------------------------------------------
-set nocompatible                         | " Desable vi compatibility
 set viminfo+=n~/.vim/viminfo             | " Change default location of viminfo file
 set mouse=a                              | " Enable the use of the mouse in all mode ('a')
 set scrolloff=5                          | " When scroll, keep cursor 5lines away of top/bottom
@@ -44,8 +52,9 @@ set belloff=all                          | " Desable all bell/sound
 set clipboard=unnamedplus                | " Use clipboard as default buffer for cpy/past (cross-plat: all UNIX)
 " -[ DISPLAY ]------------------------------------------------------------------------------------------------
 set textwidth=110                        | " Default max lines width
+set colorcolumn=+0                       | " Hihlight the column at textwidth
 set number 	                             | " Display the line numbering
-set wrap                                 | " If line longer than windows, wrap text instead of horizontal scrolling
+set nowrap                               | " If line longer than windows, do not wrap text instead of horizontal scrolling
 set linebreak                            | " If line longer than windows, prevent word from being split in two
 " -[ INDENTATION ]--------------------------------------------------------------------------------------------
 set autoindent                           | " Use the indent from the previous line
@@ -103,23 +112,6 @@ vnoremap ;; :s:::g<left><left><left>
 " =[  SWITCH CAPS<->ESCAP ]===================================================================================
 "au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 "au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
-
-" =[ DISPLAY TEXTWIDTH COLUMN ]===============================================================================
-" Display a colored column where textwidth is (if no textwidth, default value=80)
-" -[ FUNCTION ]-----------------------------------------------------------------------------------------------
-function! s:SetColorColumnPerFile()
-    let l:textaille = substitute(trim(execute(":set textwidth?")),"textwidth=","","")
-    if l:textaille == 0
-        setlocal colorcolumn=80
-    else
-        execute(":setlocal colorcolumn=".l:textaille)
-    endif
-endfunction
-" -[ AUTOMATION GROUP ]---------------------------------------------------------------------------------------
-augroup colorcolumn
-    autocmd!
-    autocmd BufEnter * call s:SetColorColumnPerFile()
-augroup end
 
 " ============================================================================================================
 " PLUGINS
@@ -199,7 +191,7 @@ noremap <leader>M <Plug>(Tman)
 vnoremap <silent> <leader>M "vy:Tman <C-r>"<CR>
 
 " =[ VIMWIKI ]================================================================================================
-" -[ SETTINGS ]-----------------------------------------------------------------------------------------------
+" -[ MARKDOWN SYNTAX ]----------------------------------------------------------------------------------------
 " Force show extension in links
 let g:vimwiki_markdown_link_ext = 1
 " Treat all markdown files in my system as part of vimwiki
@@ -231,3 +223,7 @@ let g:vimwiki_list = [
 " -[ MAPPING ]------------------------------------------------------------------------------------------------
 noremap <Leader><CR> <plug>VimwikiVSplitLink
 inoremap <Leader><CR> <plug>VimwikiVSplitLink
+ 
+" ============================================================================================================
+" TESTING AREA
+" ============================================================================================================

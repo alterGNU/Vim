@@ -8,7 +8,7 @@
 "   - if its a How_to ticket:
 "       - search for the status line then change icon to ✅
 "       - search for the end date and set it's value at now
-"   - if its a Fix ticket:
+"   - if its a Fix_it ticket:
 "       - search for the status line then change icon to ✅
 "       - search for the end date and set it's value at now
 "
@@ -36,9 +36,9 @@ fun! g:Done_how_to_tpl()
         call setline(l:status_line_number, l:new_status_line)
     endif
 endfun
-" -[ DONE_FIX_BUG_TPL ]---------------------------------------------------------------------------------------
-" Done function for fix_bug.tpl template
-fun! g:Done_fix_bug_tpl()
+" -[ DONE_fix_it_TPL ]---------------------------------------------------------------------------------------
+" Done function for fix_it.tpl template
+fun! g:Done_fix_it_tpl()
     let l:enddate_line_number = search("^- End Date", 'n')
     if l:enddate_line_number > 0
         let l:new_enddate_line = split(getline(l:enddate_line_number), ':')[0].": {{date}} {{day}} {{time}}"
@@ -61,9 +61,9 @@ fun! g:Done()
     if l:title =~# 'How to'
         call g:Done_how_to_tpl()
         echom "Done how_to.tpl file"
-    elseif l:title =~# 'Fix'
-        call g:Done_fix_bug_tpl()
-        echom "Done fix_bug.tpl file"
+    elseif l:title =~# 'Fix_it'
+        call g:Done_fix_it_tpl()
+        echom "Done fix_it.tpl file"
     else
         echo "Nothing to be done here"
     endif
