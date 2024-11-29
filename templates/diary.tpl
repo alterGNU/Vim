@@ -1,15 +1,26 @@
-# {{day}} {{date}}
+# {{date}} {{day}}
 
----
-- Tags      :
-- Resume    :
----
+<!--Infos
+- Tags          :
+- Resume        :
+-->
+
+<!--Nuit
+- Start Date    : 
+- End Date      : 
+- Duration      : 
+-->
 
 # Notes
 ##  Problems
 ##  Questions
 ##  Ressources
 
-# Schedule
+# Tasks
+## List
+- Prep. petit dej. + wrap alexia
+
+## Schedule
 | Start | End   | Time  | Name                 | Description                                                |
 | ----- | ----- | ----- | -------------------- | ---------------------------------------------------------- |
+
