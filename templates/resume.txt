@@ -1,0 +1,20 @@
+# {{resume.title}}
+
+---
+- Type          : 📺 Video 📖 Article
+- Title         : 
+- Author        : 
+- Link          : 
+- UUID          : 
+- Project       : 
+- Tags          : resume 
+- Start Date    : {{date}} {{day}} {{time}}
+- Time-Duration : 
+- Value ⭐/5    : 
+---
+
+## 📃 Resume:
+
+## 🔍 Details:
+
+## 🔗 Sources:

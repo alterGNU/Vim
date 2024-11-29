@@ -12,13 +12,14 @@
 "       - Special   : how_to.title, fix_it.title
 "   - Autogroup filetype-detection :
 "       - how_to    : any mardown file that file.name or folder.name start with how_to
-"       - fix_it   : any mardown file that's not a how_to file AND file.name or folder.name start with how_to
+"       - fix_it    : any mardown file that's not a how_to file AND file.name or folder.name start with how_to
 "   - `:InsertTemplate` = insert the args1 if known
-"       - diary.txt     : diary entries
-"       - fix_it.txt    : fix_it filetype
-"       - how_to.txt    : how_to filetype
-"       - tool_index.txt: wiki0:Notes/Tools/**/index.md
-"       - wiki_page.txt : filetype vimwiki (if not any of other filetype)
+"       - diary.txt     : diary entries   (match: name==hhhh-mm-dd.md)
+"       - fix_it.txt    : fix_it filetype (TODO match: custom-filetype) 
+"       - how_to.txt    : how_to filetype (TODO match: custom-filetype)
+"       - tool_index.txt: Tools index page(match: path&name==wiki0:Notes/Tools/**/index.md
+"       - wiki_page.txt : filetype vimwiki(TODO:if not already insert/or/if not any of other filetype)
+"       - resume.txt    : resume filetype (TODO:match: name==resume*.md)
 "
 " TODO :
 " ============================================================================================================
@@ -51,9 +52,12 @@ fun! s:TMP_InsertSpecial()
     " How to: templateur-->always How to: templateur
     let l:how_to_title = "How to: ".substitute(substitute(l:file_name,"_"," ","g"),"how to ","","g")
     silent! exe "%s/\{\{how_to.title\}\}/".l:how_to_title."/gI"
-    " Fix_it : templateur-->always Fix_it : templateur
-    let l:fix_it_title = "Fix it : ".substitute(substitute(l:file_name,"_"," ","g"),"fix it ","","g")
+    " Fix_it : templateur-->always Fix_it: templateur
+    let l:fix_it_title = "Fix it: ".substitute(substitute(l:file_name,"_"," ","g"),"fix it ","","g")
     silent! exe "%s/\{\{fix_it.title\}\}/".l:fix_it_title."/gI"
+    " Resume : templateur-->always Resume: templateur
+    let l:resume_title = "Resume: ".substitute(substitute(l:file_name,"_"," ","g"),"resume ","","g")
+    silent! exe "%s/\{\{resume.title\}\}/".l:resume_title."/gI"
 endfun
 " -[ ONE TO CALL THEM ALL ]-----------------------------------------------------------------------------------
 fun! s:TMP_InsertAllMatches()
@@ -103,6 +107,8 @@ augroup Plugin_Templateur
     autocmd BufNewfile */Tools/**/index.md call s:TMP_InsertSpecificTemplate('tool_index')
     " Insert diary.txt 
     autocmd BufNewfile ????-??-??.md call s:TMP_InsertSpecificTemplate('diary')
+    " Insert resume.txt
+    autocmd BufEnter *.md if ( !filereadable(expand('%')) && ( expand('%:t') =~# '^\(R\|r\)esume' || expand('%:p:h:t') =~# '^\(R\|r\)esume')) | call s:TMP_InsertSpecificTemplate('resume') | endif
     " g:template_inserted is set to 0 before every read of a file
     "autocmd BufReadPost * let g:template_inserted = 0
     " If parent folder name or filename start with how_to or How_to, then insert 'how_to.txt'
