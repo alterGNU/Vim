@@ -133,9 +133,7 @@ endif
 
 call plug#begin()
 Plug 'alexandregv/norminette-vim'    " Norminette checking
-Plug 'itchyny/calendar.vim'          " Calendar for VimWiki
 Plug 'morhetz/gruvbox'               " Theme & color retro groove
-Plug 'mzlogin/vim-markdown-toc'      " Creation de TOC 
 Plug 'scrooloose/nerdtree'           " File system explorer
 Plug 'scrooloose/syntastic'          " Syntax checking
 Plug 'vim-utils/vim-man'             " View man pages in vim
@@ -156,14 +154,6 @@ let g:syntastic_check_on_open = 1                              " Check errors wh
 let g:syntastic_always_populate_loc_list = 1                   " Enable error list
 let g:syntastic_auto_loc_list = 1                              " Automatically open error list
 let g:syntastic_check_on_wq = 0                                " Skip check when closing
-
-" =[ CALENDAR.VIM ]===========================================================================================
-" -[ SETTING ]------------------------------------------------------------------------------------------------
-source ~/.cache/calendar.vim/credentials.vim
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1
-" -[ MAPPING ]------------------------------------------------------------------------------------------------
-map <silent> <F4> <Esc>:Calendar<CR>
 
 " =[ GRUVBOX ]================================================================================================
 " -[ SETTING ]------------------------------------------------------------------------------------------------
@@ -223,7 +213,3 @@ let g:vimwiki_list = [
 " -[ MAPPING ]------------------------------------------------------------------------------------------------
 noremap <Leader><CR> <plug>VimwikiVSplitLink
 inoremap <Leader><CR> <plug>VimwikiVSplitLink
- 
-" ============================================================================================================
-" TESTING AREA
-" ============================================================================================================
