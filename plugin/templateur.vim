@@ -7,7 +7,7 @@
 "
 " Commands/Functions:
 "   - `:InsertMatches` = every '{{<match>}} occurence will be replace by their value
-"       - Time      : day, DAY, date, time
+"       - Time      : yes, YES, yesterday, day, DAY, today, now, tom, TOM, tomorrow
 "       - File      : file.name, file.NAME, file.path, file.ext, folder.name, filepath
 "       - Special   : how_to.title, fix_it.title
 "   - Autogroup filetype-detection :
@@ -30,20 +30,30 @@
 " =[ SEARCH&REPLACE FUNCTIONS ]===============================================================================
 " -[ TIME ]---------------------------------------------------------------------------------------------------
 fun! s:TMP_InsertTimeFormat()
-    silent! exe "%s/\{\{day\}\}/".strftime("%a")."/gI"           | " {{day}}='Sat'             CASE SENSITIVE
-    silent! exe "%s/\{\{DAY\}\}/".strftime("%A")."/gI"           | " {{DAY}}='Saturday'        CASE SENSITIVE
-    silent! exe "%s/\{\{date\}\}/".strftime("%Y-%m-%d")."/g"     | " {{date}}='2024-12-24'
-    silent! exe "%s/\{\{time\}\}/".strftime("%H:%M:%S")."/g"     | " {{time}}='23:59:45'
+    " Date Yesterday
+    silent! exe "%s/\{\{yes\}\}/".trim(system('date -d "yesterday" +%a'))."/gI"     | " {{yes}}      ='Sun'             CASE SENSITIVE
+    silent! exe "%s/\{\{YES\}\}/".trim(system('date -d "yesterday" +%A'))."/gI"     | " {{YES}}      ='Sunday'        CASE SENSITIVE
+    silent! exe "%s/\{\{yesterday\}\}/".trim(system('date -d "yesterday" +%F'))."/g"| " {{yesterday}}='2024-12-01'
+    " Date Today
+    silent! exe "%s/\{\{day\}\}/".trim(system('date +%a'))."/gI"                    | " {{day}}      ='Mon'             CASE SENSITIVE
+    silent! exe "%s/\{\{DAY\}\}/".trim(system('date +%A'))."/gI"                    | " {{DAY}}      ='Monday'        CASE SENSITIVE
+    silent! exe "%s/\{\{today\}\}/".trim(system('date +%F'))."/g"                   | " {{today}}    ='2024-12-02'
+    " Time Now
+    silent! exe "%s/\{\{now\}\}/".trim(system('date +%T'))."/g"                     | " {{now}}      ='23:59:45'
+    " Date Tomorow
+    silent! exe "%s/\{\{tom\}\}/".trim(system('date -d "tomorrow" +%a'))."/gI"      | " {{tom}}      ='Tue'             CASE SENSITIVE
+    silent! exe "%s/\{\{TOM\}\}/".trim(system('date -d "tomorrow" +%A'))."/gI"      | " {{TOM}}      ='Tuesday'        CASE SENSITIVE
+    silent! exe "%s/\{\{tomorrow\}\}/".trim(system('date -d "tomorrow" +%F'))."/g"  | " {{tomorrow}} ='2024-12-03'
 endfun
 " -[ PATH ]---------------------------------------------------------------------------------------------------
 fun! s:TMP_InsertFileInfos()
-    silent! exe "%s/\{\{folder.name\}\}/".expand('%:p:h:t')."/g" | " {{folder.name}}='vim'
-    silent! exe "%s:\{\{folder.path\}\}:".expand('%:p:h').":g"   | " {{folder.path}}='/path/folder/'
+    silent! exe "%s/\{\{folder.name\}\}/".expand('%:p:h:t')."/g" | " plugin='vim'
+    silent! exe "%s:\{\{folder.path\}\}:".expand('%:p:h').":g"   | " /home/altergnu/Projects/Dotfiles/vim/plugin='/path/folder/'
     let l:filename = substitute(expand('%:t:r'),"_"," ","g")     | " replace toto_titi_tutu by toto titi tutu
-    silent! exe "%s/\{\{file.name\}\}/".l:filename."/gI"         | " {{file.name}}='vimrc'     CASE SENSITIVE
-    silent! exe "%s/\{\{file.NAME\}\}/".expand('%:t')."/gI"      | " {{file.NAME}}='vimrc.vim' CASE SENSITIVE
-    silent! exe "%s/\{\{file.ext\}\}/\.".expand('%:e')."/g"      | " {{file.ext}}='.vim'
-    silent! exe "%s:\{\{file.path\}\}:".expand('%:p').":g"       | " {{file.path}}='/path/folder/filename.ext'
+    silent! exe "%s/\{\{file.name\}\}/".l:filename."/gI"         | " templateur='vimrc'     CASE SENSITIVE
+    silent! exe "%s/\{\{file.NAME\}\}/".expand('%:t')."/gI"      | " templateur.vim='vimrc.vim' CASE SENSITIVE
+    silent! exe "%s/\{\{file.ext\}\}/\.".expand('%:e')."/g"      | " .vim='.vim'
+    silent! exe "%s:\{\{file.path\}\}:".expand('%:p').":g"       | " /home/altergnu/Projects/Dotfiles/vim/plugin/templateur.vim='/path/folder/filename.ext'
 endfun
 " -[ SPECIAL FORMAT ]-----------------------------------------------------------------------------------------
 fun! s:TMP_InsertSpecial()
