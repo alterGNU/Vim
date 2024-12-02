@@ -65,7 +65,6 @@ fun! s:TMP_InsertAllMatches()
     call s:TMP_InsertFileInfos()
     call s:TMP_InsertSpecial()
 endfun
-
 " -[ INSERT A SPECIFIC TEMPLATE ]-----------------------------------------------------------------------------
 " if template_name is a file in templates folder, insert on line 0 then call InsertMatches cmd
 fun! s:TMP_InsertSpecificTemplate(template_name)
@@ -78,10 +77,10 @@ fun! s:TMP_InsertSpecificTemplate(template_name)
     else
         let l:tpl_name=a:template_name . ".txt"
     endif
-    if len($MYVIMRC) == 0
+    if len(g:vimpath) == 0
         let l:abspath = "~/.vim/templates/" . l:tpl_name
     else
-        let l:abspath = "/".join(split($MYVIMRC, '/')[:-2], '/') . "/templates/" . l:tpl_name
+        let l:abspath = g:vimpath . "/templates/" . l:tpl_name
     endif
     if filereadable(l:abspath)
         exe "0r " . l:abspath

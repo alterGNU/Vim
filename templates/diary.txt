@@ -18,9 +18,11 @@
 
 # Tasks
 ## List
-- Prep. petit dej. + wrap alexia
+- Home:
+    - Prep. petit dej.
 
 ## Schedule
 | Start | End   | Time  | Name                 | Description                                                |
 | ----- | ----- | ----- | -------------------- | ---------------------------------------------------------- |
+| 07:00 | 08:00 | 01:00 | Home.Routine         | Prep. matin                                                |
 

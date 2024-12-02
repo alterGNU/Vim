@@ -1,0 +1,66 @@
+# 2024-11-30 Sat
+
+<!--Infos
+- Tags          : bash vimL vm taskw
+- Resume        :
+-->
+
+<!--Nuit 
+- Start Date    : 2024-11-29 22:37 
+- End Date      : 2024-11-30 05:00
+- Duration      : 06h23m00s
+-->
+
+# Notes
+- Taskwiki have to many bug...I'm not sure I'm gonna use it...maybe rewrite tasklib and taskwiki in vimL.
+
+## Today I Learn
+- Will trying to solve [Install. taskwiki pb](../Notes/Tools/Vim/Taskwiki/How_to_install_vimplugin_taskwiki.md) I learned:
+    - **pip vs pipx** : two python package manager, pip or pip3 dont manage pck-conflict while pipx can (but cannot install lib, only programme)
+    - **pipdeptree** : (to install:`sudo apt install python3-pipdeptree`) command to see python packages dependencies
+- In Vim, to Search&Replace a char **[X]** by **\n** :
+    - `%s:/[X]/^M/g` : To insert ^M `[Ctrl]+[v]+[Enter]`
+
+##  Problems
+- Create/Closed ticket: [Fix_it_since_taskwiki_vimwiki_open_buff_with_fold_title](../Notes/Tools/Vim/Taskwiki/Fix_it_since_taskwiki_vimwiki_open_buff_with_fold_title.md)
+- Create/Closed ticket: [Fix_it_since_taskwiki_vimwiki_do_not_display_link_details](../Notes/Tools/Vim/Taskwiki/Fix_it_since_taskwiki_vimwiki_do_not_display_link_details.md)
+- Create/Closed ticket: [Fix_it_portview_do_not_work_as_intended](../Notes/Tools/Vim/Taskwiki/Fix_it_portview_do_not_work_as_intended.md)
+- Create ticket: [VM_ubuntu42_do_not_boot](../Fix_it/Fix_it_VM_ubuntu42_do_not_boot.md)
+
+## Ideas
+- Dotfiles.Vim.Update   : Set of fun,cmd,map & au that manage updating action on vimwiki (map on [F5],if diary.md == `<leader>w<leader>i`, etc)
+- Wikis                 : Having different diary on diff. wikis (Wiki:Perso.diary, Notes:what I learned sort by days)
+
+## Questions
+- Can I change vimwiki diary/diary.md mapped `<leader>w<leader>i` to sort by days too (now only month)
+- Why taskwarrior export command have different value for the date entry?
+- What is the **date format ISO 8601** used by taskwarrior by default? are they other format names?
+
+##  Ressources
+- [pip vs pipx @linux.fr](https://linuxfr.org/news/python-partie-6-pip-et-pipx)
+
+# Tasks
+## Pending
+## Done
+- Home:
+    - June litiere (EASY)
+    - Descendre poubelle + cartons
+    - Recuperer colis cafe + ranger stock
+    - Lave-vaisselle
+    - Lessive couleurs-serviettes de bains
+    - RDV coiffeur
+    - Courses pour repas du soir
+- WLC
+    - replace option name `-v/--vimwiki` by `-m/--markdown`
+    - Manage image link syntax `![] (...)` and add test.
+- Push_swap:
+    - add wiki to ~/GPW as submodule.
+    - resume subject from pdf to md in wiki.
+
+# Schedule
+| Start | End   | Time  | Name                    | Description                                                     |
+| ----- | ----- | ----- | ----------------------- | -------------------------------------------------------         |
+| 05:30 | 07:00 | 01:10 | Dotfiles.Vim.Taskwiki   | tasklib install pb; Bug fold when tasklib install; Bug portview |
+| 07:00 | 08:00 | 01:00 | Home.Routine            | Breakfirst                                                      |
+| 08:00 | 10:00 | 02:00 | Wiki edit               | Edit wiki+diary                                                 |
+
