@@ -188,7 +188,7 @@ vnoremap <silent> <leader>M "vy:Tman <C-r>"<CR>
 " Force show extension in links
 let g:vimwiki_markdown_link_ext = 1
 " Treat all markdown files in my system as part of vimwiki
-let g:vimwiki_global_ext = 0
+let g:vimwiki_global_ext = 1
 " -[ WIKIS SETTINGS ]-----------------------------------------------------------------------------------------
 " create a wiki entrie at <path> with common settings + <extra_settings>
 fun! MyWiki(path, extra_settings)
