@@ -10,7 +10,7 @@
 - UUID          : 
 - Project       : 
 - Tags          : resume 
-- Start Date    : {{date}} {{day}} {{time}}
+- Start Date    : {{today}} {{day}} {{now}}
 - End Date      : 
 - Duration      : 
 - Value ⭐/5    : 

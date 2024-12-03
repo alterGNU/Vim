@@ -1,4 +1,4 @@
-# {{date}} {{day}}
+# {{today}} {{day}}
 
 <!--Infos
 - Tags          :
@@ -11,17 +11,22 @@
 - Duration      : 
 -->
 
+# Today-I-Learned
+
 # Notes
-##  Problems
-##  Questions
-##  Ressources
+
+# Tickets
+## How_to
+## Fix_it
+## Questions
+## Resume
 
 # Tasks
 ## List
 - Home:
     - Prep. petit dej.
 
-## Schedule
+# Schedule
 | Start | End   | Time  | Name                 | Description                                                |
 | ----- | ----- | ----- | -------------------- | ---------------------------------------------------------- |
 | 07:00 | 08:00 | 01:00 | Home.Routine         | Prep. matin                                                |

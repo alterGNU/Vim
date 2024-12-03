@@ -5,7 +5,7 @@
 - Project       : 
 - Tags          : how_to wiki
 - Scope         : private
-- Start Date    : {{date}} {{day}} {{time}}
+- Start Date    : {{today}} {{day}} {{now}}
 - End Date      : 
 - Duration      :
 - Status        : ❌

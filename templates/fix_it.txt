@@ -5,7 +5,7 @@
 - Project       : 
 - Tags          : fix_it wiki
 - Scope         : private
-- Start Date    : {{date}} {{day}} {{time}}
+- Start Date    : {{today}} {{day}} {{now}}
 - End Date      : 
 - Duration      :
 - Status        : ❌
