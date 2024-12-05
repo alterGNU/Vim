@@ -17,7 +17,7 @@ let $VIMPATH=expand($DOTPATH) . '/vim' " Use by plugin/templator.vim
 let $MYREALVIMRC=resolve($MYVIMRC)     " Use by autocmd below to id the real vimrc if sym-link use
 " =[ SOURCE ]=================================================================================================
 " auto. re-source vimrc when buffer is saved(handy when testing new settings in vimrc file)
-autocmd! BufWritePost $MYVIMRC,$MYREALVIMRC source $MYVIMRC | echom "Reloaded " . $MYVIMRC | redraw
+autocmd! BufWritePost $MYVIMRC,$MYREALVIMRC source $MYVIMRC | echom "Reloaded " . $MYVIMRC
 " if not in vimrc file then SAVE and SOURCE file(handy when writting vimscript function outside vimrc file)
 function! g:SaveAndSourceFile()
     let l:filename = fnamemodify(expand('%'), ':t')
@@ -40,7 +40,7 @@ set nocompatible
 "   - plugin on     : Enable filetype-plugin by sourcing the $VIMRUNTIME/plugin.vim and $VIMRUNTIME/ftplugin/<filetype>.vim files
 filetype plugin indent on
 " TODO 1-does it works cause vim cant handle ENV-VAR 2-if it work,mv to after/ftdetect/zsh.vim mapping
-autocmd BufEnter $DOTPATH/cmds/**/* if &filetype!~?'markdown'|set ft=sh|endif
+"autocmd BufEnter $DOTPATH/cmds/**/* if &filetype!~?'markdown'|set ft=sh|endif
 " =[ SYNTAX ]=================================================================================================
 syntax on           " Enable syntax feature by sourcing the $VIMRUNTIME/syntax/syntax.vim file.
 " =[ LEADERKEY ]==============================================================================================
