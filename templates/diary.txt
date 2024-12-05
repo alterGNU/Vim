@@ -11,23 +11,27 @@
 - Duration      : 
 -->
 
-# Today-I-Learned
+---
 
-# Notes
+# Today...
 
-# Tickets
-## How_to
-## Fix_it
-## Questions
-## Resume
+## ...🎯's Goals
+- [ ] Make progress in 42.push_swap project.
 
-# Tasks
-## List
+## ...🔍 I Learned
+
+## ...📖 I Read
+
+## ...✍ I Wrote
+### 📓 Notes
+### 📋 Tickets
+
+## ...📌 I Did
+### ✅ Tasks list (sort by project)
 - Home:
-    - Prep. petit dej.
+    - Routine : breakfirst & shower
 
-# Schedule
-| Start | End   | Time  | Name                 | Description                                                |
-| ----- | ----- | ----- | -------------------- | ---------------------------------------------------------- |
-| 07:00 | 08:00 | 01:00 | Home.Routine         | Prep. matin                                                |
-
+### ⌛ Schedule
+| Start | End   | Time  | Name                 | Description                                                 |
+| ----- | ----- | ----- | -------------------- | ----------------------------------------------------------  |
+| 07:00 | 08:00 | 01:00 | Home.Routine         | Prep. breakfirst + shower                                   |

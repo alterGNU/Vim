@@ -11,17 +11,18 @@
 " ============================================================================================================
 " CONFIGURATION
 " ============================================================================================================
-" =[ VAR ]====================================================================================================
-let g:dotpath=expand($DOTPATH)
-let g:vimpath=g:dotpath . '/vim'
+" =[ ENV-VAR ]================================================================================================
+let $DOTPATH=expand($DOTPATH)
+let $VIMPATH=expand($DOTPATH) . '/vim' " Use by plugin/templator.vim
+let $MYREALVIMRC=resolve($MYVIMRC)     " Use by autocmd below to id the real vimrc if sym-link use
 " =[ SOURCE ]=================================================================================================
 " auto. re-source vimrc when buffer is saved(handy when testing new settings in vimrc file)
-autocmd! bufwritepost $MYVIMRC source %
+autocmd! BufWritePost $MYVIMRC,$MYREALVIMRC source $MYVIMRC | echom "Reloaded " . $MYVIMRC | redraw
 " if not in vimrc file then SAVE and SOURCE file(handy when writting vimscript function outside vimrc file)
 function! g:SaveAndSourceFile()
     let l:filename = fnamemodify(expand('%'), ':t')
     if l:filename == "vimrc"
-        echom "vimrc can't be source with <F5> (g:SourceFile) command"
+        echom "vimrc can't be source with <F5> (g:SaveAndSourceFile) because of the 'vimrc' augroup declaration"
     else
         silent! write 
         source %
@@ -29,7 +30,6 @@ function! g:SaveAndSourceFile()
     endif
 endfunction
 map <silent> <F5> <Esc>:call g:SaveAndSourceFile()<Esc>
-
 " =[ COMPATIBLE VI ]==========================================================================================
 " Resetting compatible:Filetypes & 'compatible' don't work together well, since being Vi compatible means options are global.
 set nocompatible
@@ -39,8 +39,8 @@ set nocompatible
 "   - indent on     : Enable filetype-indent by sourcing the $VIMRUNTIME/indent.vim and $VIMRUNTIME/ftplugin/<filetype>.vim files
 "   - plugin on     : Enable filetype-plugin by sourcing the $VIMRUNTIME/plugin.vim and $VIMRUNTIME/ftplugin/<filetype>.vim files
 filetype plugin indent on
-" TODO mv to after/ftdetect/zsh.vim mapping
-autocmd BufNewFile,BufRead ${DOTPATH}/fcts/* set filetype=zsh " set filetype for functions in DOTPATH/fcts
+" TODO 1-does it works cause vim cant handle ENV-VAR 2-if it work,mv to after/ftdetect/zsh.vim mapping
+autocmd BufEnter $DOTPATH/cmds/**/* if &filetype!~?'markdown'|set ft=sh|endif
 " =[ SYNTAX ]=================================================================================================
 syntax on           " Enable syntax feature by sourcing the $VIMRUNTIME/syntax/syntax.vim file.
 " =[ LEADERKEY ]==============================================================================================
@@ -75,6 +75,11 @@ set smartcase                            | " ... unless we put write an upper-ca
 " ============================================================================================================
 " MAPPING
 " ============================================================================================================
+" =[ COMPLETION ]=============================================================================================
+" Allow 'j' and 'k' to navigate in 'Insert completion mode'
+imap <expr> j pumvisible() ? "\<C-n>" : 'j'
+imap <expr> k pumvisible() ? "\<C-p>" : 'k'
+
 " =[ NOHL ]===================================================================================================
 " Remove HighLighting (handy after search)
 noremap <c-n> :nohl<CR>
@@ -98,10 +103,11 @@ map th : tab help<Space>
 "vnoremap <c-s> <c-c>:write<CR>
 "inoremap <c-s> <c-o>:write<CR>
 " -[ SAVE ONLY IF CHANGES ]-----------------------------------------------------------------------------------
-" :u -> Save only if file was modified since last save
-noremap <c-s> :update<CR>
-vnoremap <c-s> <c-c>:update<CR>
-inoremap <c-s> <c-o>:update<CR>
+" Custom Update function (=! :update or :u) see ~/.vim/plugin/updator.vim
+" :update -> Save only if file was modified since last save
+noremap <c-s> :Update<CR>
+vnoremap <c-s> <c-c>:Update<CR>
+inoremap <c-s> <c-o>:Update<CR>
 
 " =[ SEARCH&REPLACE ]=========================================================================================
 " Search&replace globaly(entire file) and interactive(ask before replacing)
@@ -141,6 +147,7 @@ Plug 'scrooloose/nerdtree'           " File system explorer
 Plug 'scrooloose/syntastic'          " Syntax checking
 Plug 'vim-utils/vim-man'             " View man pages in vim
 Plug 'vimwiki/vimwiki'               " Personnal Wiki
+Plug 'junegunn/vim-peekaboo'         " Display the registers content on sidebar
 call plug#end()
 
 " =[ NORMINETTE-VIM ]=========================================================================================
@@ -164,10 +171,6 @@ set t_Co=256
 set background=dark
 colorscheme gruvbox
 " -[ MAPPING ]------------------------------------------------------------------------------------------------
-" =[ VIM-MARKDOWN-TOC ]=======================================================================================
-" -[ SETTING ]------------------------------------------------------------------------------------------------
-" -[ MAPPING ]------------------------------------------------------------------------------------------------
-map <silent> <F3> <Esc>:GenTocGFM<CR>
 
 " =[ NERD-TREE ]==============================================================================================
 " -[ SETTING ]------------------------------------------------------------------------------------------------
@@ -216,3 +219,7 @@ let g:vimwiki_list = [
 " -[ MAPPING ]------------------------------------------------------------------------------------------------
 noremap <Leader><CR> <plug>VimwikiVSplitLink
 inoremap <Leader><CR> <plug>VimwikiVSplitLink
+ 
+" ============================================================================================================
+" TEST AREA
+" ============================================================================================================

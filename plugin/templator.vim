@@ -23,10 +23,16 @@
 "
 " TODO :
 " ============================================================================================================
-
 " ============================================================================================================
 " FUNCTIONS
 " ============================================================================================================
+" =[ AUTO-COMPLETION ]========================================================================================
+" To create a insert
+func! ListMatches()
+    call complete(col('.'), [ '{{yes}}', '{{YES}}', '{{yesterday}}', '{{day}}', '{{DAY}}', '{{today}}', '{{now}}', '{{tom}}', '{{TOM}}', '{{tomorrow}}', '{{folder.name}}', '{{folder.path}}', '{{file.name}}', '{{file.NAME}}', '{{file.ext}}', '{{file.path' ])
+    return ''
+endfunc
+inoremap <F2> <C-R>=ListMatches()<CR>
 " =[ SEARCH&REPLACE FUNCTIONS ]===============================================================================
 " -[ TIME ]---------------------------------------------------------------------------------------------------
 fun! s:TMP_InsertTimeFormat()
@@ -46,6 +52,7 @@ fun! s:TMP_InsertTimeFormat()
     silent! exe "%s/\{\{tomorrow\}\}/".trim(system('date -d "tomorrow" +%F'))."/g"  | " {{tomorrow}} ='2024-12-03'
 endfun
 " -[ PATH ]---------------------------------------------------------------------------------------------------
+
 fun! s:TMP_InsertFileInfos()
     silent! exe "%s/\{\{folder.name\}\}/".expand('%:p:h:t')."/g" | " plugin='vim'
     silent! exe "%s:\{\{folder.path\}\}:".expand('%:p:h').":g"   | " /home/altergnu/Projects/Dotfiles/vim/plugin='/path/folder/'
@@ -87,10 +94,10 @@ fun! s:TMP_InsertSpecificTemplate(template_name)
     else
         let l:tpl_name=a:template_name . ".txt"
     endif
-    if len(g:vimpath) == 0
+    if exists("$VIMPATH") == 0
         let l:abspath = "~/.vim/templates/" . l:tpl_name
     else
-        let l:abspath = g:vimpath . "/templates/" . l:tpl_name
+        let l:abspath = $VIMPATH . "/templates/" . l:tpl_name
     endif
     if filereadable(l:abspath)
         exe "0r " . l:abspath
@@ -106,7 +113,6 @@ endfun
 " ============================================================================================================
 command! InsertMatches call s:TMP_InsertAllMatches()
 command! -nargs=1 InsertTemplate call s:TMP_InsertSpecificTemplate(<f-args>)
-
 " ============================================================================================================
 " AUGROUP
 " ============================================================================================================
