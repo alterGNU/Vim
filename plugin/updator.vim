@@ -40,10 +40,9 @@ augroup Plugin_Updator
     " When file update, replace templator matches pattern {{...}} by their value
     autocmd BufWritePre,FileWritePre * if &ft !=# 'vim' | execute "InsertMatches" | endif
     " When vimwiki file update, replace :text_emoji: by emoji's icone
-	autocmd FileType vimwiki autocmd BufWritePre,FileWritePre <buffer> :silent! %s/:\([^: ]\+\):/\=get(vimwiki#emoji#get_dic(), submatch(1), submatch(0))/g
+    autocmd BufWritePre,FileWritePre * if index(['vim','zsh'], &filetype) < 0 | :silent! %s/:\([^: ]\+\):/\=get(vimwiki#emoji#get_dic(), submatch(1), submatch(0))/g | endif
     " Update diary index
     autocmd BufEnter */diary/diary.md execute "VimwikiDiaryGenerateLinks" | update
     " Update How_to/
     "autocmd BufEnter How_to/index.md call s:Plugin#Updator#UpdateIndex
 augroup END
- 

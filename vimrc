@@ -75,6 +75,10 @@ set smartcase                            | " ... unless we put write an upper-ca
 " ============================================================================================================
 " MAPPING
 " ============================================================================================================
+" =[ EX MODE ]================================================================================================
+" Get rid of [Shift]+[q] to enter Ex-mode (miss-click all the time and I personnaly never use this mode)
+noremap Q <Nop>
+
 " =[ COMPLETION ]=============================================================================================
 " Allow 'j' and 'k' to navigate in 'Insert completion mode'
 imap <expr> j pumvisible() ? "\<C-n>" : 'j'
