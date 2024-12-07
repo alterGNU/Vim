@@ -81,10 +81,10 @@ imap <expr> j pumvisible() ? "\<C-n>" : 'j'
 imap <expr> k pumvisible() ? "\<C-p>" : 'k'
 
 " =[ NOHL ]===================================================================================================
-" Remove HighLighting (handy after search)
-noremap <c-n> :nohl<CR>
-vnoremap <c-n> <c-c>:nohl<CR>
-inoremap <c-n> <c-o>:nohl<CR>
+" Remove HighLighting (abbrev :noh) map on <C-l> which normally redraw the screen
+noremap <silent> <C-l> :<C-u>nohl<CR><C-l>
+vnoremap <silent> <C-l> <C-c>:<C-u>nohl<CR><C-l>
+inoremap <silent> <C-l> <C-o>:<C-u>nohl<CR><C-l>
  
 " =[ TABULATIONS ]============================================================================================
 " -[ OPEN NEW TAB ]-------------------------------------------------------------------------------------------
