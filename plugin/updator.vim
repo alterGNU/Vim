@@ -1,15 +1,3 @@
-" **************************************************************************** "
-"                                                                              "
-"                                                         :::      ::::::::    "
-"    updator.vim                                        :+:      :+:    :+:    "
-"                                                     +:+ +:+         +:+      "
-"    By: lagrondi <marvin@42.fr>                    +#+  +:+       +#+         "
-"                                                 +#+#+#+#+#+   +#+            "
-"    Created: 2024/12/04 13:48:54 by lagrondi          #+#    #+#              "
-"    Updated: 2024/12/05 12:52:22 by lagrondi         ###   ########.fr        "
-"                                                                              "
-" **************************************************************************** "
-
 " ============================================================================================================
 " Update command
 " ============================================================================================================
@@ -31,8 +19,7 @@
 " -[ UPDATOR ]------------------------------------------------------------------------------------------------
 " Fun that insert matches from `{{...}}` and `:...:` pattern, then update (save only if changes occured)
 fun! g:Updator()
-    if exists("*")
-    endif
+    echo "TODO"
 endfun
 
 " -[ UPDATEINDEX ]--------------------------------------------------------------------------------------------
@@ -50,8 +37,12 @@ command! -nargs=1 Update call s:UpdateIndex(<f-args>)
 " ============================================================================================================
 augroup Plugin_Updator
 	autocmd!
+    " When file update, replace templator matches pattern {{...}} by their value
+    autocmd BufWritePre,FileWritePre * if &ft !=# 'vim' | execute "InsertMatches" | endif
+    " When vimwiki file update, replace :text_emoji: by emoji's icone
+	autocmd FileType vimwiki autocmd BufWritePre,FileWritePre <buffer> :silent! %s/:\([^: ]\+\):/\=get(vimwiki#emoji#get_dic(), submatch(1), submatch(0))/g
     " Update diary index
-    autocmd BufEnter */diary/diary.md :VimwikiDiaryGenerateLinks
+    autocmd BufEnter */diary/diary.md execute "VimwikiDiaryGenerateLinks" | update
     " Update How_to/
     "autocmd BufEnter How_to/index.md call s:Plugin#Updator#UpdateIndex
 augroup END

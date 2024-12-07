@@ -29,8 +29,9 @@
 
 ## ...📌 I Did
 ### ✅ Tasks list (sort by project)
-- Home:
-    - Routine : breakfirst & shower
+- Home
+    - Routine
+        - [X] breakfirst & shower
 
 ### ⌛ Schedule
 | Start | End   | Time  | Name                 | Description                                                 |

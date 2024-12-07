@@ -29,10 +29,10 @@
 " =[ AUTO-COMPLETION ]========================================================================================
 " To create a insert
 func! ListMatches()
-    call complete(col('.'), [ '{{yes}}', '{{YES}}', '{{yesterday}}', '{{day}}', '{{DAY}}', '{{today}}', '{{now}}', '{{tom}}', '{{TOM}}', '{{tomorrow}}', '{{folder.name}}', '{{folder.path}}', '{{file.name}}', '{{file.NAME}}', '{{file.ext}}', '{{file.path' ])
+    call complete(col('.'), [ '{{yes}}', '{{YES}}', '{{yesterday}}', '{{day}}', '{{DAY}}', '{{today}}', '{{now}}', '{{tom}}', '{{TOM}}', '{{tomorrow}}', '{{folder.name}}', '{{folder.path}}', '{{file.name}}', '{{file.NAME}}', '{{file.ext}}', '{{file.path}}' ])
     return ''
 endfunc
-inoremap <F2> <C-R>=ListMatches()<CR>
+inoremap <F3> <C-R>=ListMatches()<CR>
 " =[ SEARCH&REPLACE FUNCTIONS ]===============================================================================
 " -[ TIME ]---------------------------------------------------------------------------------------------------
 fun! s:TMP_InsertTimeFormat()

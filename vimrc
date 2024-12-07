@@ -103,11 +103,10 @@ map th : tab help<Space>
 "vnoremap <c-s> <c-c>:write<CR>
 "inoremap <c-s> <c-o>:write<CR>
 " -[ SAVE ONLY IF CHANGES ]-----------------------------------------------------------------------------------
-" Custom Update function (=! :update or :u) see ~/.vim/plugin/updator.vim
-" :update -> Save only if file was modified since last save
-noremap <c-s> :Update<CR>
-vnoremap <c-s> <c-c>:Update<CR>
-inoremap <c-s> <c-o>:Update<CR>
+" Ctrl+s = `:update` command that only save if file was modified since last save
+noremap <c-s> :up<CR>
+vnoremap <c-s> <c-c>:up<CR>
+inoremap <c-s> <c-o>:up<CR>
 
 " =[ SEARCH&REPLACE ]=========================================================================================
 " Search&replace globaly(entire file) and interactive(ask before replacing)
