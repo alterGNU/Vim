@@ -41,6 +41,8 @@ augroup Plugin_Updator
     autocmd BufWritePre,FileWritePre * if &ft !=# 'vim' | execute "InsertMatches" | endif
     " When vimwiki file update, replace :text_emoji: by emoji's icone
     autocmd BufWritePre,FileWritePre * if index(['vim','zsh'], &filetype) < 0 | :silent! %s/:\([^: ]\+\):/\=get(vimwiki#emoji#get_dic(), submatch(1), submatch(0))/g | endif
+    " When vimwiki file update, replace :text_emoji: by emoji's icone
+    autocmd BufWritePre,FileWritePre * if index(['vim','zsh'], &filetype) < 0 | :silent! InsertMatches | endif
     " Update diary index
     autocmd BufEnter */diary/diary.md execute "VimwikiDiaryGenerateLinks" | update
     " Update How_to/
