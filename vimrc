@@ -17,7 +17,7 @@ let $VIMPATH=expand($DOTPATH) . '/vim' " Use by plugin/templator.vim
 let $MYREALVIMRC=resolve($MYVIMRC)     " Use by autocmd below to id the real vimrc if sym-link use
 " =[ SOURCE ]=================================================================================================
 " auto. re-source vimrc when buffer is saved(handy when testing new settings in vimrc file)
-autocmd! BufWritePost $MYVIMRC,$MYREALVIMRC source $MYVIMRC | echom "Reloaded " . $MYVIMRC
+autocmd! BufWritePost $MYVIMRC,$MYREALVIMRC source $MYVIMRC | echom "Reloaded " . $MYVIMRC 
 " if not in vimrc file then SAVE and SOURCE file(handy when writting vimscript function outside vimrc file)
 function! g:SaveAndSourceFile()
     let l:filename = fnamemodify(expand('%'), ':t')
@@ -39,8 +39,6 @@ set nocompatible
 "   - indent on     : Enable filetype-indent by sourcing the $VIMRUNTIME/indent.vim and $VIMRUNTIME/ftplugin/<filetype>.vim files
 "   - plugin on     : Enable filetype-plugin by sourcing the $VIMRUNTIME/plugin.vim and $VIMRUNTIME/ftplugin/<filetype>.vim files
 filetype plugin indent on
-" TODO 1-does it works cause vim cant handle ENV-VAR 2-if it work,mv to after/ftdetect/zsh.vim mapping
-"autocmd BufEnter $DOTPATH/cmds/**/* if &filetype!~?'markdown'|set ft=sh|endif
 " =[ SYNTAX ]=================================================================================================
 syntax on           " Enable syntax feature by sourcing the $VIMRUNTIME/syntax/syntax.vim file.
 " =[ LEADERKEY ]==============================================================================================
@@ -52,7 +50,14 @@ set viminfo+=n~/.vim/viminfo             | " Change default location of viminfo 
 set mouse=a                              | " Enable the use of the mouse in all mode ('a')
 set scrolloff=5                          | " When scroll, keep cursor 5lines away of top/bottom
 set belloff=all                          | " Desable all bell/sound
+" -[ CLIPBOARD AND REGISTERS ]--------------------------------------------------------------------------------
 set clipboard=unnamedplus                | " Use clipboard as default buffer for cpy/past (cross-plat: all UNIX)
+" To force sync. after vim put in background using Ctrl_z and reput in frontground using `fg` cmd:
+aug ClipboardSync
+  au!
+  au VimSuspend * exe "!echo ".shellescape(trim(getreg('+')), "#%`*?")." | xsel -bi"
+  au VimResume  * let @+ = @"
+aug END
 " -[ DISPLAY ]------------------------------------------------------------------------------------------------
 set textwidth=110                        | " Default max lines width
 set colorcolumn=+0                       | " Hihlight the column at textwidth
