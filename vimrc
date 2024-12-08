@@ -56,7 +56,7 @@ set clipboard=unnamedplus                | " Use clipboard as default buffer for
 aug ClipboardSync
   au!
   au VimSuspend * exe "!echo ".shellescape(trim(getreg('+')), "#%`*?")." | xsel -bi"
-  au VimResume  * let @+ = @"
+  "au VimResume  * let @+ = @"
 aug END
 " -[ DISPLAY ]------------------------------------------------------------------------------------------------
 set textwidth=110                        | " Default max lines width
