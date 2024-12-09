@@ -1,4 +1,4 @@
-# {{today}} {{day}}
+# 2024-12-09 Mon
 
 <!--Infos
 - Tags          :
@@ -17,11 +17,14 @@
 # Today...
 
 ## ...🎯's Goals
-- [ ] Make progress in 42.push_swap project.
+- Make progress in 42.push_swap project.
+- Make progress in Hack-Vim and Fork-Vimwiki
 
 ## ...🔍 I Learned
 
 ## ...📖 I Read
+
+## ...📺 I Watch
 
 ## ...✍ I Wrote
 ### 📓 Notes
