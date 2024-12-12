@@ -1,4 +1,4 @@
-# 2024-12-09 Mon
+# {{today}} {{day}}
 
 <!--Infos
 - Tags          :
@@ -35,8 +35,12 @@
 - Home
     - Routine
         - [X] breakfirst & shower
+- Wiki
+    - Diary
+        - [X] Edit entries (yesterday Resume + today Objectifs)
 
 ### ⌛ Schedule
-| Start | End   | Time  | Name                 | Description                                                 |
-| ----- | ----- | ----- | -------------------- | ----------------------------------------------------------  |
-| 07:00 | 08:00 | 01:00 | Home.Routine         | Prep. breakfirst + shower                                   |
+| Start | End   | Time  | Name                 | Description                                                |
+| ----- | ----- | ----- | -------------------- | ---------------------------------------------------------- |
+| 07:00 | 08:00 | 01:00 | Home.Routine         | Prep. breakfirst + shower                                  |
+| 08:00 | 08:30 | 00:30 | Wiki.Diary           | Edit entries (yesterday resume + today's objectifs         |
