@@ -77,15 +77,14 @@ fun! s:InsertFileInfos()
 endfun
 " -[ INSERT SPECIAL FORMAT ]----------------------------------------------------------------------------------
 fun! s:InsertSpecial()
-    let l:file_name=expand('%:t:r')
-    let l:folder_name=expand('%:p:h:t')
-    " How to: templateur-->always How to: templateur
-    let l:how_to_title = "How to: ".substitute(substitute(l:file_name,"_"," ","g"),"how to ","","g")
-    silent! exe "%s/\{\{how_to.title\}\}/".l:how_to_title."/gI"
-    " Fix_it : templateur-->always Fix_it: templateur
-    let l:fix_it_title = "Fix it: ".substitute(substitute(l:file_name,"_"," ","g"),"fix it ","","g")
-    silent! exe "%s/\{\{fix_it.title\}\}/".l:fix_it_title."/gI"
-    " Resume : templateur-->always Resume: templateur
+    let l:file_name=expand('%:t')
+    " How_to:
+    let l:how_to_title = substitute(substitute(l:file_name,"_"," ","g"),"how to ","","g")
+    silent! exe "%s/\{\{how_to.title\}\}/"."How_to : ".toupper(l:how_to_title[0]).l:how_to_title[1:-4]."/gI"
+    " Fix_it:
+    let l:fix_it_title = substitute(substitute(l:file_name,"_"," ","g"),"fix it ","","g")
+    silent! exe "%s/\{\{fix_it.title\}\}/"."Fix_it : ".toupper(l:fix_it_title[0]).l:fix_it_title[1:-4]."/gI"
+    " Resume:
     let l:resume_title = "Resume: ".substitute(substitute(l:file_name,"_"," ","g"),"resume ","","g")
     silent! exe "%s/\{\{resume.title\}\}/".l:resume_title."/gI"
 endfun
@@ -104,7 +103,7 @@ command! InsertMatches call s:InsertAllMatches()
 " -[ LISTMATCHES ]--------------------------------------------------------------------------------------------
 " list all the matches.
 fun! ListMatches()
-    call complete(col('.'), [ '{{yes}}', '{{YES}}', '{{yesterday}}', '{{day}}', '{{DAY}}', '{{today}}', '{{now}}', '{{tom}}', '{{TOM}}', '{{tomorrow}}', '{{folder.name}}', '{{folder.path}}', '{{file.name}}', '{{file.NAME}}', '{{file.ext}}', '{{file.path}}' ])
+    call complete(col('.'), [ '{{today}}' , '{{day}}' , '{{now}}' , '{{yesterday}}' , '{{yes}}' , '{{file.name}}' , '{{YES}}' , '{{DAY}}' , '{{tomorrow}}' , '{{tom}}' , '{{TOM}}' , '{{folder.name}}' , '{{folder.path}}' , '{{file.NAME}}' , '{{file.ext}}' , '{{file.path}}' ])
     return ''
 endfun
 " -[ MAPPING ]------------------------------------------------------------------------------------------------
