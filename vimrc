@@ -231,3 +231,7 @@ inoremap <Leader><CR> <plug>VimwikiVSplitLink
 " ============================================================================================================
 " TEST AREA
 " ============================================================================================================
+augroup SetFTCmdsToSh
+    autocmd!
+    autocmd BufRead,BufNewFile cmds/**/* if &filetype ==# 'conf' | setfiletype sh | endif
+augroup END

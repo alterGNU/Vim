@@ -7,3 +7,9 @@
 setlocal commentstring=#%s     | " The comment string characters
 
 " =[ MAPPINGS ]===============================================================================================
+" =[ AU ]=====================================================================================================
+augroup ConvertToSh
+    autocmd!
+    autocmd BufRead,BufNewFile cmds/**/* if &filetype ==# 'conf' | setfiletype sh | endif
+augroup END
+
