@@ -4,6 +4,6 @@
 
 augroup Cmds_to_bash
     autocmd!
-    autocmd BufRead,BufNewFile cmds/**/* if &filetype ==# 'conf' | setfiletype sh | endif
+    autocmd BufRead,BufNewFile cmds/**/* if index(['conf',''], &filetype) > -1 | setfiletype sh | endif
 augroup END
 

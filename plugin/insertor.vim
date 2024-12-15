@@ -121,10 +121,10 @@ fun! s:InsertTemplate(template_name)
     else
         let l:tpl_name=a:template_name . ".txt"
     endif
-    if exists("$VIMPATH") == 0
-        let l:abspath = "~/.vim/templates/" . l:tpl_name
-    else
-        let l:abspath = $VIMPATH . "/templates/" . l:tpl_name
+    if isdirectory(expand('~/.vim/templates/'))
+        let l:abspath = expand("~/.vim/templates/" . l:tpl_name)
+    elseif isdirectory(expand($VIMPATH."/templates/"))
+        let l:abspath = expand($VIMPATH."/templates/". l:tpl_name)
     endif
     if filereadable(l:abspath)
         exe "0r " . l:abspath
