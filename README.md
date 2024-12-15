@@ -1,10 +1,9 @@
 # README : vim
 
-## TOC
-- [Installation](#installation)
-- [Mapping : ShortCuts](#mapping-shortcuts)
-- [Plugins (plugin manager:plug.vim)](#plugins-plugin-managerplugvim)
-- [Details](#details)
+* [Installation](#installation)
+* [Mapping : ShortCuts](#mapping--shortcuts)
+* [Plugins (plugin manager:plug.vim)](#plugins-plugin-managerplugvim)
+* [Details](#details)
 
 ## Installation
 - Make an archive of present ~/.vim to `~/vim_archive_<actualdate>` then install my configuration
@@ -46,20 +45,34 @@ if [ -d ~/.vim ];then mv ~/.vim ~/vim_archive_$(date +%Y%m%d%H%M%S);fi && git cl
 ## Details
 ```bash
 .vim/
-  ├── autoload/              # Delay loading of plugin's code until it's actually needed
-  │   └── plug.vim           # Plugin Manager
-  ├── config                 # Folder for homemade plugins/vim extensions (vimrc line 25)
-  │   ├── header42.vim       # Create Header for 42 school projects
-  │   ├── templateur.vim     # Insert templates/skeleton
-  │   └── titres.vim         # Create title line
-  ├── ftplugin/              # filetype config., overwrite vimrc global config.
-  │   ├── cpp.vim            # config_file for filetype=cpp
-  │   ├── c.vim              # config_file for filetype=c
-  │   ├── markdown.vim       # config_file for filetype=markdown
-  │   ├── python.vim         # config_file for filetype=python
-  │   ├── sh.vim             # config_file for filetype=sh
-  │   └── vim.vim            # config_file for filetype=vim
-  ├── plugged/               # contains plugins folders
-  ├── README.md             
+  ├── after/
+  │   └── ftplugin/             # filetype config., overwrite vimrc global config.
+  ├── autoload/                 # Delay loading of plugin's code until it's actually needed
+  │   └── plug.vim              # Plugin Manager
+  ├── plugged/                  # contains plugins folders
+  │   ├── gruvbox
+  │   ├── nerdtree
+  │   ├── norminette-vim
+  │   ├── syntastic
+  │   ├── vim-man
+  │   ├── vim-peekaboo
+  │   └── vimwiki
+  ├── plugin/                   # Folder for homemade plugins/vim extensions
+  │   ├── customftdetector.vim
+  │   ├── datediff.vim
+  │   ├── donator.vim
+  │   ├── header42.vim          # Create Header for 42 school projects
+  │   ├── insertor.vim          # Insert Templates/Skeleton-Matches-Emojis
+  │   ├── titleator.vim         # Create title line
+  │   └── updator.vim
+  ├── README.md
+  ├── templates/
+  │   ├── diary.txt
+  │   ├── examples/
+  │   ├── fix_it.txt
+  │   ├── how_to.txt
+  │   ├── resume.txt
+  │   ├── tool_index.txt
+  │   └── wiki_page.txt
   └── vimrc
 ```
