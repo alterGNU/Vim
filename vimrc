@@ -76,6 +76,12 @@ set hlsearch                             | " Enable hightlighting matches ...
 set incsearch                            | " ... while typping (progressively/interactivelly)
 set ignorecase                           | " Ignore case...
 set smartcase                            | " ... unless we put write an upper-case lettre, then active case.
+ 
+" ============================================================================================================
+" COMMANDS
+" ============================================================================================================
+" =[ VIMGREP  ]===============================================================================================
+command! -nargs=+ Vimgrep tabnew | execute 'vimgrep' . <q-args> | copen
 
 " ============================================================================================================
 " MAPPING
