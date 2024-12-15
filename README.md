@@ -7,9 +7,11 @@
 
 ## Installation
 - Make an archive of present ~/.vim to `~/vim_archive_<actualdate>` then install my configuration
+
 ```bash
 if [ -d ~/.vim ];then mv ~/.vim ~/vim_archive_$(date +%Y%m%d%H%M%S);fi && git clone https://github.com/alterGNU/Vim.git ~/.vim && echo -e "\n" | vim -c "PlugInstall" -c "qa" > /dev/null 2>&1
 ```
+
 ## Mapping : ShortCuts
 | ShortCuts      | Commands               | Details-Comment                                                                                                          |
 | -------------  | ---------------------- | ------------------------------------------------------------------------------------------------------------------------ |
@@ -25,7 +27,6 @@ if [ -d ~/.vim ];then mv ~/.vim ~/vim_archive_$(date +%Y%m%d%H%M%S);fi && git cl
 | [t]+[s]+'name' | `:vsplit<Space>  `     | Open file 'name' in a new tab, splitting verticaly the actual tab                                                        |
 | [t]+[e]+'name' | `:tabe<Space>    `     | Open file 'name' in a new tab                                                                                            |
 | [ctrl]+[s]     | `:write`               | Save(write the buff to the file,even if buff empty:timestamp always update)                                              |
-| [ctrl]+[N]     | `:nohl`                | No highlightning                                                                                                         |
 | [;]+[;]        | `:%s:::gc`             | Launch Search & Replace with options:[(`g`,global), (`c`,ask B4 change)]                                                 |
 | [ctrl]+[t]     | `:NERDTreeToggle`      | NERDTreeToggle                                                                                                           |
 | [ctrl]+[f]     | `:NERDTreeFind`        | NERDTreeFind                                                                                                             |
@@ -66,7 +67,7 @@ if [ -d ~/.vim ];then mv ~/.vim ~/vim_archive_$(date +%Y%m%d%H%M%S);fi && git cl
   │   ├── titleator.vim         # Create title line
   │   └── updator.vim
   ├── README.md
-  ├── templates/
+  ├── templates/                # Contains templates used by insertor.vim
   │   ├── diary.txt
   │   ├── examples/
   │   ├── fix_it.txt
