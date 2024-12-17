@@ -33,7 +33,7 @@ augroup Updator
     " When vimwiki file update, replace :text_emoji: by emoji's icone
     autocmd BufWritePre,FileWritePre * if index(['vim','zsh','text'], &filetype) < 0 | exe ":silent! InsertMatches" | endif
     " Update Wiki/diarydiary.me
-    autocmd BufEnter */diary/diary.md execute "VimwikiDiaryGenerateLinks" | update
+    autocmd BufEnter,BufWritePre,FileWritePre */diary/diary.md execute "VimwikiDiaryGenerateLinks" | update
     " Update Wiki/Tickets/../index.md : Insert automatically the link to the files present in the Ticket folder (except index.md)
-    autocmd BufEnter */Tickets/*/index.md exe join([":VimwikiGenerateLinks Tickets/",expand("%:p:h:t"),"/[^i]*.md"],"") | update
+    autocmd BufEnter,BufWritePre,FileWritePre */Tickets/*/index.md exe join([":VimwikiGenerateLinks Tickets/",expand("%:p:h:t"),"/[^i]*.md"],"") | update
 augroup END
