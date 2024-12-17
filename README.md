@@ -8,8 +8,14 @@
 ## Installation
 - Make an archive of present ~/.vim to `~/vim_archive_<actualdate>` then install my configuration
 
+### Save old install before
 ```bash
-if [ -d ~/.vim ];then mv ~/.vim ~/vim_archive_$(date +%Y%m%d%H%M%S);fi && git clone https://github.com/alterGNU/Vim.git ~/.vim && echo -e "\n" | vim -c "PlugInstall" -c "qa" > /dev/null 2>&1
+if [ -d ~/.vim ];then mv ~/.vim ~/vim_archive_$(date +%Y%m%d%H%M%S);fi
+```
+### Simple install
+```bash
+git clone https://github.com/alterGNU/Vim.git ~/.vim && \
+echo -e "\n" | vim -c "PlugInstall" -c "qa" > /dev/null 2>&1 # this part install plugins silently
 ```
 
 ## Mapping : ShortCuts
