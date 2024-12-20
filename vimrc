@@ -136,7 +136,7 @@ vnoremap ;; :s:::g<left><left><left>
 " To force sync. after vim put in background using Ctrl_z and reput in frontground using `fg` cmd:
 aug ForceRefresh
   au!
-  au VimEnter,VimResume,BufEnter * exe "update"  | echo "update"
+  au VimEnter,VimResume,BufEnter * exe "update"
 aug END
 " =[  SWITCH CAPS<->ESCAP ]===================================================================================
 "au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
