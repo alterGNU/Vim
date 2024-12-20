@@ -56,7 +56,7 @@ set clipboard=unnamedplus                | " Use clipboard as default buffer for
 aug ClipboardSync
   au!
   au VimSuspend * exe "!echo ".shellescape(trim(getreg('+')), "#%`*?")." | xsel -bi"
-  "au VimResume  * let @+ = @"
+  "au VimResume  * let @+ = @"           | " Obsolet since vim compiled with +CLIPBOARD
 aug END
 " -[ DISPLAY ]------------------------------------------------------------------------------------------------
 set textwidth=110                        | " Default max lines width
@@ -132,6 +132,12 @@ vnoremap ;; :s:::g<left><left><left>
 " ============================================================================================================
 " AUTOMATIONS
 " ============================================================================================================
+"Force refresh to fix plugin
+" To force sync. after vim put in background using Ctrl_z and reput in frontground using `fg` cmd:
+aug ForceRefresh
+  au!
+  au VimEnter,VimResume,BufEnter * exe "update"  | echo "update"
+aug END
 " =[  SWITCH CAPS<->ESCAP ]===================================================================================
 "au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 "au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
