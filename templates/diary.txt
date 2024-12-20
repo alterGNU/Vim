@@ -43,4 +43,4 @@
 | Start | End   | Time  | Name                 | Description                                                |
 | ----- | ----- | ----- | -------------------- | ---------------------------------------------------------- |
 | 07:00 | 08:00 | 01:00 | Home.Routine         | Prep. breakfirst + shower                                  |
-| 08:00 | 08:30 | 00:30 | Wiki.Diary           | Edit entries (yesterday resume + today's objectifs         |
+| 08:00 | 08:30 | 00:30 | Wiki.Diary           | Edit entries (yesterday resume + today's objectifs)        |

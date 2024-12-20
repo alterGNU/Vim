@@ -156,12 +156,13 @@ endif
 
 call plug#begin()
 Plug 'alexandregv/norminette-vim'    " Norminette checking
+Plug 'junegunn/vim-peekaboo'         " Display the registers content on sidebar
+Plug 'majutsushi/tagbar'             " Display tags in a windows (ordered by scope)
 Plug 'morhetz/gruvbox'               " Theme & color retro groove
 Plug 'scrooloose/nerdtree'           " File system explorer
 Plug 'scrooloose/syntastic'          " Syntax checking
 Plug 'vim-utils/vim-man'             " View man pages in vim
 Plug 'vimwiki/vimwiki'               " Personnal Wiki
-Plug 'junegunn/vim-peekaboo'         " Display the registers content on sidebar
 call plug#end()
 
 " =[ NORMINETTE-VIM ]=========================================================================================
@@ -233,3 +234,5 @@ let g:vimwiki_list = [
 " -[ MAPPING ]------------------------------------------------------------------------------------------------
 noremap <Leader><CR> <plug>VimwikiVSplitLink
 inoremap <Leader><CR> <plug>VimwikiVSplitLink
+" =[ TAGBAR ]=================================================================================================
+nmap <F8> :TagbarToggle<CR>
