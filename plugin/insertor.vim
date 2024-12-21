@@ -3,24 +3,24 @@
 " ============================================================================================================
 "
 " Insert Emojis: 
-"  - fun g:InsertEmojis()           : Insert emojis using Search&Replace vim feature + Vimwiki emojis dictionnary, do not move the cursor to last emojy founded
-"  - cmd InsertEmojis               : Call g:InsertEmojis()
+"  - fun g:InsertEmojis()               : Insert emojis using Search&Replace vim feature + Vimwiki emojis dictionnary, do not move the cursor to last emojy founded
+"  - cmd InsertEmojis                   : Call g:InsertEmojis()
 "
 " Insert Matches: 
 "   - matches-insertion:
-"       - fun s:InsertTimeFormat()  : Insert time format matches=[yes, YES, yesterday, day, DAY, today, now, tom, TOM, tomorrow]
-"       - fun s:InsertFileInfos()   : Insert file infos matches=[file.name, file.NAME, file.path, file.ext, folder.name, filepath]
-"       - fun s:InsertSpecial()     : Insert special matches=[how_to.title, fix_it.title]
-"       - fun s:InsertAllMatches()  : Insert all matches without mouving the cursor to last matche founded.
-"       - cmd InsertMatches         : Call s:InsertAllMatches()
+"       - fun s:InsertTimeFormat()      : Insert time format matches=[yes, YES, yesterday, day, DAY, today, now, tom, TOM, tomorrow]
+"       - fun s:InsertFileInfos()       : Insert file infos matches=[file.name, file.NAME, file.path, file.ext, folder.name, filepath]
+"       - fun s:InsertFiletypeTitle()   : Insert special matches=[how_to.title, fix_it.title, resume.title]
+"       - fun s:InsertAllMatches()      : Insert all matches without mouving the cursor to last matche founded.
+"       - cmd InsertMatches             : Call s:InsertAllMatches()
 "   - auto-completion:
-"       - fun ListMatches()         : Auto-completion function that display all matches availlable
-"       - insert-mode mapping <F3>  : Call ListMatches() 
+"       - fun ListMatches()             : Auto-completion function that display all matches availlable
+"       - insert-mode mapping <F3>      : Call ListMatches() 
 "
 " Insert Templates: 
-"   - fun s:InsertTemplate(tmp_name): Insert ~/.vim/templates/<tmp_name>.txt if exists. then call s:InsertAllMatches and g:InsertEmojis
-"   - cmd InsertTemplate <tmp_name> : Call s:InsertTemplate(tmp_name).
-"   - augroup Insert_templates      : Auto-Insertion of templates
+"   - fun s:InsertTemplate(tmp_name)    : Insert ~/.vim/templates/<tmp_name>.txt if exists. then call s:InsertAllMatches and g:InsertEmojis
+"   - cmd InsertTemplate <tmp_name>     : Call s:InsertTemplate(tmp_name).
+"   - augroup Insert_templates          : Auto-Insertion of templates
 "       - if filename==hhhh-mm-dd.md                          ➡️  insert ~/.vim/templates/diary.txt       
 "       - if filepath&filename==wiki0:Notes/Tools/**/index.md ➡️  insert ~/.vim/templates/tool_index.txt  
 "       - TODO:if filetype fix_it                             ➡️  insert ~/.vim/templates/fix_it.txt      
@@ -76,7 +76,7 @@ fun! s:InsertFileInfos()
     silent! exe "%s:\{\{file.path\}\}:".expand('%:p').":g"       | " /home/altergnu/Projects/Dotfiles/vim/plugin/templateur.vim='/path/folder/filename.ext'
 endfun
 " -[ INSERT SPECIAL FORMAT ]----------------------------------------------------------------------------------
-fun! s:InsertSpecial()
+fun! s:InsertFiletypeTitle()
     let l:file_name=expand('%:t')
     " How_to:
     let l:how_to_title = substitute(substitute(l:file_name,"_"," ","g"),"how to ","","g")
@@ -93,7 +93,7 @@ fun! s:InsertAllMatches()
     let l:save_cursor = getcurpos()
     call s:InsertTimeFormat()
     call s:InsertFileInfos()
-    call s:InsertSpecial()
+    call s:InsertFiletypeTitle()
     call setpos('.', l:save_cursor)
 endfun
 " =[ SEARCH&REPLACE COMMANDS ]================================================================================
@@ -103,7 +103,7 @@ command! InsertMatches call s:InsertAllMatches()
 " -[ LISTMATCHES ]--------------------------------------------------------------------------------------------
 " list all the matches.
 fun! ListMatches()
-    call complete(col('.'), [ '{{today}}' , '{{day}}' , '{{now}}' , '{{yesterday}}' , '{{yes}}' , '{{file.name}}' , '{{YES}}' , '{{DAY}}' , '{{tomorrow}}' , '{{tom}}' , '{{TOM}}' , '{{folder.name}}' , '{{folder.path}}' , '{{file.NAME}}' , '{{file.ext}}' , '{{file.path}}' ])
+    call complete(col('.'), [ '{{today}}', '{{day}}', '{{now}}', '{{yesterday}}', '{{yes}}', '{{file.name}}', '{{YES}}', '{{DAY}}', '{{tomorrow}}', '{{tom}}', '{{TOM}}', '{{folder.name}}', '{{folder.path}}', '{{file.NAME}}', '{{file.ext}}', '{{file.path}}', '{{how_to.title}}', '{{fix_it.title}}', '{{resume.title}}' ])
     return ''
 endfun
 " -[ MAPPING ]------------------------------------------------------------------------------------------------
