@@ -19,27 +19,36 @@ echo -e "\n" | vim -c "PlugInstall" -c "qa" > /dev/null 2>&1 # this part install
 ```
 
 ## Mapping : ShortCuts
-| ShortCuts      | Commands               | Details-Comment                                                                                                          |
-| -------------  | ---------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| [F1]           | `:Header42`            | Insert header for 42 school project (see *config/header42.vim*)                                                          |
-| [F2]           | `:Headerstd`           | Insert personnal header (see *config/headerstd.vim*) #TODO                                                               |
-| [F3]           | `:ListMatches()`       | Custom Insert Menu (Insert matches like `today`, `now`, `file.name`) that can be replace by corresponding value using `` |
-| [F5]           | `:Save&SourceFile`     | If not in vimrc file, save then source file (handy for vimscript dev)                                                    |
-| [F8]           | `:TagbarToggle`        | Open Tagbar plugin (windows with tags sorted)                                                                            |
-| [Leader]+[1]   | `:Titre1<CR>`          | Transform the line under the cursor to a title1                                                                          |
-| [Leader]+[2]   | `:Titre2<CR>`          | Transform the line under the cursor to a title2                                                                          |
-| [Leader]+[3]   | `:Titre2<CR>`          | Transform the line under the cursor to a title3                                                                          |
-| [t]+[h]        | `:tab help<Space>`     | Open a new tab with help                                                                                                 |
-| [t]+[m]+'x'    | `:tabm<Space>    `     | Move tab to 'x' (change tab order)                                                                                       |
-| [t]+[s]+'name' | `:vsplit<Space>  `     | Open file 'name' in a new tab, splitting verticaly the actual tab                                                        |
-| [t]+[e]+'name' | `:tabe<Space>    `     | Open file 'name' in a new tab                                                                                            |
-| [ctrl]+[s]     | `:write`               | Save(write the buff to the file,even if buff empty:timestamp always update)                                              |
-| [;]+[;]        | `:%s:::gc`             | Launch Search & Replace with options:[(`g`,global), (`c`,ask B4 change)]                                                 |
-| [ctrl]+[t]     | `:NERDTreeToggle`      | NERDTreeToggle                                                                                                           |
-| [ctrl]+[f]     | `:NERDTreeFind`        | NERDTreeFind                                                                                                             |
-| [leader]+[m]   | `:Vman<ss curseur>`    | Open a man help tab in Vsplit for the word under the cursor                                                              |
-| [leader]+[M]   | `:Vman<ss curseur>`    | Open a man help tab in Hsplit for the word under the cursor                                                              |
-| [leader]+[CR]  | `:VimWikiVSplitLink`   | Open vimwikileak in a VSplit new tab                                                                                     |
+| ShortCuts        | Commands                      | Details-Comment                                                               |
+| ---------------- | ----------------------------- | ----------------------------------------------------------------------------- |
+| [F1]+Nmode       | `:Header42`                   | Insert header for 42 school project (see *config/header42.vim*)               |
+| [F2]             | `:`                           |                                                                               |
+| [F3]+Imode       | `:ListMatches`                | Auto-completion function that display all matches availlable                  |
+| [F4]             | `:`                           |                                                                               |
+| [F5]+Nmode       | `:call g:SaveAndSourceFile()` | If not in vimrc file, save then source file (handy when working on vim files) |
+| [F6]             | `:`                           |                                                                               |
+| [F7]             | `:`                           |                                                                               |
+| [F8]             | `:TagbarToggle`               | Open the Tagbar window if it is closed, or close it if it is open.            |
+| [F9]             | `:`                           |                                                                               |
+| [F10]            | `:`                           |                                                                               |
+| [F11]            | `:`                           |                                                                               |
+| [F12]            | `:`                           |                                                                               |
+| [Leader]+[1]     | `:Titre1<CR>`                 | Transform the line under the cursor to a title1                               |
+| [Leader]+[2]     | `:Titre2<CR>`                 | Transform the line under the cursor to a title2                               |
+| [Leader]+[3]     | `:Titre2<CR>`                 | Transform the line under the cursor to a title3                               |
+| [t]+[h]          | `:tab help<Space>`            | Open a new tab with help                                                      |
+| [t]+[m]+'x'      | `:tabm<Space>    `            | Move tab to 'x' (change tab order)                                            |
+| [t]+[s]+'name'   | `:vsplit<Space>  `            | Open file 'name' in a new tab, splitting verticaly the actual tab             |
+| [t]+[e]+'name'   | `:tabe<Space>    `            | Open file 'name' in a new tab                                                 |
+| [ctrl]+[s]       | `:write`                      | Save(write the buff to the file,even if buff empty:timestamp always update)   |
+| [ctrl]+[l]       | `:syn on+nohl+redraw+update`  | Active syntax-color, remove highlightning, redraw then update                 |
+| [;]+[;]          | `:%s:::gc`                    | Launch Search & Replace with options:[(`g`,global), (`c`,ask B4 change)]      |
+| [ctrl]+[t]+Nmode | `:NERDTreeToggle`             | NERDTreeToggle                                                                |
+| [ctrl]+[t]+Imode | `:`                           | Indent line                                                                   |
+| [ctrl]+[f]       | `:NERDTreeFind`               | NERDTreeFind                                                                  |
+| [leader]+[m]     | `:Vman<ss curseur>`           | Affiche dans en Vsplit la page man du mot sous le cuseur                      |
+| [leader]+[M]     | `:Vman<ss curseur>`           | Affiche dans en Hsplit la page man du mot sous le cuseur                      |
+| [leader]+[CR]    | `:VimWikiVSplit`              | Affiche la page du lien wiki dans un onglet separer verticalement             |
 
 ## Plugins (plugin manager:plug.vim)
 - `alexandregv/norminette-vim    ` : Norminette checking
