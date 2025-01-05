@@ -21,7 +21,7 @@ autocmd! BufWritePost $MYVIMRC,$MYREALVIMRC source $MYVIMRC | echom "Reloaded " 
 " if not in vimrc file then SAVE and SOURCE file(handy when writting vimscript function outside vimrc file)
 function! g:SaveAndSourceFile()
     let l:filename = fnamemodify(expand('%'), ':t')
-    if l:filename == "vimrc"
+    if l:filename == "vimrc" || l:filename == ".vimrc"
         echom "vimrc can't be source with <F5> (g:SaveAndSourceFile) because of the 'vimrc' augroup declaration"
     else
         silent! write 
@@ -95,12 +95,6 @@ noremap Q <Nop>
 imap <expr> j pumvisible() ? "\<C-n>" : 'j'
 imap <expr> k pumvisible() ? "\<C-p>" : 'k'
 
-" =[ NOHL ]===================================================================================================
-" Remove HighLighting (abbrev :noh) map on <C-l> which normally redraw the screen
-noremap <silent> <C-l> :<C-u>nohl<CR><C-l>
-vnoremap <silent> <C-l> <C-c>:<C-u>nohl<CR><C-l>
-inoremap <silent> <C-l> <C-o>:<C-u>nohl<CR><C-l>
- 
 " =[ TABULATIONS ]============================================================================================
 " -[ OPEN NEW TAB ]-------------------------------------------------------------------------------------------
 map te : tabe<Space>
@@ -111,17 +105,18 @@ map ts : vsplit<Space>
 " -[ OPEN A NEW HELP TAB ]------------------------------------------------------------------------------------
 map th : tab help<Space>
 
-" =[ SAVE COMMAND ]===========================================================================================
+" =[ CUSTOM COMMANDS ]========================================================================================
+" =[ Ctrl+l ]=================================================================================================
+" Combine multiple action: Remove HighLighting (abbrev :noh) + Active syntax-coloration + redraw page
+noremap <silent> <C-l> :<C-u>:nohl<CR>:syn on<CR><C-l>:up<CR>
+vnoremap <silent> <C-l> <C-c>:<C-u>nohl<CR>:syn on<CR><C-l>:up<CR>
+inoremap <silent> <C-l> <C-o>:<C-u>nohl<CR>:syn on<CR><C-l>:up<CR>
+ 
 " -[ FORCE SAVE ]---------------------------------------------------------------------------------------------
 ":w -> Always save (even if file was not modify)
-"noremap <c-s> :write<CR>
-"vnoremap <c-s> <c-c>:write<CR>
-"inoremap <c-s> <c-o>:write<CR>
-" -[ SAVE ONLY IF CHANGES ]-----------------------------------------------------------------------------------
-" Ctrl+s = `:update` command that only save if file was modified since last save
-noremap <c-s> :up<CR>
-vnoremap <c-s> <c-c>:up<CR>
-inoremap <c-s> <c-o>:up<CR>
+noremap <c-s> :write<CR>
+vnoremap <c-s> <c-c>:write<CR>
+inoremap <c-s> <c-o>:write<CR>
 
 " =[ SEARCH&REPLACE ]=========================================================================================
 " Search&replace globaly(entire file) and interactive(ask before replacing)
@@ -172,19 +167,25 @@ Plug 'vimwiki/vimwiki'               " Personnal Wiki
 call plug#end()
 
 " =[ NORMINETTE-VIM ]=========================================================================================
-" Check norminette inside of vim using syntastic plugin
-" -[ NORMINETTE-VIM CONFIGURATION ]---------------------------------------------------------------------------
-let g:c_syntax_for_h = 1                                       " Support headers (.h)
-" -[ SYNTASTIC CONFIGURATION FOR NORMINETTE-VIM ]-------------------------------------------------------------
-let g:syntastic_c_checkers = ['norminette', 'cc'] |            " Enable norminette-vim (and gcc)
+" -[ GENERAL SETTINGS ]---------------------------------------------------------------------------------------
 let g:syntastic_aggregate_errors = 1                           " Check all checker that apply (c + norminette) then regroup then as one 
-let g:syntastic_c_norminette_exec = 'norminette'               " Set the path to norminette
-let g:syntastic_c_include_dirs = ['include', '../include', '../../include', 'libft', '../libft/include', '../../libft/include']
-let g:syntastic_c_norminette_args = '-R CheckTopCommentHeader' " Pass custom arguments to norminette (this one ignores 42header)
+let g:syntastic_error_symbol = "✗"                             " Syntastic error symbol (default >>)
 let g:syntastic_check_on_open = 1                              " Check errors when opening a file (disable to speed up startup time)
 let g:syntastic_always_populate_loc_list = 1                   " Enable error list
 let g:syntastic_auto_loc_list = 1                              " Automatically open error list
 let g:syntastic_check_on_wq = 0                                " Skip check when closing
+" -[ C SETTING ]----------------------------------------------------------------------------------------------
+" Activates the norminette checker only if it's a c file inside a folder whose name is contained in the following list of names: (aka: a 42 project)
+let g:normed_project_list = ["first_try","second_try","libft","libft_enhanced","ft_printf","get_next_line","GNL","push_swap"]
+" Combine norminette+gcc as default checkers for files c file when inside a 42 project: (name found in normed_project_list)
+autocmd FileType c if len(filter(copy(g:normed_project_list), {_, v -> match(expand("%:p"), "/".v."/") >= 0})) > 0 | let b:syntastic_checkers = ['norminette', 'gcc'] | endif
+let g:syntastic_c_checkers = ['gcc']                           " set gcc compilator as default C checker
+let g:c_syntax_for_h = 1                                       " Support headers (.h)
+let g:syntastic_c_norminette_exec = 'norminette'               " Set the path to norminette
+let g:syntastic_c_include_dirs = ['include', '../include', '../../include', 'libft', '../libft/include', '../../libft/include']
+" -[ MAPPING ]------------------------------------------------------------------------------------------------
+cabbrev stm SyntasticToggleMode<CR>
+cabbrev sc SyntasticCheck<CR>
 
 " =[ GRUVBOX ]================================================================================================
 " -[ SETTING ]------------------------------------------------------------------------------------------------
