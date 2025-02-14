@@ -62,7 +62,8 @@
 ## Details
 ```bash
 .vim/
-  ├── after/
+  ├── aliases                   # Contains all vim related aliases use by shell (zsh->zshrc or bash->bashrc)
+  ├── after/                    # Source at last, overwrite everything....
   │   └── ftplugin/             # filetype config., overwrite vimrc global config.
   ├── autoload/                 # Delay loading of plugin's code until it's actually needed
   │   └── plug.vim              # Plugin Manager
