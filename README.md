@@ -8,15 +8,14 @@
 ## Installation
 - Make an archive of present ~/.vim to `~/vim_archive_<actualdate>` then install my configuration
 
-### Save old install before
-```bash
-if [ -d ~/.vim ];then mv ~/.vim ~/vim_archive_$(date +%Y%m%d%H%M%S);fi
-```
-### Simple install
-```bash
-git clone https://github.com/alterGNU/Vim.git ~/.vim && \
-echo -e "\n" | vim -c "PlugInstall" -c "qa" > /dev/null 2>&1 # this part install plugins silently
-```
+- 1: Save old install before
+    ```bash
+    [[ -d ~/.vim ]] && mv ~/.vim ~/vim_archive_$(date +%Y%m%d%H%M%S)
+    ```
+- 2: Simple install
+    ```bash
+    git clone --recurse-submodules -j8 https://github.com/alterGNU/Vim.git ~/.vim && echo -e "\n" | vim -c "PlugInstall" -c "qa" > /dev/null 2>&1
+    ```
 
 ## Mapping : ShortCuts
 | ShortCuts        | Commands                      | Details-Comment                                                               |
@@ -68,30 +67,31 @@ echo -e "\n" | vim -c "PlugInstall" -c "qa" > /dev/null 2>&1 # this part install
   ├── autoload/                 # Delay loading of plugin's code until it's actually needed
   │   └── plug.vim              # Plugin Manager
   ├── plugged/                  # contains plugins folders
-  │   ├── gruvbox
-  │   ├── nerdtree
-  │   ├── norminette-vim
-  │   ├── syntastic
-  │   ├── vim-man
-  │   ├── vim-peekaboo
-  │   ├── vimwiki
-  │   └── tagbar
+  │   ├── gruvbox               # Theme & color retro groove
+  │   ├── nerdtree              # File system explorer
+  │   ├── norminette-vim        # Norminette checking
+  │   ├── syntastic             # Syntax checking
+  │   ├── vim-man               # View man pages in vim
+  │   ├── vim-peekaboo          # Display the registers content on sidebar
+  │   ├── vimwiki               # Personnal Wiki
+  │   └── tagbar                # Display tags in a windows (ordered by scope)
   ├── plugin/                   # Folder for homemade plugins/vim extensions
-  │   ├── customftdetector.vim
-  │   ├── datediff.vim
-  │   ├── donator.vim
+  │   ├── cscopator.vim         # cscope configuration (settings and shortcuts)
+  │   ├── customftdetector.vim  # Attempt to overwrite the default filetype detector
+  │   ├── datediff.vim          # Fun, augroup & mapping use in vimwiki to insert duration (:InsertDuration)
+  │   ├── donator.vim           # Fun, augroup & mapping use in vimwiki to set tickets as Done (:Done)
   │   ├── header42.vim          # Create Header for 42 school projects
   │   ├── insertor.vim          # Insert Templates/Skeleton-Matches-Emojis
   │   ├── titleator.vim         # Create title line
-  │   └── updator.vim
-  ├── README.md
+  │   └── updator.vim           # Fun, augroup & mapping use in vimwiki to update pages (:Update)
+  ├── README.md                 # Readme page.
   ├── templates/                # Contains templates used by insertor.vim
-  │   ├── diary.txt
-  │   ├── examples/
-  │   ├── fix_it.txt
-  │   ├── how_to.txt
-  │   ├── resume.txt
-  │   ├── tool_index.txt
-  │   └── wiki_page.txt
-  └── vimrc
+  │   ├── diary.txt             # Template used for Wiki/diary/*.md entries
+  │   ├── examples/             # Contains exemples of each type of templates
+  │   ├── fix_it.txt            # Type of ticket used to keep track of how to solve an encountered bug or pb.
+  │   ├── how_to.txt            # Type of ticket used to keep track of how to do a certain task (~tutos).
+  │   ├── resume.txt            # Type of ticket used to resume a cours, video or article
+  │   ├── tool_index.txt        # Autoload index page of Wiki/Notes/Tools/<tools_name>/index.md (#TODO)
+  │   └── wiki_page.txt         # Autoload of any new page in Wiki/Notes/**/*.md which is not an index (#TODO)
+  └── vimrc                     # Vim configuration file
 ```
