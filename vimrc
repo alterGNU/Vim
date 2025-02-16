@@ -203,10 +203,10 @@ nnoremap <c-f> :NERDTreeFind
 " =[ MAN-VIM ]================================================================================================
 " -[ SETTING ]------------------------------------------------------------------------------------------------
 " -[ MAPPING ]------------------------------------------------------------------------------------------------
-noremap <leader>m <Plug>(Vman)
-vnoremap <silent> <leader>m "vy:Vman <C-r>"<CR>
-noremap <leader>M <Plug>(Tman)
-vnoremap <silent> <leader>M "vy:Tman <C-r>"<CR>
+" Open man in new tab
+noremap <leader>m <Plug>(Tman)
+" Open man in split tab
+noremap <leader>vm <Plug>(Vman)
 
 " =[ VIMWIKI ]================================================================================================
 " -[ MARKDOWN SYNTAX ]----------------------------------------------------------------------------------------
@@ -239,7 +239,9 @@ let g:vimwiki_list = [
             \MyWiki('~/GPW', {'index': 'Home'})
 			\]
 " -[ MAPPING ]------------------------------------------------------------------------------------------------
-noremap <Leader><CR> <plug>VimwikiVSplitLink
-inoremap <Leader><CR> <plug>VimwikiVSplitLink
+" Open link in split tab
+noremap <Leader>v<CR> <Plug>VimwikiVSplitLink
+" Open link in a new tab
+noremap <Leader><CR> <Plug>VimwikiTabDropLink
 " =[ TAGBAR ]=================================================================================================
 nmap <F8> :TagbarToggle<CR>
