@@ -1,4 +1,4 @@
-# {{today}} {{day}}
+# {{file.name}}
 
 <!--Infos
 - Tags          :
@@ -17,8 +17,8 @@
 # Today...
 
 ## ...🎯's Goals
-- Make progress in 42.push_swap project.
 - Make progress in Hack-Vim and Fork-Vimwiki
+- Walk 10k step a day
 
 ## ...🔍 I Learned
 
@@ -34,10 +34,11 @@
 ### ✅ Tasks list (sort by project)
 - Home
     - Routine
-        - [X] breakfirst & shower
+        - [ ] breakfirst & coffee
+        - [ ] shower
 - Wiki
     - Diary
-        - [X] Edit entries (yesterday Resume + today Objectifs)
+        - [ ] Edit entries (yesterday Resume + today Objectifs)
 
 ### ⌛ Schedule
 | Start | End   | Time  | Name                 | Description                                                |
