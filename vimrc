@@ -183,7 +183,14 @@ let g:syntastic_c_checkers = ['gcc']                           " set gcc compila
 let g:c_syntax_for_h = 1                                       " Support headers (.h)
 let g:syntastic_c_norminette_exec = 'norminette'               " Set the path to norminette
 let g:syntastic_c_include_dirs = ['include', '../include', '../../include', 'libft', '../libft/include', '../../libft/include']
+" -[ FUNCTIONS ]----------------------------------------------------------------------------------------------
+fun! g:AddHeader(pathto_header)
+    let l:option = "'-I" . a:pathto_header . "'"
+    let g:syntastic_c_compiler_options = l:option
+    :write
+endfun
 " -[ MAPPING ]------------------------------------------------------------------------------------------------
+command! -nargs=* AddHeader call g:AddHeader(<f-args>)
 cabbrev stm SyntasticToggleMode<CR>
 cabbrev sc SyntasticCheck<CR>
 
