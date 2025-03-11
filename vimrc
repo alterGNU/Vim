@@ -176,7 +176,7 @@ let g:syntastic_auto_loc_list = 1                              " Automatically o
 let g:syntastic_check_on_wq = 0                                " Skip check when closing
 " -[ C SETTING ]----------------------------------------------------------------------------------------------
 " Activates the norminette checker only if it's a c file inside a folder whose name is contained in the following list of names: (aka: a 42 project)
-let g:normed_project_list = ["first_try","second_try","libft","libft_enhanced","ft_printf","get_next_line","GNL","push_swap", "pipex", "so_long"]
+let g:normed_project_list = ["first_try","second_try","libft","libft_enhanced","ft_printf","get_next_line","GNL","push_swap", "pipex", "so_long", "minishell"]
 " Combine norminette+gcc as default checkers for files c file when inside a 42 project: (name found in normed_project_list)
 autocmd FileType c if len(filter(copy(g:normed_project_list), {_, v -> match(expand("%:p"), "/".v."/") >= 0})) > 0 | let b:syntastic_checkers = ['norminette', 'gcc'] | endif
 let g:syntastic_c_checkers = ['gcc']                           " set gcc compilator as default C checker
