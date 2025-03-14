@@ -36,9 +36,12 @@
 " =[ FUNCTIONS ]==============================================================================================
 " -[ INSERTEMOJIS ]--------------------------------------------------------------------------------------------
 " insert emojis using vimwiki dict, adding a space after and without moving the cursor to last match founded.
+" Long search&replace: replace all :...: pattern if ... is a key of our dict, then will display a space after
+" the emoticon only if its size is lesser than 2(number of columns an emoticons should take in terminal)
+" By adding this extra space, its avoid any overlapping character.
 fun! s:InsertEmojis()
     let l:save_cursor = getcurpos()
-    silent! %s/:\([^: ]\+\):/\=has_key(vimwiki#emoji#get_dic(), submatch(1)) ? vimwiki#emoji#get_dic()[submatch(1)]."  " : submatch(0)/g
+    silent! %s/:\([^: ]\+\):/\=has_key(vimwiki#emoji#get_dic(), submatch(1)) ? vimwiki#emoji#get_dic()[submatch(1)].(strdisplaywidth(vimwiki#emoji#get_dic()[submatch(1)])==1?" ":"") : submatch(0)/g
     call setpos('.', l:save_cursor)
 endfun
 " =[ COMMANDES ]==============================================================================================
