@@ -189,10 +189,22 @@ fun! g:AddHeader(pathto_header)
     let g:syntastic_c_compiler_options = l:option
     :write
 endfun
+fun! g:SyntasticToggleNorminette()
+    if index(b:syntastic_checkers, 'norminette') >= 0
+        call remove(b:syntastic_checkers, index(b:syntastic_checkers, 'norminette'))
+        echo "Desable Norminette Checker"
+    else
+        call add(b:syntastic_checkers, 'norminette')
+        echo "Enable Norminette Checker"
+    endif
+    :write
+endfun
 " -[ MAPPING ]------------------------------------------------------------------------------------------------
 command! -nargs=* AddHeader call g:AddHeader(<f-args>)
 cabbrev stm SyntasticToggleMode<CR>
 cabbrev sc SyntasticCheck<CR>
+command! SynTogNorm call g:SyntasticToggleNorminette()
+cabbrev stn SynTogNorm
 
 " =[ GRUVBOX ]================================================================================================
 " -[ SETTING ]------------------------------------------------------------------------------------------------
