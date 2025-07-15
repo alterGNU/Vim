@@ -41,7 +41,6 @@ function! Get_commentstring()
     let l:rcmd = execute(":set commentstring?")
     let l:inter = substitute(rcmd,"commentstring=","","")
     let l:comm = trim(substitute(inter,"%s","",""))
-    echo comm
     return comm
 endfunction
 
@@ -62,13 +61,8 @@ endfunction
 " -[ Insert_SubTitle(sym) ]-----------------------------------------------------------------------------------
 " Format the actual line into subtitle format
 function! Insert_SubTitle(sym)
-    let l:lnum = line(".")
-    let l:text1 = getline(".")
-    let l:texte2 = Get_commentstring()." ".a:sym."[ ".text1." ]"
-    let l:text = len(texte2)
-    let l:reste = &textwidth - len(texte2)
-    let l:final = texte2 . repeat(a:sym, reste)
-    let l:final2 = setline(lnum,final)
+    let l:formated_line = Get_commentstring()." ".a:sym."[ ".getline(".")." ]"
+    call setline(line("."), formated_line . repeat(a:sym, &textwidth - len(formated_line)))
 endfunction
  
 " -[ Insert_Markdown_Titles(D) ]------------------------------------------------------------------------------
@@ -77,22 +71,39 @@ function! Insert_Markdown_Titles(lvl)
     let l:lnum = line(".")
     " Récupére la ligne courante sans les anciennes balises de titres markdown (#)
     let l:li0 = substitute(getline("."),'^#\{1,\}\ ',"","")
-    if a:D==0
+    if a:lvl==0
         let l:li1 = repeat("#", a:lvl).li0
     else
         let l:li1 = repeat("#", a:lvl)." ".li0
     endif
     let l:li2 = setline (lnum ,li1)
 endfunction
- 
+
+" =[ META-FUNCTION ]==========================================================================================
+function! Title(lvl)
+    if &filetype ==? "Markdown" || &filetype ==? "VimWiki"
+        call Insert_Markdown_Titles(a:lvl)
+    else
+        if a:lvl == 1
+            call Insert_Title("=")
+        elseif a:lvl == 2
+            call Insert_SubTitle("=")
+        else
+            call Insert_SubTitle("-")
+        endif
+    endif
+endfunction
+
 " ============================================================================================================
 " MAPPING
 " ============================================================================================================
-" TODO : Regroup in 1 insert_title_function that detect filetype and then apply Insert_Title if not Markdown
-command! Title1 call Insert_Title("=")
-command! Title2 call Insert_SubTitle("=")
-command! Title3 call Insert_SubTitle("-")
-
-nmap <silent> <Leader>1 :Title1<CR>
-nmap <silent> <Leader>2 :Title2<CR>
-nmap <silent> <Leader>3 :Title3<CR>
+nmap <silent> <Leader>0 :call Title(0)<CR>
+nmap <silent> <Leader>1 :call Title(1)<CR>
+nmap <silent> <Leader>2 :call Title(2)<CR>
+nmap <silent> <Leader>3 :call Title(3)<CR>
+nmap <silent> <Leader>4 :call Title(4)<CR>
+nmap <silent> <Leader>5 :call Title(5)<CR>
+nmap <silent> <Leader>6 :call Title(6)<CR>
+nmap <silent> <Leader>7 :call Title(7)<CR>
+nmap <silent> <Leader>8 :call Title(8)<CR>
+nmap <silent> <Leader>9 :call Title(9)<CR>
