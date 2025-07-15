@@ -1,6 +1,7 @@
 " ============================================================================================================
 " TITLEATOR : FORMATTING TITLES
 " ============================================================================================================
+ 
 " DEF:
 " Collections of functions for formatting titles.
 " Works for different languages, it uses their filetype:
@@ -11,39 +12,32 @@
 " In normal mode, place the cursor on the line to transform into a title, then press [²]+[x] to transform it.
 " (x ∈ {0..4} corresponds to the title level)
 
-" TODO:
-" - [X] : UPDATE: text and com. in english
-" - [ ] : Fct: Insertion titre0 (ASCI_art + Signature)
-"       -> `inoremap <F2> <C-R>=expand('%:p:h')<CR>`
-" - [ ] : Si la ligne commence déjà par le commentstring, ne pas le prendre en compte
-"       -> `s/^\(#\)\{1,\}\ //` permet rem tout '# ' '## ' '#### ' !
-"   - [ ] : Fct: detection ligne comme commentaire/mise en forme (!=.md)
-"
-" - [ ] : Like *.md files, mapp to <leader><leader> fct annulant mise en page!
-"   - [ ] : Fct: suppression de la mise en forme sur la ligne (=!.md)
-"   - [ ] : Cmd: suppression de la mise en forme sur la page (!=.md)
-"
+" NOTES:
+" - Markdown filtype format is specific and has it own title functions (no separator, just [#]*)
+" - Title 1 rewritte the line in UPPERCASE
 
-" FIXME:
-" - [ ] : Le mapping en mode insert ne semble pas marcher (markdown)
+" TODO ADD:
+" - [X] UPDATE: text and com. in english
+" - [ ] ADD:    Fun. that detect title pattern
+" - [ ] ADD:    Delete mecanism (delete already formatted title line, restaure to normal line)
+" - [ ] ADD:    Update mecanism (on a already formatted title line, switch to new lvl)
+" - [ ] ADD:    Add number at the end of title (usefull on filetype=header)
+" - [ ] ADD:    Instead of title1, could convert to (ASCI_art + Signature = header)
 
- 
+" TODO FIXME:
+" - [X] FIX:    simplify code (getter and setter fun. not usefull, let use not needed)
+" - [X] FIX:    Title 1 should not insert an empty line before sep+title+sep+empty
+" - [ ] FIX:    Title 1 should work with multiple selected lines.
+" - [ ] FIX:    When a line already start with commentstring and is not completly in title format.
+
 " ============================================================================================================
 " FUNCTIONS
 " ============================================================================================================
  
 " =[ UTILS FUNCTIONS ]========================================================================================
-" -[ FONCTION RETOURNANT LA LARGEUR MAXIMAL DU TEXTE ]------------------------------------
-" Retourne la valeur de textwidth : taille maximal du text autorisée
-function! Textwidth()
-    let l:rcmd = trim(execute(":set textwidth?"))
-    let l:taille = substitute(rcmd,"textwidth=","","")
-    return l:taille
-endfunction
-
-" -[ FONCTION DETECTANT LE SYMBOLE DE COMMENTAIRE ]---------------------------------------
-" retourne le symbole commentaire(commentstring)
-function! DefCom()
+" -[ Get_commentstring() ]------------------------------------------------------------------------------------
+" Get the comment symbol for this filetype
+function! Get_commentstring()
     let l:rcmd = execute(":set commentstring?")
     let l:inter = substitute(rcmd,"commentstring=","","")
     let l:comm = trim(substitute(inter,"%s","",""))
@@ -52,42 +46,53 @@ function! DefCom()
 endfunction
 
 " =[ TITLES FUNCTIONS ]=======================================================================================
-" -[ FONCTION TITRE 1 ]-------------------------------------------------------------------
-" Encadre le texte mis en majuscule par deux lignes de symbole '=' + espace : frises!
-function! Titre1(len,com,sym) 
-    s/.*/\U&/
-    let l:lnum = line(".")
+" -[ Insert_Title(sym) ]--------------------------------------------------------------------------------------
+" Format the actual line into title format
+function! Insert_Title(sym) 
+    s/.*/\U&/                                                   | " Set all char in line to uppercase
+    let l:com = Get_commentstring()
+    let l:lnum = line(".")                                      | " Get the line number (where the cursor is)
     let l:ligne = getline(".")
-    let l:li0 = setline (lnum ," " )
-    let l:nbr = a:len - (len(a:com) + 1)
-    let l:li1 = append ( lnum , a:com ." ".repeat(a:sym, nbr))
-    let l:li2 = append ( lnum , a:com ." ".ligne)
-    let l:li3 = append ( lnum , a:com ." ".repeat(a:sym, nbr))
-    let l:li4 = append ( lnum + 3 ," " )
-    + 4
+    let l:nbr = &textwidth - (len(com) + 1)
+    call setline(lnum, com." ".repeat(a:sym, nbr))              | " Replace lnum line by 
+    call append(lnum, [com ." ".ligne, com ." ".repeat(a:sym, nbr), " "])
+    + 3
+endfunction
+
+" -[ Insert_SubTitle(sym) ]-----------------------------------------------------------------------------------
+" Format the actual line into subtitle format
+function! Insert_SubTitle(sym)
+    let l:lnum = line(".")
+    let l:text1 = getline(".")
+    let l:texte2 = Get_commentstring()." ".a:sym."[ ".text1." ]"
+    let l:text = len(texte2)
+    let l:reste = &textwidth - len(texte2)
+    let l:final = texte2 . repeat(a:sym, reste)
+    let l:final2 = setline(lnum,final)
 endfunction
  
-" =[ FONCTION Markdown_Titles ]===========================================================
-" S'appelle avec un argument D correspondant au nombre de '#' à insérer au début de phrase
-function! Markdown_Titles(D) 
-    let l:lnum = line(".") | " Récupère le N° de ligne où se trouve le curseur
+" -[ Insert_Markdown_Titles(D) ]------------------------------------------------------------------------------
+" Format the actual line into a N lvl markdown title
+function! Insert_Markdown_Titles(lvl) 
+    let l:lnum = line(".")
     " Récupére la ligne courante sans les anciennes balises de titres markdown (#)
     let l:li0 = substitute(getline("."),'^#\{1,\}\ ',"","")
     if a:D==0
-        let l:li1 = repeat("#", a:D).li0
+        let l:li1 = repeat("#", a:lvl).li0
     else
-        let l:li1 = repeat("#", a:D)." ".li0
+        let l:li1 = repeat("#", a:lvl)." ".li0
     endif
-    let l:li2 = setline (lnum ,li1) | " Remplace la N°Ligne par ligne1
+    let l:li2 = setline (lnum ,li1)
 endfunction
  
 " ============================================================================================================
 " MAPPING
 " ============================================================================================================
-command! Titre1 call Titre1(Textwidth(),DefCom(),"=")
-command! Titre2 call Titre2(Textwidth(),DefCom(),"=")
-command! Titre3 call Titre2(Textwidth(),DefCom(),"-")
+" TODO : Regroup in 1 insert_title_function that detect filetype and then apply Insert_Title if not Markdown
+command! Title1 call Insert_Title("=")
+command! Title2 call Insert_SubTitle("=")
+command! Title3 call Insert_SubTitle("-")
 
-nmap <silent> <Leader>1 :Titre1<CR>
-nmap <silent> <Leader>2 :Titre2<CR>
-nmap <silent> <Leader>3 :Titre3<CR>
+nmap <silent> <Leader>1 :Title1<CR>
+nmap <silent> <Leader>2 :Title2<CR>
+nmap <silent> <Leader>3 :Title3<CR>
