@@ -2,6 +2,7 @@
 " TITLEATOR : FORMATTING TITLES
 " ============================================================================================================
  
+"............................................................................................................"
 " DEF:
 " Collections of functions for formatting titles.
 " Works for different languages, it uses their filetype:
@@ -24,6 +25,7 @@
 " - [X] ADD:    Add number at the end of title (usefull on filetype=header)
 " - [X] ADD:    Fun. that count the number of fun. in a file (C syntax)
 " - [X] ADD:    Title 3 in header.c file should add the number of file found at the end 
+" - [ ] ADD:    Comment section could be usefull
 " - [ ] ADD:    Instead of title1, could convert to (ASCI_art + Signature = header)
 
 " TODO FIXME:
@@ -33,7 +35,9 @@
 " - [X] FIX:    Sub_Title: Should respect line indentation.
 " - [X] FIX:    Detect subtitle should work with title1 too.
 " - [X] FIX:    Delete subtitle should work with title1 too.
+" - [X] FIX:    Count_Fun_C_Syntax(): findfile() match wront pattern first, build path to limit search scope
 " - [ ] FIX:    Title: should work with multiple selected lines.
+".............................................................................................................
 
 " ============================================================================================================
 " FUNCTIONS
@@ -192,11 +196,14 @@ endfunction
 
 " -[ Count_Fun_C_Syntax() ]-----------------------------------------------------------------------------------
 " Count the number of function in a file (exclude prototype ending with ;)
-" If <filename> not readable, search recursively UP and DOWN
+" If <filename> not readable, build a recursive path pattern l:search_paths to limit research scope
 function! Count_Fun_C_Syntax(filename)
     let l:filepath = a:filename
     if !filereadable(l:filepath)
-        let l:filepath = findfile(l:filepath)             | " Search rec. UP&DOWN a file named <filename>
+        let l:parent_folder = expand('%:p:h')
+        let l:paths_lst = [l:parent_folder, l:parent_folder.'/../src', l:parent_folder.'/../']
+        let l:search_paths = join(map(l:paths_lst, {_, val -> val . '/**'}), ',')
+        let l:filepath = findfile(l:filepath, l:search_paths)
         if empty(l:filepath) || !filereadable(l:filepath)
             echohl WarningMsg | echom "ERROR: Count_Fun_C_Syntax('".a:filename."'): No readable file found!" | echohl None
             return -1
@@ -217,7 +224,7 @@ function! Count_Fun_C_Syntax(filename)
             let l:count += 1
         endif
     endfor
-    echohl Comment | echon "Count_Fun_C_Syntax("|echohl Foldcolumn|echon "'".l:filepath."'"|echohl Comment|echon ")=["|echohl Underlined |echon l:count|echohl Comment|echon "]"|echohl None
+    echohl Comment|echon "Count_Fun_C_Syntax("|echohl Foldcolumn|echon "'".l:filepath."'"|echohl Comment|echon ")=["|echohl Underlined|echon l:count|echohl Comment|echon "]"|echohl None
     return l:count
 endfunction
 
