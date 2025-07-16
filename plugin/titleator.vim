@@ -167,16 +167,25 @@ function! Delete_Subtitle_Pattern()
     endif
 endfunction
 
-" -[ META-FUNCTION ]------------------------------------------------------------------------------------------
+" =[ META-FUNCTION ]==========================================================================================
 function! Title(lvl)
     if &filetype ==? "Markdown" || &filetype ==? "VimWiki"
         call Insert_Markdown_Titles(a:lvl)
     else
-        if a:lvl == 1
+        let l:actual_lvl = Is_a_subtitle_pattern()
+        if a:lvl == 0
+            call Delete_Subtitle_Pattern()
+        elseif a:lvl == 1 && l:actual_lvl < 1
             call Insert_Title("=")
-        elseif a:lvl == 2
+        elseif a:lvl == 2 && l:actual_lvl != 2
+            if l:actual_lvl > 0
+                call Delete_Subtitle_Pattern()
+            endif
             call Insert_SubTitle("=")
-        else
+        elseif a:lvl == 3 && l:actual_lvl != 3
+            if l:actual_lvl > 0
+                call Delete_Subtitle_Pattern()
+            endif
             call Insert_SubTitle("-")
         endif
     endif
