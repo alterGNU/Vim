@@ -26,9 +26,10 @@
 
 " TODO FIXME:
 " - [X] FIX:    simplify code (getter and setter fun. not usefull, let use not needed)
-" - [X] FIX:    Title 1 should not insert an empty line before sep+title+sep+empty
-" - [ ] FIX:    Title 1 should work with multiple selected lines.
-" - [X] FIX:    When a line already start with commentstring and is not completly in title format.
+" - [X] FIX:    Title: should not insert an empty line before sep+title+sep+empty
+" - [X] FIX:    Sub_Title: When a line already start with commentstring and is not completly in title format.
+" - [X] FIX:    Sub_Title: Should respect line indentation.
+" - [ ] FIX:    Title: should work with multiple selected lines.
 
 " ============================================================================================================
 " FUNCTIONS
@@ -57,26 +58,37 @@ function! Insert_Title(sym)
     call append(lnum, [com ." ".ligne, com ." ".repeat(a:sym, nbr), " "])
     + 3
 endfunction
-
 " -[ Insert_SubTitle(sym) ]-----------------------------------------------------------------------------------
 " Format the actual line into subtitle format
 function! Insert_SubTitle(sym)
     let l:comstr = Get_commentstring()                          | " Get comment string char
+    let l:lnum = line(".")                                      | " Get line under cursor number
+    let l:indent = indent(l:lnum)                               | " Get line under cursor indentation
     let l:raw = getline(".")                                    | " Get line under cursor
     let l:title_name = trim(l:raw, l:comstr)                    | " Remove starting comment string char
     let l:title_name = trim(l:title_name)                       | " Remove starting and ending spaces
-    let l:formated_line = l:comstr." ".a:sym."[ ".l:title_name." ]"
-    call setline(line("."), formated_line . repeat(a:sym, &textwidth - len(formated_line)))
+    if l:indent > 0
+        let l:formated_line = repeat(" ", l:indent).l:comstr." ".a:sym."[ ".l:title_name." ]"
+    else
+        let l:formated_line = l:comstr." ".a:sym."[ ".l:title_name." ]"
+    endif
+    call setline(l:lnum, formated_line . repeat(a:sym, &textwidth - len(formated_line)))
 endfunction
 
 " -[ Insert_SubTitle_With_Count(sym, nb) ]--------------------------------------------------------------------
 " Format the actual line into subtitle format, adding the <nb> at the end
 function! Insert_Third_Title_With_Count(nb)
     let l:comstr = Get_commentstring()                          | " Get comment string char
+    let l:lnum = line(".")                                      | " Get line under cursor number
+    let l:indent = indent(l:lnum)                               | " Get line under cursor indentation
     let l:raw = getline(".")                                    | " Get line under cursor
     let l:title_name = trim(l:raw, l:comstr)                    | " Remove starting comment string char
     let l:title_name = trim(l:title_name)                       | " Remove starting and ending spaces
-    let l:formated_line = l:comstr." ".a:sym."[ ".l:title_name." ]"
+    if l:indent > 0
+        let l:formated_line = repeat(" ", l:indent).l:comstr." ".a:sym."[ ".l:title_name." ]"
+    else
+        let l:formated_line = l:comstr." ".a:sym."[ ".l:title_name." ]"
+    endif
     call setline(line("."), formated_line . repeat("-", &textwidth - len(formated_line) - 2) . " ". a:nb)
 endfunction
  
