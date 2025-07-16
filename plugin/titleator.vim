@@ -188,6 +188,37 @@ function! Delete_Title_Pattern()
     endif
 endfunction
 
+" -[ Count_Fun_C_Syntax() ]-----------------------------------------------------------------------------------
+" Count the number of function in a file (exclude prototype ending with ;)
+" If <filename> not readable, search recursively UP and DOWN
+function! Count_Fun_C_Syntax(filename)
+    let l:filepath = a:filename
+    if !filereadable(l:filepath)
+        let l:filepath = findfile(l:filepath)             | " Search rec. UP&DOWN a file named <filename>
+        if empty(l:filepath) || !filereadable(l:filepath)
+            echohl WarningMsg | echom "ERROR: Count_Fun_C_Syntax('".a:filename."'): No readable file found!" | echohl None
+            return -1
+        endif
+    endif
+    try
+        let l:lines = readfile(l:filepath)
+    catch
+        echohl WarningMsg | echom "ERROR: Count_Fun_C_Syntax('".l:filepath."'): Cannot be readed!" | echohl None
+        return -1
+    endtry
+    let l:count = 0
+    let l:max = len(l:lines) - 1
+    for lnum in range(0, l:max - 1)
+        let l:line = l:lines[lnum]
+        let l:next_line = l:lines[lnum + 1]
+        if l:line =~ '^\s*[a-zA-Z_][a-zA-Z0-9_ \t\*]*\s\+\**[a-zA-Z_][a-zA-Z0-9_]*\s*(.*)\s*$' && l:line !~ ';' && l:next_line =~ '^\s*{'
+            let l:count += 1
+        endif
+    endfor
+    echohl Comment | echon "Count_Fun_C_Syntax("|echohl Foldcolumn|echon "'".l:filepath."'"|echohl Comment|echon ")=["|echohl Underlined |echon l:count|echohl Comment|echon "]"|echohl None
+    return l:count
+endfunction
+
 " =[ META-FUNCTION ]==========================================================================================
 function! Title(lvl)
     if &filetype ==? "Markdown" || &filetype ==? "VimWiki"
