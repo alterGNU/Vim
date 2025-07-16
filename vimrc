@@ -124,6 +124,10 @@ noremap ;; :%s:::gc<left><left><left><left>
 " Search&replace only in selection and automatically(no Q? asks)
 vnoremap ;; :s:::g<left><left><left>
 
+" -[ path ]---------------------------------------------------------------------------------------------------
+" path variable used by find command
+set path=.,,..,../..,./*,./*/*,../*,~/,~/**,usr/include/*
+
 " ============================================================================================================
 " AUTOMATIONS
 " ============================================================================================================
@@ -184,10 +188,17 @@ let g:c_syntax_for_h = 1                                       " Support headers
 let g:syntastic_c_norminette_exec = 'norminette'               " Set the path to norminette
 let g:syntastic_c_include_dirs = ['include', '../include', '../../include', 'libft', '../libft/include', '../../libft/include']
 " -[ FUNCTIONS ]----------------------------------------------------------------------------------------------
-fun! g:AddHeader(pathto_header)
-    let l:option = "'-I" . a:pathto_header . "'"
-    let g:syntastic_c_compiler_options = l:option
-    :write
+" Addheader search <filename.ext>, then add its first occ. as a folder to be checked by c compiler
+fun! g:AddHeader(filename)
+    let l:first_occ_path = findfile(a:filename)
+    if empty(l:first_occ_path)
+        echom "ERROR: AddHeader(".a:filename.") NOT FOUND"
+    else
+        let l:parent_folder = fnamemodify(l:first_occ_path, ':h')
+        echom "AddHeader = ".l:parent_folder
+        let g:syntastic_c_compiler_options = "'-I" . l:parent_folder . "'"
+        :write
+    endif
 endfun
 fun! g:SyntasticToggleNorminette()
     if index(b:syntastic_checkers, 'norminette') >= 0
