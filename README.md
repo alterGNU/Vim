@@ -21,7 +21,7 @@
 | ShortCuts              | Commands                      | Details-Comment                                                                |
 | ---------------------- | ----------------------------- | -----------------------------------------------------------------------------  |
 | [F1]+Nmode             | `:Header42`                   | Insert header for 42 school project (see *config/header42.vim*)                |
-| [F2]                   | `:`                           |                                                                                |
+| [F2]                   | `:Toggle`                     | Toggle all function in file by indentation                                     |
 | [F3]+Imode             | `:ListMatches`                | Auto-completion function that display all matches availlable                   |
 | [F4]                   | `:`                           |                                                                                |
 | [F5]+Nmode             | `:call g:SaveAndSourceFile()` | If not in vimrc file, save then source file (handy when working on vim files)  |

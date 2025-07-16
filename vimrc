@@ -118,6 +118,9 @@ noremap <c-s> :write<CR>
 vnoremap <c-s> <c-c>:write<CR>
 inoremap <c-s> <c-o>:write<CR>
 
+" -[ FOLDING ]------------------------------------------------------------------------------------------------
+nmap <F2> :set foldmethod=indent<CR>
+
 " =[ SEARCH&REPLACE ]=========================================================================================
 " Search&replace globaly(entire file) and interactive(ask before replacing)
 noremap ;; :%s:::gc<left><left><left><left>
@@ -186,7 +189,7 @@ autocmd FileType c if len(filter(copy(g:normed_project_list), {_, v -> match(exp
 let g:syntastic_c_checkers = ['gcc']                           " set gcc compilator as default C checker
 let g:c_syntax_for_h = 1                                       " Support headers (.h)
 let g:syntastic_c_norminette_exec = 'norminette'               " Set the path to norminette
-let g:syntastic_c_include_dirs = ['include', '../include', '../../include', 'libft', '../libft/include', '../../libft/include']
+let g:syntastic_c_include_dirs = ['./**/include', './include', '../**/include', '../include', '../../**/include', '../../include', './libft/include', '../../**/include', '../**/libft/include', '../../libft/include']
 " -[ FUNCTIONS ]----------------------------------------------------------------------------------------------
 " Addheader search <filename.ext>, then add its first occ. as a folder to be checked by c compiler
 fun! g:AddHeader(filename)
@@ -200,6 +203,7 @@ fun! g:AddHeader(filename)
         :write
     endif
 endfun
+" Simply Toggle Norminette
 fun! g:SyntasticToggleNorminette()
     if index(b:syntastic_checkers, 'norminette') >= 0
         call remove(b:syntastic_checkers, index(b:syntastic_checkers, 'norminette'))
