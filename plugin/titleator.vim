@@ -28,7 +28,7 @@
 " - [X] FIX:    simplify code (getter and setter fun. not usefull, let use not needed)
 " - [X] FIX:    Title 1 should not insert an empty line before sep+title+sep+empty
 " - [ ] FIX:    Title 1 should work with multiple selected lines.
-" - [ ] FIX:    When a line already start with commentstring and is not completly in title format.
+" - [X] FIX:    When a line already start with commentstring and is not completly in title format.
 
 " ============================================================================================================
 " FUNCTIONS
@@ -61,14 +61,22 @@ endfunction
 " -[ Insert_SubTitle(sym) ]-----------------------------------------------------------------------------------
 " Format the actual line into subtitle format
 function! Insert_SubTitle(sym)
-    let l:formated_line = Get_commentstring()." ".a:sym."[ ".getline(".")." ]"
+    let l:comstr = Get_commentstring()                          | " Get comment string char
+    let l:raw = getline(".")                                    | " Get line under cursor
+    let l:title_name = trim(l:raw, l:comstr)                    | " Remove starting comment string char
+    let l:title_name = trim(l:title_name)                       | " Remove starting and ending spaces
+    let l:formated_line = l:comstr." ".a:sym."[ ".l:title_name." ]"
     call setline(line("."), formated_line . repeat(a:sym, &textwidth - len(formated_line)))
 endfunction
 
 " -[ Insert_SubTitle_With_Count(sym, nb) ]--------------------------------------------------------------------
 " Format the actual line into subtitle format, adding the <nb> at the end
 function! Insert_Third_Title_With_Count(nb)
-    let l:formated_line = Get_commentstring()." -[ ".getline(".")." ]"
+    let l:comstr = Get_commentstring()                          | " Get comment string char
+    let l:raw = getline(".")                                    | " Get line under cursor
+    let l:title_name = trim(l:raw, l:comstr)                    | " Remove starting comment string char
+    let l:title_name = trim(l:title_name)                       | " Remove starting and ending spaces
+    let l:formated_line = l:comstr." ".a:sym."[ ".l:title_name." ]"
     call setline(line("."), formated_line . repeat("-", &textwidth - len(formated_line) - 2) . " ". a:nb)
 endfunction
  
