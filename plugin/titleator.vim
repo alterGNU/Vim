@@ -22,6 +22,8 @@
 " - [X] ADD:    Delete mecanism (delete already formatted title line, restaure to normal line)
 " - [X] ADD:    Update mecanism (on a already formatted title line, switch to new lvl)
 " - [X] ADD:    Add number at the end of title (usefull on filetype=header)
+" - [X] ADD:    Fun. that count the number of fun. in a file (C syntax)
+" - [X] ADD:    Title 3 in header.c file should add the number of file found at the end 
 " - [ ] ADD:    Instead of title1, could convert to (ASCI_art + Signature = header)
 
 " TODO FIXME:
@@ -58,7 +60,7 @@ function! Insert_Title(sym)
     let l:nbr = &textwidth - (len(com) + 1)
     call setline(lnum, com." ".repeat(a:sym, nbr))              | " Replace lnum line by 
     call append(lnum, [com ." ".ligne, com ." ".repeat(a:sym, nbr), " "])
-    + 3
+    + 0
 endfunction
 " -[ Insert_SubTitle(sym) ]-----------------------------------------------------------------------------------
 " Format the actual line into subtitle format
@@ -87,9 +89,9 @@ function! Insert_Third_Title_With_Count(nb)
     let l:title_name = trim(l:raw, l:comstr)                    | " Remove starting comment string char
     let l:title_name = trim(l:title_name)                       | " Remove starting and ending spaces
     if l:indent > 0
-        let l:formated_line = repeat(" ", l:indent).l:comstr." ".a:sym."[ ".l:title_name." ]"
+        let l:formated_line = repeat(" ", l:indent).l:comstr." -[ ".l:title_name." ]"
     else
-        let l:formated_line = l:comstr." ".a:sym."[ ".l:title_name." ]"
+        let l:formated_line = l:comstr." -[ ".l:title_name." ]"
     endif
     call setline(line("."), formated_line . repeat("-", &textwidth - len(formated_line) - 2) . " ". a:nb)
 endfunction
@@ -233,9 +235,18 @@ function! Title(lvl)
         elseif a:lvl == 2 && l:actual_lvl != 2
             call Delete_Title_Pattern()
             call Insert_SubTitle("=")
-        elseif a:lvl == 3 && l:actual_lvl != 3
+        elseif a:lvl == 3
             call Delete_Title_Pattern()
-            call Insert_SubTitle("-")
+            if expand('%:e') == "h"
+                let l:num_fun = Count_Fun_C_Syntax(getline(line(".")))
+                if l:num_fun >= 0
+                    call Insert_Third_Title_With_Count(l:num_fun)
+                else
+                    call Insert_SubTitle("-")
+                endif
+            else
+                call Insert_SubTitle("-")
+            endif
         endif
     endif
 endfunction
@@ -243,6 +254,7 @@ endfunction
 " ============================================================================================================
 " MAPPING
 " ============================================================================================================
+ 
 nmap <silent> <Leader>0 :call Title(0)<CR>
 nmap <silent> <Leader>1 :call Title(1)<CR>
 nmap <silent> <Leader>2 :call Title(2)<CR>
