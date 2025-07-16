@@ -21,7 +21,7 @@
 " - [ ] ADD:    Fun. that detect title pattern
 " - [ ] ADD:    Delete mecanism (delete already formatted title line, restaure to normal line)
 " - [ ] ADD:    Update mecanism (on a already formatted title line, switch to new lvl)
-" - [ ] ADD:    Add number at the end of title (usefull on filetype=header)
+" - [X] ADD:    Add number at the end of title (usefull on filetype=header)
 " - [ ] ADD:    Instead of title1, could convert to (ASCI_art + Signature = header)
 
 " TODO FIXME:
@@ -103,6 +103,39 @@ function! Insert_Markdown_Titles(lvl)
         let l:li1 = repeat("#", a:lvl)." ".li0
     endif
     let l:li2 = setline (lnum ,li1)
+endfunction
+
+" -[ Is_a_title_pattern() ]-----------------------------------------------------------------------------------
+" Return the lvl of subtitle detected in the line under the cursor:
+"  - 0  : Line is not a subtitle
+"  - 2  : Line is lvl 2 subtitle
+"  - 3  : Line is lvl 3 subtitle
+function! Is_a_subtitle_pattern()
+    let l:comstr = Get_commentstring()
+    let l:line = trim(getline("."))
+    if &filetype ==? "Markdown" || &filetype ==? "VimWiki"
+        let l:lvl_count = 0
+        if match(l:line, '^#') == 0
+            while (l:line[l:lvl_count] == '#')
+                let l:lvl_count += 1
+            endwhile
+            "echom "line is a lvl ".l:lvl_count." markdown subtitle"
+        else
+            "echom "line is NOT a markdown subtitle"
+        endif
+        return l:lvl_count
+    else
+        if match(l:line, '^'.l:comstr.' =\[.*\]=*') == 0
+            "echom "line is a lvl 2 subtitle"
+            return 2
+        elseif match(l:line, '^'.l:comstr.' -\[.*\]-*') == 0
+            "echom "line is a lvl 3 subtitle"
+            return 3
+        else
+            "echom "line is not a subtitle"
+            return 0
+        endif
+    endif
 endfunction
 
 " =[ META-FUNCTION ]==========================================================================================
