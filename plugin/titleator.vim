@@ -30,7 +30,7 @@
 " - [X] FIX:    Sub_Title: When a line already start with commentstring and is not completly in title format.
 " - [X] FIX:    Sub_Title: Should respect line indentation.
 " - [X] FIX:    Detect subtitle should work with title1 too.
-" - [ ] FIX:    Delete subtitle should work with title1 too.
+" - [X] FIX:    Delete subtitle should work with title1 too.
 " - [ ] FIX:    Title: should work with multiple selected lines.
 
 " ============================================================================================================
@@ -145,30 +145,45 @@ function! Is_a_title()
     endif
 endfunction
 
-" -[ Delete_Subtitle_Pattern() ]------------------------------------------------------------------------------
+" -[ Delete_Title_Pattern() ]---------------------------------------------------------------------------------
 " Remove subtitle pattern when detected
-function! Delete_Subtitle_Pattern()
+function! Delete_Title_Pattern()
     let l:lnum = line(".")
     let l:indent = indent(l:lnum)
     let l:line = trim(getline(l:lnum))
-    if &filetype ==? "Markdown" || &filetype ==? "VimWiki"
-        if Is_a_title() > 0
+    let l:comstr = Get_commentstring()
+    let l:title_lvl = Is_a_title()
+    if title_lvl > 0
+        if &filetype ==? "Markdown" || &filetype ==? "VimWiki"
             if l:indent > 0
                 let l:cleaned_line = repeat(" ", l:indent).trim(trim(l:line, "#"))
             else
                 let l:cleaned_line = trim(trim(l:line, "#"))
             endif
-        call setline(l:lnum, l:cleaned_line)
-        endif
-    else
-        if Is_a_title() > 0
-            let l:comstr = Get_commentstring()
-            if l:indent > 0
-                let l:cleaned_line = repeat(" ", l:indent).trim(trim(l:line, l:comstr."-= []0987654321"))
+            call setline(l:lnum, l:cleaned_line)
+        else
+            if title_lvl > 1
+                if l:indent > 0
+                    let l:cleaned_line = repeat(" ", l:indent).trim(trim(l:line, l:comstr."-= []0987654321"))
+                else
+                    let l:cleaned_line = trim(trim(l:line, l:comstr."-= []0987654321"))
+                endif
+                call setline(l:lnum, l:cleaned_line)
             else
-                let l:cleaned_line = trim(trim(l:line, l:comstr."-= []0987654321"))
+                if l:indent > 0
+                    let l:cleaned_line = repeat(" ", l:indent).trim(trim(l:line, l:comstr))
+                else
+                    let l:cleaned_line = trim(trim(l:line, l:comstr))
+                endif
+                call setline(l:lnum - 1, l:cleaned_line)
+                if match(trim(getline(l:lnum + 2)), '^$') == 0
+                    let stop = l:lnum + 2
+                else
+                    let stop = l:lnum + 1
+                endif
+                execute l:lnum . ',' . l:stop . 'delete'
+                -1
             endif
-        call setline(l:lnum, l:cleaned_line)
         endif
     endif
 endfunction
@@ -180,18 +195,15 @@ function! Title(lvl)
     else
         let l:actual_lvl = Is_a_title()
         if a:lvl == 0
-            call Delete_Subtitle_Pattern()
-        elseif a:lvl == 1 && l:actual_lvl < 1
+            call Delete_Title_Pattern()
+        elseif a:lvl == 1 && l:actual_lvl != 1
+            call Delete_Title_Pattern()
             call Insert_Title("=")
         elseif a:lvl == 2 && l:actual_lvl != 2
-            if l:actual_lvl > 0
-                call Delete_Subtitle_Pattern()
-            endif
+            call Delete_Title_Pattern()
             call Insert_SubTitle("=")
         elseif a:lvl == 3 && l:actual_lvl != 3
-            if l:actual_lvl > 0
-                call Delete_Subtitle_Pattern()
-            endif
+            call Delete_Title_Pattern()
             call Insert_SubTitle("-")
         endif
     endif
