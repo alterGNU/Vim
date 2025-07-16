@@ -64,14 +64,20 @@ function! Insert_SubTitle(sym)
     let l:formated_line = Get_commentstring()." ".a:sym."[ ".getline(".")." ]"
     call setline(line("."), formated_line . repeat(a:sym, &textwidth - len(formated_line)))
 endfunction
+
+" -[ Insert_SubTitle_With_Count(sym, nb) ]--------------------------------------------------------------------
+" Format the actual line into subtitle format, adding the <nb> at the end
+function! Insert_Third_Title_With_Count(nb)
+    let l:formated_line = Get_commentstring()." -[ ".getline(".")." ]"
+    call setline(line("."), formated_line . repeat("-", &textwidth - len(formated_line) - 2) . " ". a:nb)
+endfunction
  
 " -[ Insert_Markdown_Titles(D) ]------------------------------------------------------------------------------
-" Format the actual line into a N lvl markdown title
+" Format the actual line into markdown title format
 function! Insert_Markdown_Titles(lvl) 
     let l:lnum = line(".")
-    " Récupére la ligne courante sans les anciennes balises de titres markdown (#)
-    let l:li0 = substitute(getline("."),'^#\{1,\}\ ',"","")
-    if a:lvl==0
+    let l:li0 = substitute(getline("."),'^#\{1,\}\ ',"","")    | " Get the actual line, without old starting #
+    if a:lvl == 0
         let l:li1 = repeat("#", a:lvl).li0
     else
         let l:li1 = repeat("#", a:lvl)." ".li0
