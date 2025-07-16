@@ -18,8 +18,8 @@
 
 " TODO ADD:
 " - [X] UPDATE: text and com. in english
-" - [ ] ADD:    Fun. that detect title pattern
-" - [ ] ADD:    Delete mecanism (delete already formatted title line, restaure to normal line)
+" - [X] ADD:    Fun. that detect title pattern
+" - [X] ADD:    Delete mecanism (delete already formatted title line, restaure to normal line)
 " - [ ] ADD:    Update mecanism (on a already formatted title line, switch to new lvl)
 " - [X] ADD:    Add number at the end of title (usefull on filetype=header)
 " - [ ] ADD:    Instead of title1, could convert to (ASCI_art + Signature = header)
@@ -30,6 +30,7 @@
 " - [X] FIX:    Sub_Title: When a line already start with commentstring and is not completly in title format.
 " - [X] FIX:    Sub_Title: Should respect line indentation.
 " - [ ] FIX:    Title: should work with multiple selected lines.
+" - [ ] FIX:    Delete and Detect subtitle should work with title1 too??
 
 " ============================================================================================================
 " FUNCTIONS
@@ -111,7 +112,6 @@ endfunction
 "  - 2  : Line is lvl 2 subtitle
 "  - 3  : Line is lvl 3 subtitle
 function! Is_a_subtitle_pattern()
-    let l:comstr = Get_commentstring()
     let l:line = trim(getline("."))
     if &filetype ==? "Markdown" || &filetype ==? "VimWiki"
         let l:lvl_count = 0
@@ -125,6 +125,7 @@ function! Is_a_subtitle_pattern()
         endif
         return l:lvl_count
     else
+        let l:comstr = Get_commentstring()
         if match(l:line, '^'.l:comstr.' =\[.*\]=*') == 0
             "echom "line is a lvl 2 subtitle"
             return 2
@@ -138,7 +139,35 @@ function! Is_a_subtitle_pattern()
     endif
 endfunction
 
-" =[ META-FUNCTION ]==========================================================================================
+" -[ Delete_Subtitle_Pattern() ]------------------------------------------------------------------------------
+" Remove subtitle pattern when detected
+function! Delete_Subtitle_Pattern()
+    let l:lnum = line(".")
+    let l:indent = indent(l:lnum)
+    let l:line = trim(getline(l:lnum))
+    if &filetype ==? "Markdown" || &filetype ==? "VimWiki"
+        if Is_a_subtitle_pattern() > 0
+            if l:indent > 0
+                let l:cleaned_line = repeat(" ", l:indent).trim(trim(l:line, "#"))
+            else
+                let l:cleaned_line = trim(trim(l:line, "#"))
+            endif
+        call setline(l:lnum, l:cleaned_line)
+        endif
+    else
+        if Is_a_subtitle_pattern() > 0
+            let l:comstr = Get_commentstring()
+            if l:indent > 0
+                let l:cleaned_line = repeat(" ", l:indent).trim(trim(l:line, l:comstr."-= []0987654321"))
+            else
+                let l:cleaned_line = trim(trim(l:line, l:comstr."-= []0987654321"))
+            endif
+        call setline(l:lnum, l:cleaned_line)
+        endif
+    endif
+endfunction
+
+" -[ META-FUNCTION ]------------------------------------------------------------------------------------------
 function! Title(lvl)
     if &filetype ==? "Markdown" || &filetype ==? "VimWiki"
         call Insert_Markdown_Titles(a:lvl)
