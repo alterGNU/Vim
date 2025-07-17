@@ -173,6 +173,8 @@ Plug 'vim-utils/vim-man'             " View man pages in vim
 Plug 'vimwiki/vimwiki'               " Personnal Wiki
 call plug#end()
 
+" =[ HEADER42 ]===============================================================================================
+let g:header42_interactive_menu = 'off'                         " Personnal g_var use to enable/desable choosing menu while searching for c or cpp header files
 " =[ NORMINETTE-VIM ]=========================================================================================
 " -[ GENERAL SETTINGS ]---------------------------------------------------------------------------------------
 let g:syntastic_aggregate_errors = 1                           " Check all checker that apply (c + norminette) then regroup then as one 

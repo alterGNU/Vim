@@ -2,6 +2,7 @@
 " INSERTOR : Insert all kind of thing
 " ============================================================================================================
 "
+" ............................................................................................................
 " Insert Emojis: 
 "  - fun g:InsertEmojis()               : Insert emojis using Search&Replace vim feature + Vimwiki emojis dictionnary, do not move the cursor to last emojy founded
 "  - cmd InsertEmojis                   : Call g:InsertEmojis()
@@ -27,8 +28,7 @@
 "       - TODO:if filetype how_to                             ➡️  insert ~/.vim/templates/how_to.txt      
 "       - TODO:if filetype vimwikiype)                        ➡️  insert ~/.vim/templates/wiki_page.txt    
 "       - TODO:if filetype resume .txt                        ➡️  insert ~/.vim/templates/resume.txt
-"
-" ============================================================================================================
+" ............................................................................................................
  
 " ============================================================================================================
 " INSERT EMOJIS
